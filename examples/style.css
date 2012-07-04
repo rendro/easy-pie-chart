@@ -1,0 +1,55 @@
+body {
+    font: 13px/1.4 'Helvetica Neue', 'Helvetica','Arial', sans-serif;
+    color: #333;
+}
+
+.container {
+    width: 520px;
+    margin: auto;
+}
+
+h1 {
+    border-bottom: 1px solid #d9d9d9;
+}
+
+a {
+    color: #be2221;
+    text-decoration: none;
+}
+
+.chart {
+    float: left;
+    margin: 10px;
+}
+
+.percentage,
+.label {
+    text-align: center;
+    color: #333;
+    font-weight: 100;
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+.credits {
+    padding-top: 0.5em;
+    clear: both;
+    color: #999;
+}
+
+.credits a {
+    color: #333;
+}
+
+.dark {
+    background: #333;
+}
+
+.dark .percentage-light,
+.dark .label {
+    text-align: center;
+    color: #999;
+    font-weight: 100;
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
