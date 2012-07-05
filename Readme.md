@@ -50,12 +50,12 @@ You can pass a set of these options to the initialize function to set a custom b
     <tr>
         <td><strong>trackColor</strong></td>
         <td>#f2f2f2</td>
-        <td>The color of the track for the bar.</td>
+        <td>The color of the track for the bar, false to disable rendering.</td>
     </tr>
     <tr>
         <td><strong>scaleColor</strong></td>
         <td>#dfe0e0</td>
-        <td>The color of the scale lines.</td>
+        <td>The color of the scale lines, false to disable rendering.</td>
     </tr>
     <tr>
         <td><strong>lineCap</strong></td>
