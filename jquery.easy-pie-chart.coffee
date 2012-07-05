@@ -28,7 +28,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       percent = parseInt @$el.data('percent'), 10
       @percentage = 0
 
-      #create invisible canvas element
+      #create invisible canvas element and set the origin to the center
       @canvas = $("<canvas width='#{@options.size}' height='#{@options.size}'></canvas>").get(0)
       @ctx = @canvas.getContext '2d'
       @ctx.translate @options.size/2, @options.size/2
@@ -41,7 +41,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         lineHeight: "#{@options.size}px"
       }
 
-      do renderScale
       @update percent
       return
 
@@ -53,20 +52,8 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       return
 
     renderScale = =>
-      #long dashes
       @ctx.fillStyle = @options.scaleColor
-      @ctx.strokeStyle = @options.scaleColor
-
-      #center
       addScaleLine i for i in [0..24]
-
-      #draw line circle
-      @ctx.beginPath()
-      @ctx.arc 0, 0, @options.size/2*0.80, 0, Math.PI * 2, true
-      @ctx.closePath()
-      @ctx.strokeStyle = @options.trackColor
-      @ctx.lineWidth = @options.size*0.04
-      @ctx.stroke()
       return
 
     addScaleLine = (i) =>
@@ -77,7 +64,24 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.restore()
       return
 
+    renderTrack = =>
+      @ctx.strokeStyle = @options.scaleColor
+      @ctx.beginPath()
+      @ctx.arc 0, 0, @options.size/2*0.80, 0, Math.PI * 2, true
+      @ctx.closePath()
+      @ctx.strokeStyle = @options.trackColor
+      @ctx.lineWidth = @options.size*0.04
+      @ctx.stroke()
+      return
+
+    renderBackground = =>
+      do renderScale if @options.scaleColor != false
+      do renderTrack if @options.trackColor != false
+      return
+
     drawLine = (percent) =>
+      do renderBackground
+
       @ctx.strokeStyle = if $.isFunction @options.barColor  then @options.barColor percent else @options.barColor
       @ctx.lineCap = @options.lineCap
 
@@ -100,7 +104,8 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
       @animation = setInterval ->
         self.ctx.clearRect -self.options.size/2, -self.options.size/2, self.options.size, self.options.size
-        renderScale.call self
+
+        renderBackground.call self
         drawLine.call self, [easeInOutQuad currentStep, from, to-from, steps]
 
         currentStep++

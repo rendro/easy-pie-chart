@@ -21,7 +21,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
   (function($) {
     $.easyPieChart = function(el, options) {
-      var addScaleLine, animateLine, drawLine, easeInOutQuad, renderScale,
+      var addScaleLine, animateLine, drawLine, easeInOutQuad, renderBackground, renderScale, renderTrack,
         _this = this;
       this.el = el;
       this.$el = $(el);
@@ -41,7 +41,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           height: _this.options.size,
           lineHeight: "" + _this.options.size + "px"
         });
-        renderScale();
         _this.update(percent);
       };
       this.update = function(percent) {
@@ -54,16 +53,9 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       renderScale = function() {
         var i, _i;
         _this.ctx.fillStyle = _this.options.scaleColor;
-        _this.ctx.strokeStyle = _this.options.scaleColor;
         for (i = _i = 0; _i <= 24; i = ++_i) {
           addScaleLine(i);
         }
-        _this.ctx.beginPath();
-        _this.ctx.arc(0, 0, _this.options.size / 2 * 0.80, 0, Math.PI * 2, true);
-        _this.ctx.closePath();
-        _this.ctx.strokeStyle = _this.options.trackColor;
-        _this.ctx.lineWidth = _this.options.size * 0.04;
-        _this.ctx.stroke();
       };
       addScaleLine = function(i) {
         var offset;
@@ -73,7 +65,25 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.fillRect(_this.options.size / 2 - offset, 0, -_this.options.size / 20 + offset, 1);
         _this.ctx.restore();
       };
+      renderTrack = function() {
+        _this.ctx.strokeStyle = _this.options.scaleColor;
+        _this.ctx.beginPath();
+        _this.ctx.arc(0, 0, _this.options.size / 2 * 0.80, 0, Math.PI * 2, true);
+        _this.ctx.closePath();
+        _this.ctx.strokeStyle = _this.options.trackColor;
+        _this.ctx.lineWidth = _this.options.size * 0.04;
+        _this.ctx.stroke();
+      };
+      renderBackground = function() {
+        if (_this.options.scaleColor !== false) {
+          renderScale();
+        }
+        if (_this.options.trackColor !== false) {
+          renderTrack();
+        }
+      };
       drawLine = function(percent) {
+        renderBackground();
         _this.ctx.strokeStyle = $.isFunction(_this.options.barColor) ? _this.options.barColor(percent) : _this.options.barColor;
         _this.ctx.lineCap = _this.options.lineCap;
         _this.ctx.save();
@@ -93,7 +103,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.percentage = to;
         _this.animation = setInterval(function() {
           self.ctx.clearRect(-self.options.size / 2, -self.options.size / 2, self.options.size, self.options.size);
-          renderScale.call(self);
+          renderBackground.call(self);
           drawLine.call(self, [easeInOutQuad(currentStep, from, to - from, steps)]);
           currentStep++;
           if ((currentStep / steps) > 1) {
