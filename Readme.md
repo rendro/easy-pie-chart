@@ -63,9 +63,14 @@ You can pass a set of these options to the initialize function to set a custom b
         <td>Defines how the ending of the bar line looks like. Possible values are: <code>butt</code>, <code>round</code> and <code>square</code>.</td>
     </tr>
     <tr>
+        <td><strong>lineWidth</strong></td>
+        <td>3</td>
+        <td>Width of the bar line in px.</td>
+    </tr>
+    <tr>
         <td><strong>size</strong></td>
         <td>110</td>
-        <td>Size of the pie chart. It will always be a square.</td>
+        <td>Size of the pie chart in px. It will always be a square.</td>
     </tr>
     <tr>
         <td><strong>animate</strong></td>

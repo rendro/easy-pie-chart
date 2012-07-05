@@ -53,24 +53,25 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
     renderScale = =>
       @ctx.fillStyle = @options.scaleColor
+      @ctx.lineWidth = 1
       addScaleLine i for i in [0..24]
       return
 
     addScaleLine = (i) =>
-      offset = if i%6==0 then 0 else @options.size/60
+      offset = if i%6==0 then 0 else @options.size*0.017
       @ctx.save()
       @ctx.rotate i * Math.PI / 12
-      @ctx.fillRect @options.size/2-offset, 0, -@options.size/20+offset, 1
+      @ctx.fillRect @options.size/2-offset, 0, -@options.size*0.05+offset, 1
       @ctx.restore()
       return
 
     renderTrack = =>
       @ctx.strokeStyle = @options.scaleColor
       @ctx.beginPath()
-      @ctx.arc 0, 0, @options.size/2*0.80, 0, Math.PI * 2, true
+      @ctx.arc 0, 0, @options.size/2-@options.size*0.08-@options.lineWidth/2, 0, Math.PI * 2, true
       @ctx.closePath()
       @ctx.strokeStyle = @options.trackColor
-      @ctx.lineWidth = @options.size*0.04
+      @ctx.lineWidth = @options.lineWidth
       @ctx.stroke()
       return
 
@@ -88,7 +89,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.save()
       @ctx.rotate -Math.PI/2
       @ctx.beginPath()
-      @ctx.arc 0, 0, @options.size/2*0.80, 0, Math.PI * 2 * percent/100, false
+      @ctx.arc 0, 0, @options.size/2-@options.size*0.08-@options.lineWidth/2, 0, Math.PI * 2 * percent/100, false
       @ctx.stroke()
       @ctx.restore()
       return
@@ -104,7 +105,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
       @animation = setInterval ->
         self.ctx.clearRect -self.options.size/2, -self.options.size/2, self.options.size, self.options.size
-
         renderBackground.call self
         drawLine.call self, [easeInOutQuad currentStep, from, to-from, steps]
 
@@ -134,6 +134,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     scaleColor:      '#dfe0e0'
     lineCap:         'round'
     size:            110
+    lineWidth:       3
     animate:         false
     onStart:         $.noop
     onStop:          $.noop

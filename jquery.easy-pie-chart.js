@@ -53,25 +53,26 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       renderScale = function() {
         var i, _i;
         _this.ctx.fillStyle = _this.options.scaleColor;
+        _this.ctx.lineWidth = 1;
         for (i = _i = 0; _i <= 24; i = ++_i) {
           addScaleLine(i);
         }
       };
       addScaleLine = function(i) {
         var offset;
-        offset = i % 6 === 0 ? 0 : _this.options.size / 60;
+        offset = i % 6 === 0 ? 0 : _this.options.size * 0.017;
         _this.ctx.save();
         _this.ctx.rotate(i * Math.PI / 12);
-        _this.ctx.fillRect(_this.options.size / 2 - offset, 0, -_this.options.size / 20 + offset, 1);
+        _this.ctx.fillRect(_this.options.size / 2 - offset, 0, -_this.options.size * 0.05 + offset, 1);
         _this.ctx.restore();
       };
       renderTrack = function() {
         _this.ctx.strokeStyle = _this.options.scaleColor;
         _this.ctx.beginPath();
-        _this.ctx.arc(0, 0, _this.options.size / 2 * 0.80, 0, Math.PI * 2, true);
+        _this.ctx.arc(0, 0, _this.options.size / 2 - _this.options.size * 0.08 - _this.options.lineWidth / 2, 0, Math.PI * 2, true);
         _this.ctx.closePath();
         _this.ctx.strokeStyle = _this.options.trackColor;
-        _this.ctx.lineWidth = _this.options.size * 0.04;
+        _this.ctx.lineWidth = _this.options.lineWidth;
         _this.ctx.stroke();
       };
       renderBackground = function() {
@@ -89,7 +90,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.save();
         _this.ctx.rotate(-Math.PI / 2);
         _this.ctx.beginPath();
-        _this.ctx.arc(0, 0, _this.options.size / 2 * 0.80, 0, Math.PI * 2 * percent / 100, false);
+        _this.ctx.arc(0, 0, _this.options.size / 2 - _this.options.size * 0.08 - _this.options.lineWidth / 2, 0, Math.PI * 2 * percent / 100, false);
         _this.ctx.stroke();
         _this.ctx.restore();
       };
@@ -128,6 +129,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       scaleColor: '#dfe0e0',
       lineCap: 'round',
       size: 110,
+      lineWidth: 3,
       animate: false,
       onStart: $.noop,
       onStop: $.noop
