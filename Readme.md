@@ -107,3 +107,8 @@ If you want to update the current percentage of the a pie chart, you can call th
         }, 5000);
     });
     </script>
+
+Credits
+-------
+
+Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble shot](http://drbl.in/ezuc) which inspired me and [Philip Thrasher](http://philipthrasher.com/) for his [CoffeeScript jQuery boilerplate](https://github.com/pthrasher/coffee-plate)
