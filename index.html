@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>EASY PIE CHART by rendro</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>EASY PIE CHART</h1>
+        <p>Lightweight jQuery plugin to render and animate nice pie charts with the HTML5 canvas element</p>
+
+        <p class="view"><a href="https://github.com/rendro/easy-pie-chart">View the Project on GitHub <small>rendro/easy-pie-chart</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rendro/easy-pie-chart/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rendro/easy-pie-chart/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rendro/easy-pie-chart">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>easy pie chart</h1>
+
+<p>Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
+These chars are highly customizable and very easy to implement.</p>
+
+<p><img src="https://github.com/rendro/easy-pie-chart/raw/master/img/easy-pie-chart.png" alt=""></p>
+
+<h2>Get started</h2>
+
+<p>To use the easy pie chart plugin you need to load the current version of jQuery (testet with 1.7.2) and the source (css+js) of the plugin.
+Just add the following lines to the <code>head</code> of your website:</p>
+
+<pre><code>&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"&gt;&lt;/script&gt;
+
+&lt;link rel="stylesheet"type="text/css" href="/path/to/jquery.easy-pie-chart.css"&gt;
+</code></pre>
+
+<p>The second step is to add a element to your site to represent chart and add the <code>data-percent</code> attribute with the percent number the pie chart should have:</p>
+
+<pre><code>&lt;div class="chart" data-percent="73"&gt;73%&lt;/div&gt;
+</code></pre>
+
+<p>Finally you have to initialize the plugin with your desired configuration:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+$(function() {
+    $('.chart').easyPieChart({
+        //your configuration goes here
+    });
+});
+&lt;/script&gt;
+</code></pre>
+
+<h2>Configuration parameter</h2>
+
+<p>You can pass a set of these options to the initialize function to set a custom behaviour and look for the plugin.</p>
+
+<table>
+<tr>
+<th>Property (Type)</th>
+        <th>Default</th>
+        <th>Description</th>
+    </tr>
+<tr>
+<td><strong>barColor</strong></td>
+        <td>#ef1e25</td>
+        <td>The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.</td>
+    </tr>
+<tr>
+<td><strong>trackColor</strong></td>
+        <td>#f2f2f2</td>
+        <td>The color of the track for the bar, false to disable rendering.</td>
+    </tr>
+<tr>
+<td><strong>scaleColor</strong></td>
+        <td>#dfe0e0</td>
+        <td>The color of the scale lines, false to disable rendering.</td>
+    </tr>
+<tr>
+<td><strong>lineCap</strong></td>
+        <td>round</td>
+        <td>Defines how the ending of the bar line looks like. Possible values are: <code>butt</code>, <code>round</code> and <code>square</code>.</td>
+    </tr>
+<tr>
+<td><strong>lineWidth</strong></td>
+        <td>3</td>
+        <td>Width of the bar line in px.</td>
+    </tr>
+<tr>
+<td><strong>size</strong></td>
+        <td>110</td>
+        <td>Size of the pie chart in px. It will always be a square.</td>
+    </tr>
+<tr>
+<td><strong>animate</strong></td>
+        <td>false</td>
+        <td>Time in milliseconds for a eased animation of the bar growing, or false to deactivate.</td>
+    </tr>
+<tr>
+<td><strong>onStart</strong></td>
+        <td>$.noop</td>
+        <td>Callback function that is called at the start of any animation (only if animate is not false).</td>
+    </tr>
+<tr>
+<td><strong>onStop</strong></td>
+        <td>$.noop</td>
+        <td>Callback function that is called at the end of any animation (only if animate is not false).</td>
+    </tr>
+</table><h2>Public plugin methods</h2>
+
+<p>If you want to update the current percentage of the a pie chart, you can call the <code>update</code> method. The instance of the plugin is saved in the jQuery-data.</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+$(function() {
+    //create instance
+    $('.chart').easyPieChart({
+        animate: 2000
+    });
+    //update instance after 5 sec
+    setTimeout(function() {
+        $('.chart').data('easyPieChart').update(40);
+    }, 5000);
+});
+&lt;/script&gt;
+</code></pre>
+
+<h2>Credits</h2>
+
+<p>Thanks to <a href="http://www.paranoida.com/">Rafal Bromirski</a> for making <a href="http://drbl.in/ezuc">this dribble shot</a> which inspired me and <a href="http://philipthrasher.com/">Philip Thrasher</a> for his <a href="https://github.com/pthrasher/coffee-plate">CoffeeScript jQuery boilerplate</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rendro">rendro</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-32192893-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
