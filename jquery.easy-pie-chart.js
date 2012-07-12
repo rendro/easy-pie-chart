@@ -67,7 +67,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.restore();
       };
       renderTrack = function() {
-        _this.ctx.strokeStyle = _this.options.scaleColor;
         _this.ctx.beginPath();
         _this.ctx.arc(0, 0, _this.options.size / 2 - _this.options.size * 0.08 - _this.options.lineWidth / 2, 0, Math.PI * 2, true);
         _this.ctx.closePath();

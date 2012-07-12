@@ -66,7 +66,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       return
 
     renderTrack = =>
-      @ctx.strokeStyle = @options.scaleColor
       @ctx.beginPath()
       @ctx.arc 0, 0, @options.size/2-@options.size*0.08-@options.lineWidth/2, 0, Math.PI * 2, true
       @ctx.closePath()
