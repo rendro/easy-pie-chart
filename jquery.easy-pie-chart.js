@@ -70,8 +70,13 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.restore();
       };
       renderTrack = function() {
+        var offset;
+        offset = _this.options.size / 2 - _this.options.lineWidth / 2;
+        if (_this.options.scaleColor !== false) {
+          offset -= _this.options.size * 0.08;
+        }
         _this.ctx.beginPath();
-        _this.ctx.arc(0, 0, _this.options.size / 2 - _this.options.size * 0.08 - _this.options.lineWidth / 2, 0, Math.PI * 2, true);
+        _this.ctx.arc(0, 0, offset, 0, Math.PI * 2, true);
         _this.ctx.closePath();
         _this.ctx.strokeStyle = _this.options.trackColor;
         _this.ctx.lineWidth = _this.options.lineWidth;
@@ -86,13 +91,18 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         }
       };
       drawLine = function(percent) {
+        var offset;
         renderBackground();
         _this.ctx.strokeStyle = $.isFunction(_this.options.barColor) ? _this.options.barColor(percent) : _this.options.barColor;
         _this.ctx.lineCap = _this.options.lineCap;
+        offset = _this.options.size / 2 - _this.options.lineWidth / 2;
+        if (_this.options.scaleColor !== false) {
+          offset -= _this.options.size * 0.08;
+        }
         _this.ctx.save();
         _this.ctx.rotate(-Math.PI / 2);
         _this.ctx.beginPath();
-        _this.ctx.arc(0, 0, _this.options.size / 2 - _this.options.size * 0.08 - _this.options.lineWidth / 2, 0, Math.PI * 2 * percent / 100, false);
+        _this.ctx.arc(0, 0, offset, 0, Math.PI * 2 * percent / 100, false);
         _this.ctx.stroke();
         _this.ctx.restore();
       };

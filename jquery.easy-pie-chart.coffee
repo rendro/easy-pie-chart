@@ -67,8 +67,11 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       return
 
     renderTrack = =>
+      offset = @options.size/2-@options.lineWidth/2
+      offset -= @options.size*0.08 if @options.scaleColor != false
+
       @ctx.beginPath()
-      @ctx.arc 0, 0, @options.size/2-@options.size*0.08-@options.lineWidth/2, 0, Math.PI * 2, true
+      @ctx.arc 0, 0, offset, 0, Math.PI * 2, true
       @ctx.closePath()
       @ctx.strokeStyle = @options.trackColor
       @ctx.lineWidth = @options.lineWidth
@@ -86,10 +89,13 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.strokeStyle = if $.isFunction @options.barColor  then @options.barColor percent else @options.barColor
       @ctx.lineCap = @options.lineCap
 
+      offset = @options.size/2-@options.lineWidth/2
+      offset -= @options.size*0.08 if @options.scaleColor != false
+
       @ctx.save()
       @ctx.rotate -Math.PI/2
       @ctx.beginPath()
-      @ctx.arc 0, 0, @options.size/2-@options.size*0.08-@options.lineWidth/2, 0, Math.PI * 2 * percent/100, false
+      @ctx.arc 0, 0, offset, 0, Math.PI * 2 * percent/100, false
       @ctx.stroke()
       @ctx.restore()
       return
