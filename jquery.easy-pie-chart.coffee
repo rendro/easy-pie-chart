@@ -30,10 +30,11 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
       #create invisible canvas element and set the origin to the center
       @canvas = $("<canvas width='#{@options.size}' height='#{@options.size}'></canvas>").get(0)
+      @$el.append @canvas
+      G_vmlCanvasManager.initElement @canvas if G_vmlCanvasManager?
       @ctx = @canvas.getContext '2d'
       @ctx.translate @options.size/2, @options.size/2
 
-      @$el.append @canvas
       @$el.addClass 'easyPieChart'
       @$el.css {
         width: @options.size

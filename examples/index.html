@@ -4,13 +4,15 @@
         <meta charset="utf-8">
         <title>Easy Pie Chart</title>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script type="text/javascript" src="excanvas.js"></script>
         <script type="text/javascript" src="../jquery.easy-pie-chart.js"></script>
 
         <link rel="stylesheet" type="text/css" href="style.css" media="screen">
         <link rel="stylesheet" type="text/css" href="../jquery.easy-pie-chart.css" media="screen">
 
         <script type="text/javascript">
-            $(function() {
+            var initPieChart = function() {
                 $('.percentage').easyPieChart({
                     animate: 1000
                 });
@@ -25,10 +27,10 @@
                     lineWidth: 15,
                     animate: 1000
                 });
-            });
+            };
         </script>
     </head>
-    <body>
+    <body onload="initPieChart();">
         <div class="container">
             <h1>EASY PIE CHART</h1>
             <div class="chart">

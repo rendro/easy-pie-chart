@@ -32,9 +32,12 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         percent = parseInt(_this.$el.data('percent'), 10);
         _this.percentage = 0;
         _this.canvas = $("<canvas width='" + _this.options.size + "' height='" + _this.options.size + "'></canvas>").get(0);
+        _this.$el.append(_this.canvas);
+        if (typeof G_vmlCanvasManager !== "undefined" && G_vmlCanvasManager !== null) {
+          G_vmlCanvasManager.initElement(_this.canvas);
+        }
         _this.ctx = _this.canvas.getContext('2d');
         _this.ctx.translate(_this.options.size / 2, _this.options.size / 2);
-        _this.$el.append(_this.canvas);
         _this.$el.addClass('easyPieChart');
         _this.$el.css({
           width: _this.options.size,
