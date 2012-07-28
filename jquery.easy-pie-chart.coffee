@@ -109,6 +109,10 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @options.onStart.call @
       @percentage = to
 
+      if @animation
+        clearInterval @animation
+        @animation = false
+
       @animation = setInterval ->
         self.ctx.clearRect -self.options.size/2, -self.options.size/2, self.options.size, self.options.size
         renderBackground.call self
@@ -118,6 +122,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
         if (currentStep/steps) > 1
           clearInterval self.animation
+          self.animation = false
           self.options.onStop.call self
 
         return

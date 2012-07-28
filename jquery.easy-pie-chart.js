@@ -114,6 +114,10 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         currentStep = 0;
         _this.options.onStart.call(_this);
         _this.percentage = to;
+        if (_this.animation) {
+          clearInterval(_this.animation);
+          _this.animation = false;
+        }
         _this.animation = setInterval(function() {
           self.ctx.clearRect(-self.options.size / 2, -self.options.size / 2, self.options.size, self.options.size);
           renderBackground.call(self);
@@ -121,6 +125,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           currentStep++;
           if ((currentStep / steps) > 1) {
             clearInterval(self.animation);
+            self.animation = false;
             self.options.onStop.call(self);
           }
         }, 1000 / fps);
