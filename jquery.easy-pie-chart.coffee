@@ -8,7 +8,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.0.0
+@version: 1.0.1
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -28,7 +28,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       percent = parseInt @$el.data('percent'), 10
       @percentage = 0
 
-      #create invisible canvas element and set the origin to the center
+      #create canvas element and set the origin to the center
       @canvas = $("<canvas width='#{@options.size}' height='#{@options.size}'></canvas>").get(0)
       @$el.append @canvas
       G_vmlCanvasManager.initElement @canvas if G_vmlCanvasManager?
