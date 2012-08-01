@@ -43,20 +43,17 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       }
 
       @update percent
-      return
 
     @update = (percent) =>
       if @options.animate == false
         drawLine percent
       else
         animateLine @percentage, percent
-      return
 
     renderScale = =>
       @ctx.fillStyle = @options.scaleColor
       @ctx.lineWidth = 1
       addScaleLine i for i in [0..24]
-      return
 
     addScaleLine = (i) =>
       offset = if i%6==0 then 0 else @options.size*0.017
@@ -64,7 +61,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.rotate i * Math.PI / 12
       @ctx.fillRect @options.size/2-offset, 0, -@options.size*0.05+offset, 1
       @ctx.restore()
-      return
 
     renderTrack = =>
       offset = @options.size/2-@options.lineWidth/2
@@ -76,12 +72,10 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.strokeStyle = @options.trackColor
       @ctx.lineWidth = @options.lineWidth
       @ctx.stroke()
-      return
 
     renderBackground = =>
       do renderScale if @options.scaleColor != false
       do renderTrack if @options.trackColor != false
-      return
 
     drawLine = (percent) =>
       do renderBackground
@@ -98,10 +92,8 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.arc 0, 0, offset, 0, Math.PI * 2 * percent/100, false
       @ctx.stroke()
       @ctx.restore()
-      return
 
     animateLine = (from, to) =>
-      self = @
       fps = 30
       steps = fps * @options.animate/1000
       currentStep = 0
@@ -113,29 +105,27 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         clearInterval @animation
         @animation = false
 
-      @animation = setInterval ->
-        self.ctx.clearRect -self.options.size/2, -self.options.size/2, self.options.size, self.options.size
-        renderBackground.call self
-        drawLine.call self, [easeInOutQuad currentStep, from, to-from, steps]
+      @animation = setInterval =>
+        @ctx.clearRect -@options.size/2, -@options.size/2, @options.size, @options.size
+        renderBackground.call @
+        drawLine.call @, [easeInOutQuad currentStep, from, to-from, steps]
 
         currentStep++
 
         if (currentStep/steps) > 1
-          clearInterval self.animation
-          self.animation = false
-          self.options.onStop.call self
+          clearInterval @animation
+          @animation = false
+          @options.onStop.call @
 
-        return
       , 1000/fps
-      return
 
     #t=time;b=beginning value;c=change in value;d=duration
     easeInOutQuad = (t, b, c, d) ->
       t /= d/2
       if ((t) < 1)
-        return c/2*t*t + b
+        c/2*t*t + b
       else
-        return -c/2 * ((--t)*(t-2) - 1) + b
+        -c/2 * ((--t)*(t-2) - 1) + b
 
     @init()
 

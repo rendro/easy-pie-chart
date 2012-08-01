@@ -44,22 +44,24 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           height: _this.options.size,
           lineHeight: "" + _this.options.size + "px"
         });
-        _this.update(percent);
+        return _this.update(percent);
       };
       this.update = function(percent) {
         if (_this.options.animate === false) {
-          drawLine(percent);
+          return drawLine(percent);
         } else {
-          animateLine(_this.percentage, percent);
+          return animateLine(_this.percentage, percent);
         }
       };
       renderScale = function() {
-        var i, _i;
+        var i, _i, _results;
         _this.ctx.fillStyle = _this.options.scaleColor;
         _this.ctx.lineWidth = 1;
+        _results = [];
         for (i = _i = 0; _i <= 24; i = ++_i) {
-          addScaleLine(i);
+          _results.push(addScaleLine(i));
         }
+        return _results;
       };
       addScaleLine = function(i) {
         var offset;
@@ -67,7 +69,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.save();
         _this.ctx.rotate(i * Math.PI / 12);
         _this.ctx.fillRect(_this.options.size / 2 - offset, 0, -_this.options.size * 0.05 + offset, 1);
-        _this.ctx.restore();
+        return _this.ctx.restore();
       };
       renderTrack = function() {
         var offset;
@@ -80,14 +82,14 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.closePath();
         _this.ctx.strokeStyle = _this.options.trackColor;
         _this.ctx.lineWidth = _this.options.lineWidth;
-        _this.ctx.stroke();
+        return _this.ctx.stroke();
       };
       renderBackground = function() {
         if (_this.options.scaleColor !== false) {
           renderScale();
         }
         if (_this.options.trackColor !== false) {
-          renderTrack();
+          return renderTrack();
         }
       };
       drawLine = function(percent) {
@@ -104,11 +106,10 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.ctx.beginPath();
         _this.ctx.arc(0, 0, offset, 0, Math.PI * 2 * percent / 100, false);
         _this.ctx.stroke();
-        _this.ctx.restore();
+        return _this.ctx.restore();
       };
       animateLine = function(from, to) {
-        var currentStep, fps, self, steps;
-        self = _this;
+        var currentStep, fps, steps;
         fps = 30;
         steps = fps * _this.options.animate / 1000;
         currentStep = 0;
@@ -118,15 +119,15 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           clearInterval(_this.animation);
           _this.animation = false;
         }
-        _this.animation = setInterval(function() {
-          self.ctx.clearRect(-self.options.size / 2, -self.options.size / 2, self.options.size, self.options.size);
-          renderBackground.call(self);
-          drawLine.call(self, [easeInOutQuad(currentStep, from, to - from, steps)]);
+        return _this.animation = setInterval(function() {
+          _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
+          renderBackground.call(_this);
+          drawLine.call(_this, [easeInOutQuad(currentStep, from, to - from, steps)]);
           currentStep++;
           if ((currentStep / steps) > 1) {
-            clearInterval(self.animation);
-            self.animation = false;
-            self.options.onStop.call(self);
+            clearInterval(_this.animation);
+            _this.animation = false;
+            return _this.options.onStop.call(_this);
           }
         }, 1000 / fps);
       };
