@@ -27,6 +27,15 @@
                     lineWidth: 15,
                     animate: 1000
                 });
+
+                $('.updateEasyPieChart').on('click', function(e) {
+                  e.preventDefault();
+                  $('.percentage, .percentage-light').each(function() {
+                    var newValue = Math.round(100*Math.random());
+                    $(this).data('easyPieChart').update(newValue);
+                    $('span', this).text(newValue);
+                  });
+                });
             };
         </script>
     </head>
@@ -34,41 +43,43 @@
         <div class="container">
             <h1>EASY PIE CHART</h1>
             <div class="chart">
-                <div class="percentage" data-percent="55">55%</div>
+                <div class="percentage" data-percent="55"><span>55</span>%</div>
                 <div class="label">New visits</div>
             </div>
             <div class="chart">
-                <div class="percentage" data-percent="46">46%</div>
+                <div class="percentage" data-percent="46"><span>46</span>%</div>
                 <div class="label">Bounce rate</div>
             </div>
             <div class="chart">
-                <div class="percentage" data-percent="92">92%</div>
+                <div class="percentage" data-percent="92"><span>92</span>%</div>
                 <div class="label">Server load</div>
             </div>
             <div class="chart">
-                <div class="percentage" data-percent="84">752MB</div>
+                <div class="percentage" data-percent="84"><span>752</span>MB</div>
                 <div class="label">Used RAM</div>
             </div>
             <div style="clear:both;"></div>
             <div class="dark">
                 <div class="chart">
-                    <div class="percentage-light" data-percent="55">55%</div>
+                    <div class="percentage-light" data-percent="55"><span>55</span>%</div>
                     <div class="label">New visits</div>
                 </div>
                 <div class="chart">
-                    <div class="percentage-light" data-percent="46">46%</div>
+                    <div class="percentage-light" data-percent="46"><span>46</span>%</div>
                     <div class="label">Bounce rate</div>
                 </div>
                 <div class="chart">
-                    <div class="percentage-light" data-percent="92">92%</div>
+                    <div class="percentage-light" data-percent="92"><span>92</span>%</div>
                     <div class="label">Server load</div>
                 </div>
                 <div class="chart">
-                    <div class="percentage-light" data-percent="84">752MB</div>
+                    <div class="percentage-light" data-percent="84"><span>752</span>MB</div>
                     <div class="label">Used RAM</div>
                 </div>
                 <div style="clear:both;"></div>
             </div>
+
+            <p><a href="#" class="button updateEasyPieChart">Update pie charts</a></p>
 
             <p class="credits">Inspired by: <a href="http://drbl.in/ezuc" target="_blank">Simple Pie Charts II by Rafal Bromirski on dribble</a></p>
         </div>
