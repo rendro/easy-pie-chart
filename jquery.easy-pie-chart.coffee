@@ -43,6 +43,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       }
 
       @update percent
+      @
 
     @update = (percent) =>
       if @options.animate == false

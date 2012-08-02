@@ -44,7 +44,8 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           height: _this.options.size,
           lineHeight: "" + _this.options.size + "px"
         });
-        return _this.update(percent);
+        _this.update(percent);
+        return _this;
       };
       this.update = function(percent) {
         if (_this.options.animate === false) {
