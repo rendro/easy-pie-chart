@@ -70,7 +70,7 @@
   font-weight: bold;
   text-transform: uppercase;
   display: block;
-  margin: auto;
+  margin: 0 auto 2em;
   max-width: 200px;
   text-align: center;
   background-color: #5c5c5c;
