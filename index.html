@@ -7,12 +7,14 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/jquery.easy-pie-chart.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="javascripts/excanvas.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onLoad="initCharts();">
     <div class="wrapper">
       <header>
         <h1>EASY PIE CHART</h1>
@@ -33,7 +35,18 @@
 <p>Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
 These chars are highly customizable and very easy to implement.</p>
 
-<p><img src="https://github.com/rendro/easy-pie-chart/raw/master/img/easy-pie-chart.png" alt=""></p>
+<div class="piedemo clearfix">
+  <div class="chart">
+    <div class="percentage" data-percent="55"><span>55</span>%</div>
+    <div class="label">New visitors</div>
+  </div>
+  <div class="chart">
+    <div class="percentage" data-percent="21"><span>21</span>%</div>
+    <div class="label">Bounce rate</div>
+  </div>
+</div>
+
+<a href="#" class="button updatePieCharts">Update pie charts</a>
 
 <h2>Get started</h2>
 
@@ -134,6 +147,10 @@ $(function() {
 });
 &lt;/script&gt;
 </code></pre>
+
+<h2>Credits</h2>
+
+<p>Thanks to <a href="http://www.paranoida.com/">Rafal Bromirski</a> for making <a href="http://drbl.in/ezuc">this dribble shot</a> which inspired me and <a href="http://philipthrasher.com/">Philip Thrasher</a> for his <a href="https://github.com/pthrasher/coffee-plate">CoffeeScript jQuery boilerplate</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/rendro">rendro</a></p>
@@ -141,6 +158,24 @@ $(function() {
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="javascripts/jquery.easy-pie-chart.js"></script>
+    <script>
+    var initCharts = function() {
+      var charts = $('.percentage');
+      charts.easyPieChart({
+        animate: 1000
+      });
+      $('.updatePieCharts').on('click', function(e) {
+        e.preventDefault();
+        charts.each(function() {
+          var newValue = Math.floor(100*Math.random());
+          $(this).data('easyPieChart').update(newValue);
+          $('span', this).text(newValue);
+        });
+      });
+    }
+    </script>
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
