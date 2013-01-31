@@ -122,11 +122,17 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
     #t=time;b=beginning value;c=change in value;d=duration
     easeInOutQuad = (t, b, c, d) ->
-      t /= d/2
-      if ((t) < 1)
-        c/2*t*t + b
-      else
-        -c/2 * ((--t)*(t-2) - 1) + b
+
+      easeIn = (t) ->
+        return Math.pow(t, 2) # Quad
+      easing = (t) ->
+        if (t < 1)
+          return easeIn(t)
+        else
+          return 2 - easeIn( (t/2) * -2 + 2 )
+        
+      t /= d / 2
+      return c / 2 * easing(t) + b
 
     @init()
 
