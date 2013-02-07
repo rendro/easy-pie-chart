@@ -2,7 +2,7 @@ easy pie chart
 ==============
 
 Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
-These chars are highly customizable and very easy to implement.
+These chars are highly customizable, very easy to implement and **scale to the resolution of the display of the client to provide sharp charts even on retina displays**.
 
 ![](https://github.com/rendro/easy-pie-chart/raw/master/img/easy-pie-chart.png)
 
