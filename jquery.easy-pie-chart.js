@@ -134,12 +134,19 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         }, 1000 / fps);
       };
       easeInOutQuad = function(t, b, c, d) {
+        var easeIn, easing;
+        easeIn = function(t) {
+          return Math.pow(t, 2);
+        };
+        easing = function(t) {
+          if (t < 1) {
+            return easeIn(t);
+          } else {
+            return 2 - easeIn((t / 2) * -2 + 2);
+          }
+        };
         t /= d / 2;
-        if (t < 1) {
-          return c / 2 * t * t + b;
-        } else {
-          return -c / 2 * ((--t) * (t - 2) - 1) + b;
-        }
+        return c / 2 * easing(t) + b;
       };
       return this.init();
     };
