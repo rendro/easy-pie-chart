@@ -83,6 +83,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
       @ctx.strokeStyle = if $.isFunction @options.barColor  then @options.barColor percent else @options.barColor
       @ctx.lineCap = @options.lineCap
+      @ctx.lineWidth = @options.lineWidth
 
       offset = @options.size/2-@options.lineWidth/2
       offset -= @options.size*0.08 if @options.scaleColor != false
