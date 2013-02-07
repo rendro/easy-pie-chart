@@ -33,14 +33,26 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @$el.append @canvas
       G_vmlCanvasManager.initElement @canvas if G_vmlCanvasManager?
       @ctx = @canvas.getContext '2d'
-      @ctx.translate @options.size/2, @options.size/2
 
+      if window.devicePixelRatio > 1
+        scaleBy = window.devicePixelRatio
+        $(@canvas).css({
+          width: @options.size
+          height: @options.size
+        })
+        @canvas.width *= scaleBy
+        @canvas.height *= scaleBy
+        @ctx.scale scaleBy, scaleBy
+
+      @ctx.translate @options.size/2, @options.size/2
       @$el.addClass 'easyPieChart'
       @$el.css {
         width: @options.size
         height: @options.size
         lineHeight: "#{@options.size}px"
       }
+
+
 
       @update percent
       @
@@ -131,7 +143,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           return easeIn(t)
         else
           return 2 - easeIn( (t/2) * -2 + 2 )
-        
+
       t /= d / 2
       return c / 2 * easing(t) + b
 

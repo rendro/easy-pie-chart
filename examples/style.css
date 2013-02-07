@@ -123,3 +123,9 @@ a {
   color: #939393;
   text-shadow: 0 1px 1px #fff;
 }
+
+@media screen and (max-device-width: 480px) {
+  .container{
+    width: 100%;
+  }
+}
