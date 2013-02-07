@@ -37,6 +37,15 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
           G_vmlCanvasManager.initElement(_this.canvas);
         }
         _this.ctx = _this.canvas.getContext('2d');
+        if (window.devicePixelRatio > 1.5) {
+          $(_this.canvas).css({
+            width: _this.options.size,
+            height: _this.options.size
+          });
+          _this.canvas.width *= 2;
+          _this.canvas.height *= 2;
+          _this.ctx.scale(2, 2);
+        }
         _this.ctx.translate(_this.options.size / 2, _this.options.size / 2);
         _this.$el.addClass('easyPieChart');
         _this.$el.css({
