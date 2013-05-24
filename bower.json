@@ -3,6 +3,6 @@
   "version": "1.0.1",
   "main": ["./jquery.easy-pie-chart.js", "./jquery.easy-pie-chart.css"],
   "dependencies": {
-    "jquery": "~1.7.2"
+    "jquery": ">=1.7.2"
   }
 }
