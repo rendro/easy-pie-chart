@@ -10,7 +10,11 @@ Get started
 -----------
 
 To use the easy pie chart plugin you need to load the current version of jQuery (testet with 1.7.2) and the source (css+js) of the plugin.
-Just add the following lines to the `head` of your website:
+You can also use [bower](http://bower.io) to install the component:
+
+    bower install jquery.easy-pie-chart
+    
+Then just add the following lines to the `head` of your website:
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"></script>
