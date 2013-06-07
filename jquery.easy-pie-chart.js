@@ -54,6 +54,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       return _this;
     };
     this.update = function(percent) {
+	  percent = parseInt(percent, 10);
       if (_this.options.animate === false) {
         return drawLine(percent);
       } else {
@@ -129,13 +130,16 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       anim = function() {
         var currentValue, process;
         process = Date.now() - startTime;
-        if (process < _this.options.animate) {
-          rAF(anim);
-        }
         _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
         renderBackground.call(_this);
         currentValue = [easeInOutQuad(process, from, to - from, _this.options.animate)];
         _this.options.onStep.call(_this, currentValue);
+		if (process < _this.options.animate) {
+          rAF(anim);
+        }
+		else {
+            _this.options.onStop.call(_this);
+        }
         return drawLine.call(_this, currentValue);
       };
       return rAF(anim);
