@@ -33,7 +33,7 @@
         <h1>easy pie chart</h1>
 
 <p>Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
-These charts are highly customizable, very easy to implement and <strong>scale to the resolution of the display of the client to provide sharp charts even on retina displays</strong>.</p>
+These charts are highly customizable, very easy to implement, scale to the resolution of the display of the client to provide sharp charts even on retina displays, <strong>and use requestAnimationFrame for smooth animations on modern devices</strong>.</p>
 
 <div class="piedemo clearfix">
   <div class="chart">
@@ -54,7 +54,12 @@ These charts are highly customizable, very easy to implement and <strong>scale t
 <h2>Get started</h2>
 
 <p>To use the easy pie chart plugin you need to load the current version of jQuery (testet with 1.7.2) and the source (css+js) of the plugin.
-Just add the following lines to the <code>head</code> of your website:</p>
+You can also use <a href="http://bower.io" target="_blank">bower</a> to install the component:</p>
+
+<pre><code>bower install jquery.easy-pie-chart
+</code></pre>
+
+<p>Then just add the following lines to the <code>head</code> of your website:</p>
 
 <pre><code>&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"&gt;&lt;/script&gt;
@@ -133,7 +138,12 @@ $(function() {
         <td>$.noop</td>
         <td>Callback function that is called at the end of any animation (only if animate is not false).</td>
     </tr>
-</table><h2>Public plugin methods</h2>
+<tr>
+<td><strong>onStep</strong></td>
+        <td>$.noop</td>
+        <td>Callback function that is called during animations providing the current value (the context is the plugin, so you can access the DOM element via <code>this.$el</code>).</td>
+    </tr>
+</table><h2>Plugin API</h2>
 
 <p>If you want to update the current percentage of the a pie chart, you can call the <code>update</code> method. The instance of the plugin is saved in the jQuery-data.</p>
 
@@ -154,6 +164,20 @@ $(function() {
 <h2>Credits</h2>
 
 <p>Thanks to <a href="http://www.paranoida.com/">Rafal Bromirski</a> for making <a href="http://drbl.in/ezuc">this dribble shot</a> which inspired me and <a href="http://philipthrasher.com/">Philip Thrasher</a> for his <a href="https://github.com/pthrasher/coffee-plate">CoffeeScript jQuery boilerplate</a></p>
+<h2>Changlog</h2>
+<h3>Version 1.0.2 - Jun 07, 2013</h3>
+<ul>
+    <li>Use requestAnimationFrame for smooth animations</li>
+    <li>Added <code>onStep</code> option to get the current value during animations</li>
+</ul>
+<h3>Version 1.0.1 - Feb 07, 2013</h3>
+<ul>
+    <li>Added retina support</li>
+</ul>
+<h3>Version 1.0.0 - Aug 02, 2012</h3>
+<ul>
+    <li>Initial version</li>
+</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/rendro">rendro</a></p>
@@ -167,28 +191,28 @@ $(function() {
     var initCharts = function() {
       var charts = $('.percentage');
       charts.easyPieChart({
-        animate: 1000
+        animate: 1000,
+        onStep: function(value) {
+          this.$el.find('span').text(~~value);
+        }
       });
       $('.updatePieCharts').on('click', function(e) {
         e.preventDefault();
         charts.each(function() {
-          var newValue = Math.floor(100*Math.random());
-          $(this).data('easyPieChart').update(newValue);
-          $('span', this).text(newValue);
+          $(this).data('easyPieChart').update(Math.floor(100*Math.random()));
         });
       });
     }
     </script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-32192893-2");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-32192893-2");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
   </body>
 </html>
