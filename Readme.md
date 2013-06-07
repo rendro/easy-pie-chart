@@ -1,19 +1,17 @@
-easy pie chart
-==============
+# easy pie chart
 
 Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
-These charts are highly customizable, very easy to implement and **scale to the resolution of the display of the client to provide sharp charts even on retina displays**.
+These charts are highly customizable, very easy to implement, scale to the resolution of the display of the client to provide sharp charts even on retina displays, **and use requestAnimationFrame for smooth animations on modern devices**.
 
 ![](https://github.com/rendro/easy-pie-chart/raw/master/img/easy-pie-chart.png)
 
-Get started
------------
+## Get started
 
 To use the easy pie chart plugin you need to load the current version of jQuery (testet with 1.7.2) and the source (css+js) of the plugin.
 You can also use [bower](http://bower.io) to install the component:
 
     bower install jquery.easy-pie-chart
-    
+
 Then just add the following lines to the `head` of your website:
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -35,8 +33,7 @@ Finally you have to initialize the plugin with your desired configuration:
     });
     </script>
 
-Configuration parameter
------------------------
+## Configuration parameter
 
 You can pass a set of these options to the initialize function to set a custom behaviour and look for the plugin.
 
@@ -91,11 +88,15 @@ You can pass a set of these options to the initialize function to set a custom b
         <td>$.noop</td>
         <td>Callback function that is called at the end of any animation (only if animate is not false).</td>
     </tr>
+    <tr>
+        <td><strong>onStep</strong></td>
+        <td>$.noop</td>
+        <td>Callback function that is called during animations providing the current value (the context is the plugin, so you can access the DOM element via <code>this.$el</code>).</td>
+    </tr>
 </table>
 
 
-Public plugin methods
----------------------
+## Plugin API
 
 If you want to update the current percentage of the a pie chart, you can call the `update` method. The instance of the plugin is saved in the jQuery-data.
 
@@ -112,7 +113,19 @@ If you want to update the current percentage of the a pie chart, you can call th
     });
     </script>
 
-Credits
--------
+## Credits
 
 Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble shot](http://drbl.in/ezuc) which inspired me and [Philip Thrasher](http://philipthrasher.com/) for his [CoffeeScript jQuery boilerplate](https://github.com/pthrasher/coffee-plate)
+
+
+## Changlog
+
+### Version 1.0.2 - Jun 07, 2013
+* Use requestAnimationFrame for smooth animations
+* Added `onStep` option to get the current value during animations
+
+### Version 1.0.1 - Feb 07, 2013
+* Added retina support
+
+### Version 1.0.0 - Aug 02, 2012
+* Initial version

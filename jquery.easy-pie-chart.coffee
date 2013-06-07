@@ -8,7 +8,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.0.1
+@version: 1.0.2
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -51,8 +51,6 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         height: @options.size
         lineHeight: "#{@options.size}px"
       }
-
-
 
       @update percent
       @
@@ -107,31 +105,21 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.stroke()
       @ctx.restore()
 
-    animateLine = (from, to) =>
-      fps = 30
-      steps = fps * @options.animate/1000
-      currentStep = 0
+    rAF = do () -> window.requestAnimationFrame or window.webkitRequestAnimationFrame or window.mozRequestAnimationFrame or (callback) -> window.setTimeout callback, 1000 / 60
 
+    animateLine = (from, to) =>
       @options.onStart.call @
       @percentage = to
-
-      if @animation
-        clearInterval @animation
-        @animation = false
-
-      @animation = setInterval =>
+      startTime = Date.now()
+      anim = () =>
+        process = Date.now() - startTime
+        rAF anim if process < @options.animate
         @ctx.clearRect -@options.size/2, -@options.size/2, @options.size, @options.size
         renderBackground.call @
-        drawLine.call @, [easeInOutQuad currentStep, from, to-from, steps]
-
-        currentStep++
-
-        if (currentStep/steps) > 1
-          clearInterval @animation
-          @animation = false
-          @options.onStop.call @
-
-      , 1000/fps
+        currentValue = [easeInOutQuad process, from, to-from, @options.animate]
+        @options.onStep.call @, currentValue
+        drawLine.call @, currentValue
+      rAF anim
 
     #t=time;b=beginning value;c=change in value;d=duration
     easeInOutQuad = (t, b, c, d) ->
@@ -150,15 +138,16 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     @init()
 
   $.easyPieChart.defaultOptions =
-    barColor:        '#ef1e25'
-    trackColor:      '#f2f2f2'
-    scaleColor:      '#dfe0e0'
-    lineCap:         'round'
-    size:            110
-    lineWidth:       3
-    animate:         false
-    onStart:         $.noop
-    onStop:          $.noop
+    barColor:   '#ef1e25'
+    trackColor: '#f2f2f2'
+    scaleColor: '#dfe0e0'
+    lineCap:    'round'
+    size:       110
+    lineWidth:  3
+    animate:    false
+    onStart:    $.noop
+    onStop:     $.noop
+    onStep:     $.noop
 
   $.fn.easyPieChart = (options) ->
     $.each @, (i, el) ->
