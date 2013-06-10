@@ -120,6 +120,10 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 ## Changlog
 
+### Version 1.1.0 - Jun 10, 2013
+* Added missing `onStop` method
+* cast `percent` to float to avoid breaking chart if a string is passed to the update method
+
 ### Version 1.0.2 - Jun 07, 2013
 * Use requestAnimationFrame for smooth animations
 * Added `onStep` option to get the current value during animations

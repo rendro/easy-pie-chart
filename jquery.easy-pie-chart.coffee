@@ -8,7 +8,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.0.2
+@version: 1.1.0
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -56,10 +56,12 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @
 
     @update = (percent) =>
+      percent = parseFloat(percent) or 0
       if @options.animate == false
         drawLine percent
       else
         animateLine @percentage, percent
+      @
 
     renderScale = =>
       @ctx.fillStyle = @options.scaleColor
@@ -72,6 +74,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.rotate i * Math.PI / 12
       @ctx.fillRect @options.size/2-offset, 0, -@options.size*0.05+offset, 1
       @ctx.restore()
+      return
 
     renderTrack = =>
       offset = @options.size/2-@options.lineWidth/2
@@ -83,10 +86,12 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.strokeStyle = @options.trackColor
       @ctx.lineWidth = @options.lineWidth
       @ctx.stroke()
+      return
 
     renderBackground = =>
       do renderScale if @options.scaleColor != false
       do renderTrack if @options.trackColor != false
+      return
 
     drawLine = (percent) =>
       do renderBackground
@@ -104,6 +109,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       @ctx.arc 0, 0, offset, 0, Math.PI * 2 * percent/100, false
       @ctx.stroke()
       @ctx.restore()
+      return
 
     rAF = do () -> window.requestAnimationFrame or window.webkitRequestAnimationFrame or window.mozRequestAnimationFrame or (callback) -> window.setTimeout callback, 1000 / 60
 
@@ -119,7 +125,9 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         currentValue = [easeInOutQuad process, from, to-from, @options.animate]
         @options.onStep.call @, currentValue
         drawLine.call @, currentValue
+        @options.onStop.call @ if process >= @options.animate
       rAF anim
+      return
 
     #t=time;b=beginning value;c=change in value;d=duration
     easeInOutQuad = (t, b, c, d) ->

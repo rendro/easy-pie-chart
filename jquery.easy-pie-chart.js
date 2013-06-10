@@ -9,7 +9,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.0.2
+@version: 1.1.0
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -54,12 +54,13 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       return _this;
     };
     this.update = function(percent) {
-	  percent = parseInt(percent, 10);
+      percent = parseFloat(percent) || 0;
       if (_this.options.animate === false) {
-        return drawLine(percent);
+        drawLine(percent);
       } else {
-        return animateLine(_this.percentage, percent);
+        animateLine(_this.percentage, percent);
       }
+      return _this;
     };
     renderScale = function() {
       var i, _i, _results;
@@ -77,7 +78,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       _this.ctx.save();
       _this.ctx.rotate(i * Math.PI / 12);
       _this.ctx.fillRect(_this.options.size / 2 - offset, 0, -_this.options.size * 0.05 + offset, 1);
-      return _this.ctx.restore();
+      _this.ctx.restore();
     };
     renderTrack = function() {
       var offset;
@@ -90,14 +91,14 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       _this.ctx.closePath();
       _this.ctx.strokeStyle = _this.options.trackColor;
       _this.ctx.lineWidth = _this.options.lineWidth;
-      return _this.ctx.stroke();
+      _this.ctx.stroke();
     };
     renderBackground = function() {
       if (_this.options.scaleColor !== false) {
         renderScale();
       }
       if (_this.options.trackColor !== false) {
-        return renderTrack();
+        renderTrack();
       }
     };
     drawLine = function(percent) {
@@ -115,7 +116,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       _this.ctx.beginPath();
       _this.ctx.arc(0, 0, offset, 0, Math.PI * 2 * percent / 100, false);
       _this.ctx.stroke();
-      return _this.ctx.restore();
+      _this.ctx.restore();
     };
     rAF = (function() {
       return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(callback) {
@@ -130,19 +131,19 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       anim = function() {
         var currentValue, process;
         process = Date.now() - startTime;
+        if (process < _this.options.animate) {
+          rAF(anim);
+        }
         _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
         renderBackground.call(_this);
         currentValue = [easeInOutQuad(process, from, to - from, _this.options.animate)];
         _this.options.onStep.call(_this, currentValue);
-		if (process < _this.options.animate) {
-          rAF(anim);
+        drawLine.call(_this, currentValue);
+        if (process >= _this.options.animate) {
+          return _this.options.onStop.call(_this);
         }
-		else {
-            _this.options.onStop.call(_this);
-        }
-        return drawLine.call(_this, currentValue);
       };
-      return rAF(anim);
+      rAF(anim);
     };
     easeInOutQuad = function(t, b, c, d) {
       var easeIn, easing;
