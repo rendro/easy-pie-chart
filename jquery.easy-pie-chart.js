@@ -189,6 +189,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       var $el, instanceOptions;
 
       $el = $(el);
+      $.extend(options, $el.data());
       if (!$el.data('easyPieChart')) {
         instanceOptions = $.extend({}, options, $el.data());
         return $el.data('easyPieChart', new $.easyPieChart(el, instanceOptions));
