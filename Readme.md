@@ -73,6 +73,11 @@ You can pass a set of these options to the initialize function to set a custom b
         <td>110</td>
         <td>Size of the pie chart in px. It will always be a square.</td>
     </tr>
+        <tr>
+        <td><strong>rotate</strong></td>
+        <td>0</td>
+        <td>Rotation of the complete chart in degrees.</td>
+    </tr>
     <tr>
         <td><strong>animate</strong></td>
         <td>false</td>
@@ -119,6 +124,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 
 ## Changlog
+
+### Version 1.2.0 - Jun 19, 2013
+* Added `rotate` option to rotate the complete chart
 
 ### Version 1.1.0 - Jun 10, 2013
 * Added missing `onStop` method

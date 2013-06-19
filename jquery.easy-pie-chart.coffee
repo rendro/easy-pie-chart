@@ -8,7 +8,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.1.0
+@version: 1.2.0
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -45,6 +45,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         @ctx.scale scaleBy, scaleBy
 
       @ctx.translate @options.size/2, @options.size/2
+      @ctx.rotate @options.rotate*Math.PI/180
       @$el.addClass 'easyPieChart'
       @$el.css {
         width: @options.size
@@ -150,6 +151,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     trackColor: '#f2f2f2'
     scaleColor: '#dfe0e0'
     lineCap:    'round'
+    rotate:     0
     size:       110
     lineWidth:  3
     animate:    false
