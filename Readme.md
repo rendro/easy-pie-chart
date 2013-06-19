@@ -125,6 +125,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 ## Changlog
 
+### Version 1.2.1 - Jun 19, 2013
+* Allow overriding of options with HTML data attributes where provided
+
 ### Version 1.2.0 - Jun 19, 2013
 * Added `rotate` option to rotate the complete chart
 

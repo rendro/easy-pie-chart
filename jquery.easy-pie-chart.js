@@ -9,7 +9,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.2.0
+@version: 1.2.1
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -186,11 +186,12 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
   };
   $.fn.easyPieChart = function(options) {
     return $.each(this, function(i, el) {
-      var $el;
+      var $el, instanceOptions;
 
       $el = $(el);
       if (!$el.data('easyPieChart')) {
-        return $el.data('easyPieChart', new $.easyPieChart(el, options));
+        instanceOptions = $.extend({}, options, $el.data());
+        return $el.data('easyPieChart', new $.easyPieChart(el, instanceOptions));
       }
     });
   };
