@@ -73,6 +73,11 @@ You can pass a set of these options to the initialize function to set a custom b
         <td>110</td>
         <td>Size of the pie chart in px. It will always be a square.</td>
     </tr>
+        <tr>
+        <td><strong>rotate</strong></td>
+        <td>4.71</td>
+        <td>Rotation of the pie. Use 0 for right, 1.57 for bottom, 3.14 for left, and 4.71 for top.</td>
+    </tr>
     <tr>
         <td><strong>animate</strong></td>
         <td>false</td>

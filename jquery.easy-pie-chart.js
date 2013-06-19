@@ -112,7 +112,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         offset -= _this.options.size * 0.08;
       }
       _this.ctx.save();
-      _this.ctx.rotate(-Math.PI / 2);
+      _this.ctx.rotate(_this.options.rotate);
       _this.ctx.beginPath();
       _this.ctx.arc(0, 0, offset, 0, Math.PI * 2 * percent / 100, false);
       _this.ctx.stroke();
@@ -167,6 +167,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     trackColor: '#f2f2f2',
     scaleColor: '#dfe0e0',
     lineCap: 'round',
+    rotate: 4.71,
     size: 110,
     lineWidth: 3,
     animate: false,
