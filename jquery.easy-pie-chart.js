@@ -136,18 +136,20 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       _this.percentage = to;
       startTime = Date.now();
       anim = function() {
-        var currentValue, process;
+        var currentValue, process, animationTime;
+
+        animationTime = _this.options.animatePercentOf ? (_this.options.animate * (_this.percentage / 100 ))  : _this.options.animate;
 
         process = Date.now() - startTime;
-        if (process < _this.options.animate) {
+        if (process < animationTime) {
           rAF(anim);
         }
         _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
         renderBackground.call(_this);
-        currentValue = [easeInOutQuad(process, from, to - from, _this.options.animate)];
+        currentValue = [easeInOutQuad(process, from, to - from, animationTime)];
         _this.options.onStep.call(_this, currentValue);
         drawLine.call(_this, currentValue);
-        if (process >= _this.options.animate) {
+        if (process >= animationTime) {
           return _this.options.onStop.call(_this);
         }
       };
@@ -180,6 +182,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     size: 110,
     lineWidth: 3,
     animate: false,
+    animatePercentOf: false,
     onStart: $.noop,
     onStop: $.noop,
     onStep: $.noop
