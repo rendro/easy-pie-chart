@@ -148,7 +148,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         _this.options.onStep.call(_this, currentValue);
         drawLine.call(_this, currentValue);
         if (process >= _this.options.animate) {
-          return _this.options.onStop.call(_this);
+          return _this.options.onStop.call(_this, currentValue, to);
         }
       };
       rAF(anim);
