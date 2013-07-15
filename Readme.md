@@ -125,6 +125,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 ## Changlog
 
+### Version 1.2.2 - Jul 15, 2013
+* Add `currentValue` and `to` to the onStop callback
+
 ### Version 1.2.1 - Jun 19, 2013
 * Allow overriding of options with HTML data attributes where provided
 
