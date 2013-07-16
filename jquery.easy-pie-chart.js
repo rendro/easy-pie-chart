@@ -128,6 +128,11 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       var anim, startTime;
       _this.options.onStart.call(_this);
       _this.percentage = to;
+      if (!Date.now) {
+        Date.now = function() {
+          return new Date().valueOf();
+        }
+      }
       startTime = Date.now();
       anim = function() {
         var currentValue, process;

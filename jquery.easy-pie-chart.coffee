@@ -117,6 +117,14 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     animateLine = (from, to) =>
       @options.onStart.call @
       @percentage = to
+
+      # Setting Date.now for IE < IE9
+      if (!Date.now) {
+        Date.now = function() {
+          return new Date().valueOf();
+        }
+      }
+
       startTime = Date.now()
       anim = () =>
         process = Date.now() - startTime
