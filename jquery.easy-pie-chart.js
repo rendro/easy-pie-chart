@@ -17,7 +17,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
 (function($) {
   $.easyPieChart = function(el, options) {
-    var addScaleLine, animateLine, drawLine, easeInOutQuad, rAF, renderBackground, renderScale, renderTrack,
+    var addScaleLine, animateLine, drawLine, easeInOutQuad, easing, rAF, renderBackground, renderScale, renderTrack,
       _this = this;
     this.el = el;
     this.$el = $(el);
@@ -33,6 +33,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         G_vmlCanvasManager.initElement(_this.canvas);
       }
       _this.ctx = _this.canvas.getContext('2d');
+      easing = $.isFunction($.easing[_this.options.easing]) ? $.easing[_this.options.easing] : easeInOutQuad;
       if (window.devicePixelRatio > 1) {
         scaleBy = window.devicePixelRatio;
         $(_this.canvas).css({
@@ -140,7 +141,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         }
         _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
         renderBackground.call(_this);
-        currentValue = [easeInOutQuad(process, from, to - from, _this.options.animate)];
+        currentValue = [easing.call(_this, false, process, from, to - from, _this.options.animate)];
         _this.options.onStep.call(_this, currentValue);
         drawLine.call(_this, currentValue);
         if (process >= _this.options.animate) {
@@ -149,7 +150,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       };
       rAF(anim);
     };
-    easeInOutQuad = function(t, b, c, d) {
+    easeInOutQuad = function(x, t, b, c, d) {
       var easeIn, easing;
       easeIn = function(t) {
         return Math.pow(t, 2);
@@ -175,6 +176,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     size: 110,
     lineWidth: 3,
     animate: false,
+    easing: 'easeInOutQuad',
     onStart: $.noop,
     onStop: $.noop,
     onStep: $.noop
