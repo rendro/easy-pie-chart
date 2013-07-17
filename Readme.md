@@ -125,6 +125,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 ## Changlog
 
+### Version 1.2.3 - Jul 17, 2013
+* Date.now fix for IE < IE9
+
 ### Version 1.2.2 - Jul 15, 2013
 * Add `currentValue` and `to` to the onStop callback
 
