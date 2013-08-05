@@ -84,6 +84,11 @@ You can pass a set of these options to the initialize function to set a custom b
         <td>Time in milliseconds for a eased animation of the bar growing, or false to deactivate.</td>
     </tr>
     <tr>
+        <td><strong>delay</strong></td>
+        <td>false</td>
+        <td>Time in milliseconds to delay every update animation.</td>
+    </tr>
+    <tr>
         <td><strong>onStart</strong></td>
         <td>$.noop</td>
         <td>Callback function that is called at the start of any animation (only if animate is not false).</td>
@@ -124,6 +129,10 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 
 ## Changlog
+
+### Version 1.2.4 - Aug 05, 2013
+* bug fix for incomplete animations
+* support for delayed animations
 
 ### Version 1.2.3 - Jul 17, 2013
 * Date.now fix for IE < IE9
