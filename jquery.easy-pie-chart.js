@@ -9,7 +9,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.2.3
+@version: 1.2.4
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -59,7 +59,14 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       if (_this.options.animate === false) {
         drawLine(percent);
       } else {
-        animateLine(_this.percentage, percent);
+        if (_this.options.delay) {
+          animateLine(_this.percentage, 0);
+          setTimeout(function() {
+            return animateLine(_this.percentage, percent);
+          }, _this.options.delay);
+        } else {
+          animateLine(_this.percentage, percent);
+        }
       }
       return _this;
     };
@@ -134,10 +141,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       startTime = Date.now();
       anim = function() {
         var currentValue, process;
-        process = Date.now() - startTime;
-        if (process < _this.options.animate) {
-          rAF(anim);
-        }
+        process = Math.min(Date.now() - startTime, _this.options.animate);
         _this.ctx.clearRect(-_this.options.size / 2, -_this.options.size / 2, _this.options.size, _this.options.size);
         renderBackground.call(_this);
         currentValue = [easeInOutQuad(process, from, to - from, _this.options.animate)];
@@ -145,6 +149,8 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
         drawLine.call(_this, currentValue);
         if (process >= _this.options.animate) {
           return _this.options.onStop.call(_this, currentValue, to);
+        } else {
+          return rAF(anim);
         }
       };
       rAF(anim);

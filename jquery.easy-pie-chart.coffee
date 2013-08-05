@@ -8,7 +8,7 @@ Built on top of the jQuery library (http://jquery.com)
 
 @source: http://github.com/rendro/easy-pie-chart/
 @autor: Robert Fleischmann
-@version: 1.2.3
+@version: 1.2.4
 
 Inspired by: http://dribbble.com/shots/631074-Simple-Pie-Charts-II?list=popular&offset=210
 Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
@@ -61,8 +61,15 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       if @options.animate == false
         drawLine percent
       else
-        animateLine @percentage, percent
+        if @options.delay
+          animateLine @percentage, 0
+          setTimeout(=>
+            animateLine @percentage, percent
+          , @options.delay)
+        else
+          animateLine @percentage, percent
       @
+
 
     renderScale = =>
       @ctx.fillStyle = @options.scaleColor
@@ -123,14 +130,17 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
 
       startTime = Date.now()
       anim = () =>
-        process = Date.now() - startTime
-        rAF anim if process < @options.animate
+        process = Math.min(Date.now() - startTime, @options.animate)
+       
         @ctx.clearRect -@options.size/2, -@options.size/2, @options.size, @options.size
         renderBackground.call @
         currentValue = [easeInOutQuad process, from, to-from, @options.animate]
         @options.onStep.call @, currentValue
         drawLine.call @, currentValue
-        @options.onStop.call @, currentValue, to if process >= @options.animate
+        if process >= @options.animate
+          @options.onStop.call @, currentValue, to 
+        else 
+          rAF anim 
       rAF anim
       return
 
