@@ -130,6 +130,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for making [this dribble 
 
 ## Changlog
 
+### Version 1.2.5 - Aug 05, 2013
+* Added default option value for delay
+
 ### Version 1.2.4 - Aug 05, 2013
 * bug fix for incomplete animations
 * support for delayed animations
