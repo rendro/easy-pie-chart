@@ -169,6 +169,7 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
     size:       110
     lineWidth:  3
     animate:    false
+    delay:      false
     onStart:    $.noop
     onStop:     $.noop
     onStep:     $.noop
