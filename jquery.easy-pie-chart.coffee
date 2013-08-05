@@ -131,16 +131,16 @@ Thanks to Philip Thrasher for the jquery plugin boilerplate for coffee script
       startTime = Date.now()
       anim = () =>
         process = Math.min(Date.now() - startTime, @options.animate)
-       
+
         @ctx.clearRect -@options.size/2, -@options.size/2, @options.size, @options.size
         renderBackground.call @
         currentValue = [easeInOutQuad process, from, to-from, @options.animate]
         @options.onStep.call @, currentValue
         drawLine.call @, currentValue
         if process >= @options.animate
-          @options.onStop.call @, currentValue, to 
-        else 
-          rAF anim 
+          @options.onStop.call @, currentValue, to
+        else
+          rAF anim
       rAF anim
       return
 
