@@ -25,7 +25,9 @@ To use the easy pie chart plugin you need to load the current version of jQuery 
 
 You can also use [bower](http://bower.io) to install the component:
 
-    bower install jquery.easy-pie-chart
+```
+$ bower install jquery.easy-pie-chart
+```
 
 **How to use the plugin:**
 
