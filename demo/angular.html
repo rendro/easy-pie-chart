@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Angular</title>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+	<ul>
+		<li><a href="index.html">Vanilla JS</a></li>
+		<li><a href="jquery.html">jQuery plugin</a></li>
+		<li><a href="angular.html" class="active">Angular module</a></li>
+	</ul>
+
+	<div class="angular" ng-controller="PieChart">
+		<span class="chart" easypiechart="animate:false;barColor:#888;scaleColor:false;lineWidth:8;lineCap:butt" ng-percent="percent">
+			<span class="percent" ng-bind="percent"></span>
+		</span>
+		<input type="range" min="0" max="100" step="1" ng-model="percent" />
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	<script src="../dist/angular.easypiechart.min.js"></script>
+	<script>
+		var app = angular.module('app',['easypiechart']);
+		function PieChart($scope) {
+			$scope.percent = 65;
+		}
+	</script>
+</body>
+</html>

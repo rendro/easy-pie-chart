@@ -1,0 +1,138 @@
+html {
+  padding: 0;
+  margin: 0;
+}
+body {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font: 18px / 1.4 'Arial', 'Helvetica', sans-serif;
+}
+body {
+  padding-top: 60px;
+}
+ul {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  height: 60px;
+  background: #2c3e50;
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: -0.3em;
+}
+li {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  width: 33.333333333333336%;
+  text-align: center;
+  font-size: 18px;
+  line-height: 60px;
+  letter-spacing: normal;
+}
+li a {
+  display: block;
+  color: #ecf0f1;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+li a:hover,
+li a.active {
+  background: #e67e22;
+  color: #2c3e50;
+}
+li a.active:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border: 10px solid;
+  border-color: transparent;
+  border-top-color: #e67e22;
+}
+.chart {
+  position: relative;
+  display: inline-block;
+  width: 110px;
+  height: 110px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+.chart canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.percent {
+  display: inline-block;
+  line-height: 110px;
+  z-index: 2;
+}
+.percent:after {
+  content: '%';
+  margin-left: 0.1em;
+  font-size: .8em;
+}
+.angular {
+  margin-top: 100px;
+}
+.angular .chart {
+  margin-top: 0;
+}
+input {
+  display: block;
+  margin: auto;
+  margin-bottom: 3em;
+}
+.btn {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background: #2c3e50;
+  color: #ecf0f1;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 0.8em;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+.btn:hover {
+  background: #e67e22;
+  color: #2c3e50;
+}
+@media only screen and (max-width: 600px) {
+  li {
+    font-size: 14.4px;
+  }
+}
+@media only screen and (max-width: 430px) {
+  body {
+    padding-top: 0;
+  }
+  ul {
+    height: auto;
+    position: static;
+  }
+  li {
+    display: block;
+    width: 100%;
+  }
+  li a {
+    white-space: normal;
+  }
+  a.active:after {
+    display: none;
+  }
+}

@@ -1,0 +1,176 @@
+@navHeight: 60px;
+@fontSize: 18px;
+@lineHeight: 1.4;
+@white: #ecf0f1;
+@orange: #e67e22;
+@blue: #2c3e50;
+
+.transition(@v) {
+	-webkit-transition: @v;
+	transition: @v;
+}
+.noGap(){
+	font-size: 0;
+	line-height: 0;
+	letter-spacing: -.3em;
+}
+.reGap(@fz:@fontSize,@lh:@lineHeight){
+	font-size: @fz;
+	line-height: @lh;
+	letter-spacing: normal;
+}
+.box-sizing(@v) {
+	-moz-box-sizing: @v;
+	box-sizing: @v;
+}
+
+html{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	font: @fontSize / @lineHeight 'Arial', 'Helvetica', sans-serif;
+}
+
+body{
+	padding-top: @navHeight;
+}
+
+ul{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	height: @navHeight;
+	background: @blue;
+	.noGap;
+}
+
+li{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: (100%/3);
+	text-align: center;
+	.reGap(@fontSize, @navHeight);
+
+	a{
+		display: block;
+		color: @white;
+		text-decoration: none;
+		text-transform: uppercase;
+		white-space: nowrap;
+		.transition(all .5s ease-in-out);
+
+		&:hover,
+		&.active{
+			background: @orange;
+			color: @blue;
+		}
+
+		&.active{
+			&:after{
+				content: '';
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				margin-left: -10px;
+				border: 10px solid;
+				border-color: transparent;
+				border-top-color: @orange;
+			}
+		}
+	}
+}
+
+.chart{
+	position: relative;
+	display: inline-block;
+	width: 110px;
+	height: 110px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	text-align: center;
+	canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+}
+
+.percent{
+	display: inline-block;
+	line-height: 110px;
+	z-index: 2;
+
+	&:after{
+		content: '%';
+		margin-left: 0.1em;
+		font-size: .8em;
+	}
+}
+
+.angular{
+	margin-top: 100px;
+	.chart{
+		margin-top: 0;
+	}
+}
+
+input{
+	display: block;
+	margin: auto;
+	margin-bottom: 3em;
+}
+
+.btn{
+	display: block;
+	width: 200px;
+	margin: 0 auto;
+	padding: 10px 20px;
+	background: @blue;
+	color: @white;
+	text-transform: uppercase;
+	cursor: pointer;
+	font-size: 0.8em;
+	.box-sizing(border-box);
+	.transition(all .5s ease-in-out);
+
+	&:hover{
+		background: @orange;
+		color: @blue;
+	}
+}
+
+
+@media only screen and (max-width: 600px) {
+	li{
+		font-size: (@fontSize * .8);
+	}
+}
+
+@media only screen and (max-width: 430px) {
+	body{
+		padding-top: 0;
+	}
+	ul{
+		height: auto;
+		position: static;
+	}
+	li{
+		display: block;
+		width: 100%;
+	}
+	li a{
+		white-space: normal;
+	}
+	a.active:after{
+		display: none;
+	}
+}

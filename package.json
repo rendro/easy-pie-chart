@@ -1,0 +1,25 @@
+{
+  "name": "easyPieChart",
+  "description": "Lightweight plugin to render simple, animated and retina optimized pie charts",
+  "license": "Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Robert Fleischmann",
+    "email": "rendro87@gmail.com",
+    "url": "http://robert-fleischmann.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rendro/easy-pie-chart.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-banner": "~0.1.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-wrap": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-less": "~0.7.0"
+  }
+}
