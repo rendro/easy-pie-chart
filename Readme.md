@@ -12,24 +12,11 @@ The plugin is:
 
 * highly customizable,
 * very easy to implement,
-* resolution independed (retina optimized) and
-* uses requestAnimationFrame for smooth animations on modern devices.
+* resolution independed (retina optimized),
+* uses requestAnimationFrame for smooth animations on modern devices and
+* works in all modern browsers and even in IE7+ with excanvas.
 
 ![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)
-
-## Browsersupport
-
-Native support:
-
-* Chrome
-* Safari
-* FireFox
-* Opera
-* Internet Explorer 9+
-
-With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill:
-
-* Internet Explorer 7, 8
 
 ## Get started
 
@@ -212,6 +199,20 @@ For a value binding in angular you need to add the `ng-percent` attribute and bi
 ```html
 <span class="chart" easypiechart ng-percent="percent">
 ```
+
+## Browser support
+
+Native support:
+
+* Chrome
+* Safari
+* FireFox
+* Opera
+* Internet Explorer 9+
+
+With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill:
+
+* Internet Explorer 7, 8
 
 ## Credits
 
