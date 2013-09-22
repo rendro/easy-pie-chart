@@ -4,7 +4,7 @@
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.0.0
+ * @version 2.0.1
  **/
 
 (function() {
@@ -73,7 +73,13 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 var CanvasRenderer = function(el, options) {
 	var self = this;
 	var canvas = document.createElement('canvas');
+
+	if (typeof(G_vmlCanvasManager) !== 'undefined') {
+		G_vmlCanvasManager.initElement(canvas);
+	}
+
 	var ctx = canvas.getContext('2d');
+
 
 	canvas.width = canvas.height = options.size;
 
@@ -250,7 +256,7 @@ var EasyPieChart = function(el, opts) {
 		renderer.draw(currentValue);
 
 		// initial update
-		if (el.dataset.percent) {
+		if (el.dataset && el.dataset.percent) {
 			this.update(parseInt(el.dataset.percent, 10));
 		}
 

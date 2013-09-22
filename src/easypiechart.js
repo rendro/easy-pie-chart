@@ -58,7 +58,7 @@ var EasyPieChart = function(el, opts) {
 		renderer.draw(currentValue);
 
 		// initial update
-		if (el.dataset.percent) {
+		if (el.dataset && el.dataset.percent) {
 			this.update(parseInt(el.dataset.percent, 10));
 		}
 

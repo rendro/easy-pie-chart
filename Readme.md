@@ -4,9 +4,9 @@ easy pie chart is a leightweight plugin to draw simple, animated pie charts for 
 
 It shipps in three different versions:
 
-* Vanilla JS *(no dependencies)* (~710 byte)
-* jQuery plugin (~730 byte)
-* Angular Module **!new!** (~890 byte)
+* Vanilla JS *(no dependencies)* (~730 byte)
+* jQuery plugin (~750 byte)
+* Angular Module **!new!** (~900 byte)
 
 The plugin is:
 
@@ -16,6 +16,20 @@ The plugin is:
 * uses requestAnimationFrame for smooth animations on modern devices.
 
 ![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)
+
+## Browsersupport
+
+Native support:
+
+* Chrome
+* Safari
+* FireFox
+* Opera
+* Internet Explorer 9+
+
+With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill:
+
+* Internet Explorer 7, 8
 
 ## Get started
 
@@ -205,6 +219,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Changlog
+
+### Version 2.0.1 - Sep 22, 2013
+* Support for Internet Explorer 7 and 8 with excanvas
 
 ### Version 2.0.0 - Sep 22, 2013
 * Added vanilla JS version

@@ -1,7 +1,13 @@
 var CanvasRenderer = function(el, options) {
 	var self = this;
 	var canvas = document.createElement('canvas');
+
+	if (typeof(G_vmlCanvasManager) !== 'undefined') {
+		G_vmlCanvasManager.initElement(canvas);
+	}
+
 	var ctx = canvas.getContext('2d');
+
 
 	canvas.width = canvas.height = options.size;
 
