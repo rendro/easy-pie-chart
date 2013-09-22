@@ -30,20 +30,20 @@ You can also use [bower](http://bower.io) to install the component:
 **How to use the plugin:**
 
 ```html
-	<div class="chart" data-percent="73">73%</div>
-	
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"></script>
+<div class="chart" data-percent="73">73%</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"></script>
 ```
 
 Finally you have to initialize the plugin with your desired configuration:
 
 ```javascript
-    $(function() {
-        $('.chart').easyPieChart({
-            //your configuration goes here
-        });
+$(function() {
+    $('.chart').easyPieChart({
+        //your configuration goes here
     });
+});
 ```
 
 ### Vanilla JS
@@ -51,15 +51,15 @@ Finally you have to initialize the plugin with your desired configuration:
 If you don't want to use jQuery, implement the vanilla JS version without any dependencies:
 
 ```html
-	<div class="chart" data-percent="73">73%</div>
-	
-    <script type="text/javascript" src="/path/to/easy-pie-chart.js"></script>
-    <script type="text/javascript">
-    var element = document.querySelector('.chart');
-    new EasyPieChart(element, {
-    	// your configuration goes here
-    });
-    </script>
+<div class="chart" data-percent="73">73%</div>
+
+<script type="text/javascript" src="/path/to/easy-pie-chart.js"></script>
+<script type="text/javascript">
+var element = document.querySelector('.chart');
+new EasyPieChart(element, {
+	// your configuration goes here
+});
+</script>
 ```
 
 ### Angular Module
@@ -67,19 +67,19 @@ If you don't want to use jQuery, implement the vanilla JS version without any de
 Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 
 ```html
-	<div class="angular" ng-controller="PieChart">
-		<span class="chart" easypiechart="your:options;go:here" ng-percent="percent"></span>
-		<input type="range" min="0" max="100" step="1" ng-model="percent" />
-	</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-	<script src="../dist/angular.easypiechart.min.js"></script>
-	<script>
-		var app = angular.module('app',['easypiechart']);
-		function PieChart($scope) {
-			$scope.percent = 65;
-		}
-	</script>
+<div class="angular" ng-controller="PieChart">
+	<span class="chart" easypiechart="your:options;go:here" ng-percent="percent"></span>
+	<input type="range" min="0" max="100" step="1" ng-model="percent" />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="../dist/angular.easypiechart.min.js"></script>
+<script>
+	var app = angular.module('app',['easypiechart']);
+	function PieChart($scope) {
+		$scope.percent = 65;
+	}
+</script>
 ```
 
 ## Configuration parameter
@@ -170,23 +170,23 @@ If you want to update the current percentage of the a pie chart, you can call th
 ### jQuery implementation
 
 ```javascript
-    $(function() {
-		// instantiate the plugin
-		…
-		
-		// update
-		$('.chart').data('easyPieChart').update(40);
-    });
+$(function() {
+	// instantiate the plugin
+	...
+
+	// update
+	$('.chart').data('easyPieChart').update(40);
+});
 ```
 
 ### vanilla JS
 
 ```javascript
-	// instantiate the plugin    
-	var chart = new EasyPieChart(element, options);
+// instantiate the plugin
+var chart = new EasyPieChart(element, options);
 
-	// update
-	chart.update(40);
+// update
+chart.update(40);
 ```
 
 ### Angular
@@ -194,7 +194,7 @@ If you want to update the current percentage of the a pie chart, you can call th
 For a value binding in angular you need to add the `ng-percent` attribute and bind it to your angular controller:
 
 ```html
-	<span class="chart" easypiechart ng-percent="percent">
+<span class="chart" easypiechart ng-percent="percent">
 ```
 
 ## Credits
