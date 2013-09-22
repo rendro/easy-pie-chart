@@ -14,13 +14,13 @@ var EasyPieChart = function(el, opts) {
 			if ((t/=d/2) < 1) return c/2*t*t + b;
 			return -c/2 * ((--t)*(t-2) - 1) + b;
 		},
-		onStart: function() {
+		onStart: function(from, to) {
 			return;
 		},
-		onStep: function() {
+		onStep: function(from, to, currentValue) {
 			return;
 		},
-		onStop: function() {
+		onStop: function(from, to) {
 			return;
 		}
 	};
