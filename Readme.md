@@ -4,9 +4,9 @@ easy pie chart is a leightweight plugin to draw simple, animated pie charts for 
 
 It shipps in three different versions:
 
-* Vanilla JS *(no dependencies)* (~730 byte)
-* jQuery plugin (~750 byte)
-* Angular Module **!new!** (~900 byte)
+* Vanilla JS *(no dependencies)* (~730 bytes)
+* jQuery plugin (~750 bytes)
+* Angular Module **!new!** (~900 bytes)
 
 The plugin is:
 
