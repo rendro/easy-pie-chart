@@ -12,7 +12,7 @@ The plugin is:
 
 * highly customizable,
 * very easy to implement,
-* resolution independed (retina optimized),
+* resolution independent (retina optimized),
 * uses requestAnimationFrame for smooth animations on modern devices and
 * works in all modern browsers and even in IE7+ with excanvas.
 
