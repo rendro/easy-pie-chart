@@ -4,12 +4,13 @@
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.0.1
+ * @version 2.0.2
  **/
 
 (function() {
 var CanvasRenderer = function(el, options) {
 	var self = this;
+	var cachedBackground;
 	var canvas = document.createElement('canvas');
 
 	if (typeof(G_vmlCanvasManager) !== 'undefined') {
@@ -17,7 +18,6 @@ var CanvasRenderer = function(el, options) {
 	}
 
 	var ctx = canvas.getContext('2d');
-
 
 	canvas.width = canvas.height = options.size;
 
@@ -63,7 +63,7 @@ var CanvasRenderer = function(el, options) {
 		ctx.fillStyle = options.scaleColor;
 
 		ctx.save();
-		for (var i = 24; i >= 0; --i) {
+		for (var i = 24; i > 0; --i) {
 			if (i%6 === 0) {
 				length = options.scaleLength;
 				offset = 0;
@@ -90,14 +90,33 @@ var CanvasRenderer = function(el, options) {
 				};
 	}());
 
+	var drawBackground = function() {
+		options.scaleColor && drawScale();
+		options.trackColor && drawCircle(options.trackColor, options.lineWidth);
+	};
+
 	this.clear = function() {
 		ctx.clearRect(options.size / -2, options.size / -2, options.size, options.size);
 	};
 
 	this.draw = function(percent) {
-		this.clear();
-		options.scaleColor && drawScale();
-		options.trackColor && drawCircle(options.trackColor, options.lineWidth);;
+		// do we need to render a background
+		if (!!options.scaleColor || !!options.trackColor) {
+				// getImageData and putImageData are supported
+				if (ctx.getImageData && ctx.putImageData) {
+					if (!cachedBackground) {
+					drawBackground();
+					cachedBackground = ctx.getImageData(0, 0, options.size, options.size);
+				} else {
+					ctx.putImageData(cachedBackground, 0, 0);
+				}
+			} else {
+				this.clear();
+				drawBackground();
+			}
+		} else {
+			this.clear();
+		}
 
 		ctx.lineCap = options.lineCap;
 

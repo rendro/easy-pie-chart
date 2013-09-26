@@ -221,6 +221,9 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 ## Changlog
 
+### Version 2.0.2 - Sep 26, 2013
+* Improved render performance by approx. 300%
+
 ### Version 2.0.1 - Sep 22, 2013
 * Support for Internet Explorer 7 and 8 with excanvas
 
