@@ -67,7 +67,8 @@ li a.active:after {
   margin-bottom: 50px;
   text-align: center;
 }
-.chart canvas {
+.chart canvas,
+.chart svg {
   position: absolute;
   top: 0;
   left: 0;

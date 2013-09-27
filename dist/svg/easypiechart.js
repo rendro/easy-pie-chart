@@ -1,99 +1,98 @@
 /**!
  * easyPieChart
- * Lightweight plugin to render simple, animated and retina optimized pie charts
+ * Lightweight plugin to render simple, animated and retina optimized pie charts with canvas or SVG
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.0.2
+ * @version 2.0.3
  **/
 
 (function() {
 /**
- * Renderer to render the chart on a canvas object
+ * Renderer to render the chart as an svg graphics
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
  * @param {object}     options options object of the plugin
  */
-var CanvasRenderer = function(el, options) {
-	var cachedBackground;
-	var canvas = document.createElement('canvas');
-
-	if (typeof(G_vmlCanvasManager) !== 'undefined') {
-		G_vmlCanvasManager.initElement(canvas);
-	}
-
-	var ctx = canvas.getContext('2d');
-
-	canvas.width = canvas.height = options.size;
-
-	el.appendChild(canvas);
-
-	// canvas on retina devices
-	if (window.devicePixelRatio > 1) {
-		var scaleBy = window.devicePixelRatio;
-		canvas.style.width = canvas.style.height = [options.size, 'px'].join('');
-		canvas.width = canvas.height = options.size * scaleBy;
-		ctx.scale(scaleBy, scaleBy);
-	}
-
-	// move 0,0 coordinates to the center
-	ctx.translate(options.size / 2, options.size / 2);
-
-	// rotate canvas -90deg
-	ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI);
-
+var SVGRenderer = function(el, options) {
+	var svgNS = 'http://www.w3.org/2000/svg';
+	var hasScale = (options.scaleColor && options.scaleLength);
 	var radius = (options.size - options.lineWidth) / 2;
-	if (options.scaleColor && options.scaleLength) {
+
+	if (hasScale) {
 		radius -= options.scaleLength + 2; // 2 is the distance between scale and bar
 	}
 
-	// IE polyfill for Date
-	Date.now = Date.now || function() {
-		return +(new Date());
-	};
-
 	/**
-	 * Draw a circle around the center of the canvas
-	 * @param  {strong} color     Valid CSS color string
-	 * @param  {number} lineWidth Width of the line in px
-	 * @param  {number} percent   Percentage to draw (float between 0 and 1)
+	 * Create an element of the SVG namespace
+	 * @param  {string} type       Type of the element (tag name)
+	 * @param  {object} attributes Attribute list of the element
+	 * @return {element}           Created element
 	 */
-	var drawCircle = function(color, lineWidth, percent) {
-		percent = Math.min(Math.max(0, percent || 1), 1);
+	var createElement = function(type, attributes) {
+		var el = document.createElementNS(svgNS, type);
 
-		ctx.beginPath();
-		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
-
-		ctx.strokeStyle = color;
-		ctx.lineWidth = lineWidth;
-
-		ctx.stroke();
-	};
-
-	/**
-	 * Draw the scale of the chart
-	 */
-	var drawScale = function() {
-		var offset;
-		var length;
-		var i = 24;
-
-		ctx.lineWidth = 1
-		ctx.fillStyle = options.scaleColor;
-
-		ctx.save();
-		for (var i = 24; i > 0; --i) {
-			if (i%6 === 0) {
-				length = options.scaleLength;
-				offset = 0;
-			} else {
-				length = options.scaleLength * .6;
-				offset = options.scaleLength - length;
+		if (attributes) {
+			for (var i in attributes) {
+				if (attributes.hasOwnProperty(i)) {
+					el.setAttribute(i, attributes[i]);
+				}
 			}
-			ctx.fillRect(-options.size/2 + offset, 0, length, 1);
-			ctx.rotate(Math.PI / 12);
 		}
-		ctx.restore();
+		return el;
 	};
+
+	// create svg element
+	var svg = createElement('svg', {
+		version: 1.1,
+		width: options.size,
+		height: options.size
+	})
+
+	// create track if necessary
+	if (!!options.trackColor) {
+		svg.appendChild(createElement('circle', {
+			cx: options.size / 2,
+			cy: options.size / 2,
+			r: radius,
+			stroke: options.trackColor,
+			'stroke-width': options.lineWidth,
+			fill: 'none'
+		}));
+	}
+
+	// create scale if necessary
+	if (hasScale) {
+		var g = createElement('g', {
+			transform: 'translate(55, 55)'
+		});
+		for (var i = 0; i<24; ++i) {
+			var length = options.scaleLength;
+			if (i%6 !== 0) {
+				length *= .6;
+			}
+			var deg = 360 * i / 24;
+
+			g.appendChild(createElement('path', {
+				d: ['M', 0, 0, 'l', 0, length].join(' '),
+				stroke: options.scaleColor,
+				'stroke-width': 1,
+				fill: 'none',
+				transform: ['rotate(' + deg + ') translate(0,', options.size/2 - options.scaleLength, ')'].join('')
+			}));
+		}
+		svg.appendChild(g);
+	}
+
+	// create arc (actual chart)
+	var arc = createElement('path', {
+		stroke: options.barColor,
+		'stroke-width': options.lineWidth,
+		fill: 'none'
+	});
+	svg.appendChild(arc);
+
+	// add svg to the element
+	el.appendChild(svg);
 
 	/**
 	 * Request animation frame wrapper with polyfill
@@ -109,57 +108,33 @@ var CanvasRenderer = function(el, options) {
 	}());
 
 	/**
-	 * Draw the background of the plugin including the scale and the track
-	 */
-	var drawBackground = function() {
-		options.scaleColor && drawScale();
-		options.trackColor && drawCircle(options.trackColor, options.lineWidth);
-	};
-
-	/**
-	 * Clear the complete canvas
-	 */
-	this.clear = function() {
-		ctx.clearRect(options.size / -2, options.size / -2, options.size, options.size);
-	};
-
-	/**
-	 * Draw the complete chart
+	 * Set the chart
 	 * @param  {number} percent Percent shown by the chart between 0 and 100
 	 */
 	this.draw = function(percent) {
-		// do we need to render a background
-		if (!!options.scaleColor || !!options.trackColor) {
-				// getImageData and putImageData are supported
-				if (ctx.getImageData && ctx.putImageData) {
-					if (!cachedBackground) {
-					drawBackground();
-					cachedBackground = ctx.getImageData(0, 0, options.size, options.size);
-				} else {
-					ctx.putImageData(cachedBackground, 0, 0);
-				}
-			} else {
-				this.clear();
-				drawBackground();
-			}
-		} else {
-			this.clear();
+		var deg = 3.6 * percent;
+		var rad = deg * Math.PI / 180;
+		var x = options.size / 2 + radius * Math.sin(rad);
+		var y = options.size / 2 - radius * Math.cos(rad);
+		var offsetTop = options.lineWidth / 2;
+		if (hasScale) {
+			offsetTop += options.scaleLength + 2;
 		}
 
-		ctx.lineCap = options.lineCap;
-
-		// if barcolor is a function execute it and pass the percent as a value
-		var color;
-		if (typeof(options.barColor) === 'function') {
-			color = options.barColor(percent);
-		} else {
-			color = options.barColor;
-		}
-
-		// draw bar
-		if (percent > 0) {
-			drawCircle(color, options.lineWidth, percent / 100);
-		}
+		var path = [
+			'M',
+			options.size / 2,
+			offsetTop,
+			'A',
+			radius,
+			radius,
+			0,
+			+(deg > 180),
+			1,
+			x,
+			y
+		];
+		arc.setAttribute('d', path.join(' '));
 	}.bind(this);
 
 	/**

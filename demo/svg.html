@@ -5,15 +5,6 @@
 	<title>vanilla SVG renderer</title>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" href="style.css"/>
-	<style>
-	svg{
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 2000;
-		background: #fff;
-	}
-	</style>
 </head>
 <body>
 
@@ -29,8 +20,7 @@
 
 	<span class="btn js_update">Update chart</span>
 
-	<script src="../src/renderer/svg.js"></script>
-	<script src="../src/easypiechart.js"></script>
+	<script src="../dist/svg/easypiechart.min.js"></script>
 	<script>
 	document.addEventListener('DOMContentLoaded', function() {
 		var chart = window.chart = new EasyPieChart(document.querySelector('span'), {

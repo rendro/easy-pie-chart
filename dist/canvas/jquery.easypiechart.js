@@ -1,75 +1,13 @@
 /**!
  * easyPieChart
- * Lightweight plugin to render simple, animated and retina optimized pie charts
+ * Lightweight plugin to render simple, animated and retina optimized pie charts with canvas or SVG
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.0.2
+ * @version 2.0.3
  **/
 
-(function() {
-// Angular directives for easyPieChart
-if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
-	angular.module('easypiechart',[])
-	.directive('easypiechart', function($parse) {
-		return {
-			restrict: 'A',
-			require: '?ngModel',
-			link: function (scope, element, attrs) {
-				var options = {};
-				var fx = attrs.easypiechart;
-				if (fx.length > 0) {
-					fx = fx.split(';'); // CSS like syntax
-					var REkey = new RegExp('[a-z]+', 'i');
-					var REvalue = new RegExp(':.+');
-					// Parse Effects
-					for (var i in fx) {
-						var value = fx[i].match(REkey);
-						var key = fx[i].match(REvalue);
-						value = value[0];
-						key = key[0].substring(1);
-						if (!isNaN(parseInt(key, 10))) {
-							options[value] = parseFloat(key);
-						} else{
-							switch (key) {
-								case 'true':
-									options[value] = true;
-									break;
-								case 'false':
-									options[value] = false;
-									break;
-								default:
-									options[value] = key;
-							}
-						}
-					}
-				}
-				var pieChart = new EasyPieChart(element[0], options);
-
-				// initial pie rendering
-				if (scope.percent) {
-					pieChart.update(scope.percent);
-				}
-
-				// on change of value
-				var timer = null;
-				scope.$watch('percent', function(oldVal, newVal) {
-					pieChart.update(newVal);
-
-					// this is needed or the last value won't be updated
-					clearTimeout(timer);
-					timer = setTimeout(function() {
-						pieChart.update(scope.percent);
-					}, 1000 / 60);
-				});
-			}
-		};
-	});
-} else{
-	console.log('Angular not detected.');
-}
-
-
+(function($) {
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
@@ -342,4 +280,12 @@ var EasyPieChart = function(el, opts) {
 	init();
 };
 
-}());
+$.fn.easyPieChart = function(options) {
+	return this.each(function() {
+		if (!$.data(this, 'easyPieChart')) {
+			$.data(this, 'easyPieChart', new EasyPieChart(this, options));
+		}
+	});
+};
+
+}(jQuery));

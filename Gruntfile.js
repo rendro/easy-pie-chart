@@ -18,61 +18,114 @@ module.exports = function(grunt) {
 		},
 
 		concat: {
-			vanilla: {
+			vanillaCanvas: {
 				src: [
 					srcDir + 'renderer/canvas.js',
 					srcDir + vanillaName
 				],
-				dest: tmpDir + vanillaName
+				dest: tmpDir + 'canvas/' + vanillaName
 			},
-			jquery: {
+			jqueryCanvas: {
 				src: [
 					srcDir + 'renderer/canvas.js',
 					srcDir + vanillaName,
 					srcDir + 'jquery.plugin.js'
 				],
-				dest: tmpDir + jqueryName
+				dest: tmpDir + 'canvas/' + jqueryName
 			},
-			angular: {
+			angularCanvas: {
 				src: [
 					srcDir + 'angular.directive.js',
 					srcDir + 'renderer/canvas.js',
 					srcDir + vanillaName
 				],
-				dest: tmpDir + angularName
+				dest: tmpDir + 'canvas/' + angularName
+			},
+			vanillaSVG: {
+				src: [
+					srcDir + 'renderer/svg.js',
+					srcDir + vanillaName
+				],
+				dest: tmpDir + 'svg/' + vanillaName
+			},
+			jquerySVG: {
+				src: [
+					srcDir + 'renderer/svg.js',
+					srcDir + vanillaName,
+					srcDir + 'jquery.plugin.js'
+				],
+				dest: tmpDir + 'svg/' + jqueryName
+			},
+			angularSVG: {
+				src: [
+					srcDir + 'angular.svg.js',
+					srcDir + 'renderer/canvas.js',
+					srcDir + vanillaName
+				],
+				dest: tmpDir + 'svg/' + angularName
 			}
 		},
 
 		wrap: {
-			vanilla: {
+			vanillaCanvas: {
 				options: {
 					wrapper: [
 						'(function() {',
 						'window.EasyPieChart = EasyPieChart;}());'
 					]
 				},
-				src: [tmpDir + vanillaName],
-				dest: destDir + vanillaName
+				src: [tmpDir + 'canvas/' + vanillaName],
+				dest: destDir + 'canvas/' + vanillaName
 			},
-			jquery: {
+			jqueryCanvas: {
 				options: {
 					wrapper: [
 						'(function($) {',
 						'}(jQuery));'
 					]
 				},
-				src: [tmpDir + jqueryName],
-				dest: destDir + jqueryName
+				src: [tmpDir + 'canvas/' + jqueryName],
+				dest: destDir + 'canvas/' + jqueryName
 			},
-			angular: {
+			angularCanvas: {
 				options: {
 					wrapper: [
 						'(function() {',
 						'}());'
 					]
 				},
-				src: [tmpDir + angularName],
-				dest: destDir + angularName
+				src: [tmpDir + 'canvas/' + angularName],
+				dest: destDir + 'canvas/' + angularName
+			},
+			vanillaSVG: {
+				options: {
+					wrapper: [
+						'(function() {',
+						'window.EasyPieChart = EasyPieChart;}());'
+					]
+				},
+				src: [tmpDir + 'svg/' + vanillaName],
+				dest: destDir + 'svg/' + vanillaName
+			},
+			jquerySVG: {
+				options: {
+					wrapper: [
+						'(function($) {',
+						'}(jQuery));'
+					]
+				},
+				src: [tmpDir + 'svg/' + jqueryName],
+				dest: destDir + 'svg/' + jqueryName
+			},
+			angularSVG: {
+				options: {
+					wrapper: [
+						'(function() {',
+						'}());'
+					]
+				},
+				src: [tmpDir + 'svg/' + angularName],
+				dest: destDir + 'svg/' + angularName
 			}
 		},
 
@@ -90,9 +143,12 @@ module.exports = function(grunt) {
 			},
 			files: {
 				src: [
-					destDir + vanillaName,
-					destDir + jqueryName,
-					destDir + angularName
+					destDir + 'canvas/' + vanillaName,
+					destDir + 'canvas/' + jqueryName,
+					destDir + 'canvas/' + angularName,
+					destDir + 'svg/' + vanillaName,
+					destDir + 'svg/' + jqueryName,
+					destDir + 'svg/' + angularName
 				]
 			}
 		},
@@ -104,16 +160,22 @@ module.exports = function(grunt) {
 					preserveComments: 'some'
 				},
 				files: {
-					'dist/easypiechart.min.js': ['dist/easypiechart.js'],
-					'dist/jquery.easypiechart.min.js': ['dist/jquery.easypiechart.js'],
-					'dist/angular.easypiechart.min.js': ['dist/angular.easypiechart.js']
+					'dist/canvas/easypiechart.min.js': ['dist/canvas/easypiechart.js'],
+					'dist/canvas/jquery.easypiechart.min.js': ['dist/canvas/jquery.easypiechart.js'],
+					'dist/canvas/angular.easypiechart.min.js': ['dist/canvas/angular.easypiechart.js'],
+					'dist/svg/easypiechart.min.js': ['dist/svg/easypiechart.js'],
+					'dist/svg/jquery.easypiechart.min.js': ['dist/svg/jquery.easypiechart.js'],
+					'dist/svg/angular.easypiechart.min.js': ['dist/svg/angular.easypiechart.js']
 				}
 			}
 		},
 
 		watch: {
 			allthethings: {
-				files: srcDir  + '**/*.js',
+				files: [
+					srcDir  + '**/*.js',
+					'package.json'
+				],
 				tasks: ['default'],
 				options: {
 					debounceDelay: 250

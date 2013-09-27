@@ -2,7 +2,7 @@
   "name": "jquery.easy-pie-chart",
   "version": "2.0.2",
   "main": [
-    "dist/jquery.easypiechart.js"
+    "dist/canvas/jquery.easypiechart.js"
   ],
   "ignore": [
     "demo",
