@@ -9,7 +9,6 @@ var EasyPieChart = function(el, opts) {
 		size: 110,
 		rotate: 0,
 		animate: 1000,
-		renderer: CanvasRenderer,
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
 			if ((t/=d/2) < 1) return c/2*t*t + b;
 			return -c/2 * ((--t)*(t-2) - 1) + b;
@@ -24,6 +23,15 @@ var EasyPieChart = function(el, opts) {
 			return;
 		}
 	};
+
+	// detect present renderer
+	if (typeof(CanvasRenderer) !== 'undefined') {
+		defaultOptions.renderer = CanvasRenderer;
+	} else if (typeof(SVGRenderer) !== 'undefined') {
+		defaultOptions.renderer = SVGRenderer;
+	} else {
+		throw new Error('Please load either the SVG- or the CanvasRenderer');
+	}
 
 	var options = {};
 	var renderer;
