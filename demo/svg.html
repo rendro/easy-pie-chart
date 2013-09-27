@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>vanilla SVG renderer</title>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" href="style.css"/>
+	<style>
+	svg{
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2000;
+		background: #fff;
+	}
+	</style>
+</head>
+<body>
+
+	<ul>
+		<li><a href="index.html" class="active">Vanilla JS</a></li>
+		<li><a href="jquery.html">jQuery plugin</a></li>
+		<li><a href="angular.html">Angular module</a></li>
+	</ul>
+
+	<span class="chart" data-percent="86">
+		<span class="percent"></span>
+	</span>
+
+	<span class="btn js_update">Update chart</span>
+
+	<script src="../src/renderer/svg.js"></script>
+	<script src="../src/easypiechart.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var chart = window.chart = new EasyPieChart(document.querySelector('span'), {
+			easing: 'easeOutElastic',
+			delay: 3000,
+			onStep: function(from, to, percent) {
+				this.el.children[0].innerText = Math.round(percent);
+			}
+		});
+
+		document.querySelector('.js_update').addEventListener('click', function(e) {
+			chart.update(Math.random()*100);
+		});
+
+	});
+	</script>
+</body>
+</html>
