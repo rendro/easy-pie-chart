@@ -8,8 +8,12 @@
  **/
 
 (function($) {
+/**
+ * Renderer to render the chart on a canvas object
+ * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
+ * @param {object}     options options object of the plugin
+ */
 var CanvasRenderer = function(el, options) {
-	var self = this;
 	var cachedBackground;
 	var canvas = document.createElement('canvas');
 
@@ -42,6 +46,17 @@ var CanvasRenderer = function(el, options) {
 		radius -= options.scaleLength + 2; // 2 is the distance between scale and bar
 	}
 
+	// IE polyfill for Date
+	Date.now = Date.now || function() {
+		return +(new Date());
+	};
+
+	/**
+	 * Draw a circle around the center of the canvas
+	 * @param  {strong} color     Valid CSS color string
+	 * @param  {number} lineWidth Width of the line in px
+	 * @param  {number} percent   Percentage to draw (float between 0 and 1)
+	 */
 	var drawCircle = function(color, lineWidth, percent) {
 		percent = Math.min(Math.max(0, percent || 1), 1);
 
@@ -54,6 +69,9 @@ var CanvasRenderer = function(el, options) {
 		ctx.stroke();
 	};
 
+	/**
+	 * Draw the scale of the chart
+	 */
 	var drawScale = function() {
 		var offset;
 		var length;
@@ -77,10 +95,10 @@ var CanvasRenderer = function(el, options) {
 		ctx.restore();
 	};
 
-	Date.now = Date.now || function() {
-		return +(new Date());
-	};
-
+	/**
+	 * Request animation frame wrapper with polyfill
+	 * @return {function} Request animation frame method or timeout fallback
+	 */
 	var reqAnimationFrame = (function() {
 		return  window.requestAnimationFrame ||
 				window.webkitRequestAnimationFrame ||
@@ -90,15 +108,25 @@ var CanvasRenderer = function(el, options) {
 				};
 	}());
 
+	/**
+	 * Draw the background of the plugin including the scale and the track
+	 */
 	var drawBackground = function() {
 		options.scaleColor && drawScale();
 		options.trackColor && drawCircle(options.trackColor, options.lineWidth);
 	};
 
+	/**
+	 * Clear the complete canvas
+	 */
 	this.clear = function() {
 		ctx.clearRect(options.size / -2, options.size / -2, options.size, options.size);
 	};
 
+	/**
+	 * Draw the complete chart
+	 * @param  {number} percent Percent shown by the chart between 0 and 100
+	 */
 	this.draw = function(percent) {
 		// do we need to render a background
 		if (!!options.scaleColor || !!options.trackColor) {
@@ -134,6 +162,11 @@ var CanvasRenderer = function(el, options) {
 		}
 	}.bind(this);
 
+	/**
+	 * Animate from some percent to some other percentage
+	 * @param  {number} from Starting percentage
+	 * @param  {number} to   Final percentage
+	 */
 	this.animate = function(from, to) {
 		var startTime = Date.now();
 		options.onStart(from, to);
@@ -164,7 +197,6 @@ var EasyPieChart = function(el, opts) {
 		size: 110,
 		rotate: 0,
 		animate: 1000,
-		renderer: CanvasRenderer,
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
 			if ((t/=d/2) < 1) return c/2*t*t + b;
 			return -c/2 * ((--t)*(t-2) - 1) + b;
@@ -180,12 +212,23 @@ var EasyPieChart = function(el, opts) {
 		}
 	};
 
+	// detect present renderer
+	if (typeof(CanvasRenderer) !== 'undefined') {
+		defaultOptions.renderer = CanvasRenderer;
+	} else if (typeof(SVGRenderer) !== 'undefined') {
+		defaultOptions.renderer = SVGRenderer;
+	} else {
+		throw new Error('Please load either the SVG- or the CanvasRenderer');
+	}
+
 	var options = {};
 	var renderer;
 	var currentValue = 0;
 
+	/**
+	 * Initialize the plugin by creating the options object and initialize rendering
+	 */
 	var init = function() {
-
 		this.el = el;
 		this.options = options;
 
@@ -216,9 +259,13 @@ var EasyPieChart = function(el, opts) {
 		if (el.dataset && el.dataset.percent) {
 			this.update(parseInt(el.dataset.percent, 10));
 		}
-
 	}.bind(this);
 
+	/**
+	 * Update the value of the chart
+	 * @param  {number} newValue Number between 0 and 100
+	 * @return {object}          Instance of the plugin for method chaining
+	 */
 	this.update = function(newValue) {
 		newValue = parseInt(newValue, 10);
 		if (options.animate) {
