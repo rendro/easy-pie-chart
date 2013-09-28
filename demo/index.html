@@ -27,7 +27,7 @@
 			easing: 'easeOutElastic',
 			delay: 3000,
 			onStep: function(from, to, percent) {
-				this.el.children[0].innerText = Math.round(percent);
+				this.el.children[0].innerHTML = Math.round(percent);
 			}
 		});
 
