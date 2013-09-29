@@ -75,8 +75,9 @@ var SVGRenderer = function(el, options) {
 
 	// create arc (actual chart)
 	var arc = createElement('path', {
-		stroke: options.barColor,
+		stroke: typeof(options.barColor) === 'function' ? options.barColor(0) : options.barColor,
 		'stroke-width': options.lineWidth,
+		'stroke-linecap': options.lineCap,
 		fill: 'none'
 	});
 	svg.appendChild(arc);
@@ -125,6 +126,10 @@ var SVGRenderer = function(el, options) {
 			y
 		];
 		arc.setAttribute('d', path.join(' '));
+
+		if (typeof(options.barColor) === 'function') {
+			arc.setAttribute('stroke', options.barColor(percent));
+		}
 	}.bind(this);
 
 	/**
