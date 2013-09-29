@@ -34,7 +34,6 @@ var EasyPieChart = function(el, opts) {
 	}
 
 	var options = {};
-	var renderer;
 	var currentValue = 0;
 
 	/**
@@ -62,10 +61,10 @@ var EasyPieChart = function(el, opts) {
 		}
 
 		// create renderer
-		renderer = new options.renderer(el, options);
+		this.renderer = new options.renderer(el, options);
 
 		// initial draw
-		renderer.draw(currentValue);
+		this.renderer.draw(currentValue);
 
 		// initial update
 		if (el.dataset && el.dataset.percent) {
@@ -81,9 +80,9 @@ var EasyPieChart = function(el, opts) {
 	this.update = function(newValue) {
 		newValue = parseInt(newValue, 10);
 		if (options.animate) {
-			renderer.animate(currentValue, newValue);
+			this.renderer.animate(currentValue, newValue);
 		} else {
-			renderer.draw(newValue);
+			this.renderer.draw(newValue);
 		}
 		currentValue = newValue;
 		return this;
