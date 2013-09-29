@@ -28,8 +28,9 @@ var CanvasRenderer = function(el, options) {
 	el.appendChild(canvas);
 
 	// canvas on retina devices
+	var scaleBy = 1;
 	if (window.devicePixelRatio > 1) {
-		var scaleBy = window.devicePixelRatio;
+		scaleBy = window.devicePixelRatio;
 		canvas.style.width = canvas.style.height = [options.size, 'px'].join('');
 		canvas.width = canvas.height = options.size * scaleBy;
 		ctx.scale(scaleBy, scaleBy);
@@ -130,11 +131,11 @@ var CanvasRenderer = function(el, options) {
 	this.draw = function(percent) {
 		// do we need to render a background
 		if (!!options.scaleColor || !!options.trackColor) {
-				// getImageData and putImageData are supported
-				if (ctx.getImageData && ctx.putImageData) {
-					if (!cachedBackground) {
+			// getImageData and putImageData are supported
+			if (ctx.getImageData && ctx.putImageData) {
+				if (!cachedBackground) {
 					drawBackground();
-					cachedBackground = ctx.getImageData(0, 0, options.size, options.size);
+					cachedBackground = ctx.getImageData(0, 0, options.size * scaleBy, options.size * scaleBy);
 				} else {
 					ctx.putImageData(cachedBackground, 0, 0);
 				}
@@ -222,7 +223,6 @@ var EasyPieChart = function(el, opts) {
 	}
 
 	var options = {};
-	var renderer;
 	var currentValue = 0;
 
 	/**
@@ -250,10 +250,10 @@ var EasyPieChart = function(el, opts) {
 		}
 
 		// create renderer
-		renderer = new options.renderer(el, options);
+		this.renderer = new options.renderer(el, options);
 
 		// initial draw
-		renderer.draw(currentValue);
+		this.renderer.draw(currentValue);
 
 		// initial update
 		if (el.dataset && el.dataset.percent) {
@@ -269,9 +269,9 @@ var EasyPieChart = function(el, opts) {
 	this.update = function(newValue) {
 		newValue = parseInt(newValue, 10);
 		if (options.animate) {
-			renderer.animate(currentValue, newValue);
+			this.renderer.animate(currentValue, newValue);
 		} else {
-			renderer.draw(newValue);
+			this.renderer.draw(newValue);
 		}
 		currentValue = newValue;
 		return this;
