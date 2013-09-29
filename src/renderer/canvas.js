@@ -18,8 +18,9 @@ var CanvasRenderer = function(el, options) {
 	el.appendChild(canvas);
 
 	// canvas on retina devices
+	var scaleBy = 1;
 	if (window.devicePixelRatio > 1) {
-		var scaleBy = window.devicePixelRatio;
+		scaleBy = window.devicePixelRatio;
 		canvas.style.width = canvas.style.height = [options.size, 'px'].join('');
 		canvas.width = canvas.height = options.size * scaleBy;
 		ctx.scale(scaleBy, scaleBy);
@@ -120,11 +121,11 @@ var CanvasRenderer = function(el, options) {
 	this.draw = function(percent) {
 		// do we need to render a background
 		if (!!options.scaleColor || !!options.trackColor) {
-				// getImageData and putImageData are supported
-				if (ctx.getImageData && ctx.putImageData) {
-					if (!cachedBackground) {
+			// getImageData and putImageData are supported
+			if (ctx.getImageData && ctx.putImageData) {
+				if (!cachedBackground) {
 					drawBackground();
-					cachedBackground = ctx.getImageData(0, 0, options.size, options.size);
+					cachedBackground = ctx.getImageData(0, 0, options.size * scaleBy, options.size * scaleBy);
 				} else {
 					ctx.putImageData(cachedBackground, 0, 0);
 				}
