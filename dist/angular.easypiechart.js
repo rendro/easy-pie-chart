@@ -191,7 +191,6 @@ var CanvasRenderer = function(el, options) {
 	 * @param  {number} percent Percent shown by the chart between 0 and 100
 	 */
 	this.draw = function(percent) {
-		this.clear();
 		// do we need to render a background
 		if (!!options.scaleColor || !!options.trackColor) {
 			// getImageData and putImageData are supported
@@ -203,8 +202,11 @@ var CanvasRenderer = function(el, options) {
 					ctx.putImageData(cachedBackground, 0, 0);
 				}
 			} else {
+				this.clear();
 				drawBackground();
 			}
+		} else {
+			this.clear();
 		}
 
 		ctx.lineCap = options.lineCap;
