@@ -70,7 +70,7 @@ var SVGRenderer = function(el, options) {
 			if (i%6 !== 0) {
 				length *= .6;
 			}
-			var deg = 360 * i / 24;
+			var deg = 360 * i / 24 + options.rotate;
 
 			g.appendChild(createElement('path', {
 				d: ['M', 0, 0, 'l', 0, length].join(' '),
@@ -90,6 +90,9 @@ var SVGRenderer = function(el, options) {
 		'stroke-linecap': options.lineCap,
 		fill: 'none'
 	});
+	if (options.rotate) {
+		arc.setAttribute('transform', ['rotate(', options.rotate, ',', options.size/2, ',', options.size/2, ')'].join(''));
+	}
 	svg.appendChild(arc);
 
 	// add svg to the element
