@@ -14,11 +14,15 @@
 		<li><a href="angular.html" class="active">Angular module</a></li>
 	</ul>
 
-	<div class="angular" ng-controller="PieChart">
-		<span class="chart" easypiechart="animate:false;barColor:#888;scaleColor:false;lineWidth:8;lineCap:butt" ng-percent="percent">
+	<div class="angular" ng-controller="chartCtrl">
+		<span class="chart" easypiechart="animate:false;barColor:#E67E22;scaleColor:false;lineWidth:3;lineCap:butt" ng-percent="percent">
 			<span class="percent" ng-bind="percent"></span>
 		</span>
 		<input type="range" min="0" max="100" step="1" ng-model="percent" />
+		<span class="chart" easypiechart="animate:false;barColor:#2C3E50;scaleColor:false;lineWidth:20;lineCap:circle" ng-percent="anotherPercent">
+			<span class="percent" ng-bind="percent"></span>
+		</span>
+		<input type="range" min="0" max="100" step="1" ng-model="anotherPercent" />
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
@@ -27,6 +31,7 @@
 		var app = angular.module('app', ['easypiechart']);
 		app.controller('chartCtrl', ['$scope', function ($scope) {			
 			$scope.percent = 65;
+			$scope.anotherPercent = 45;
 		}]);
 	</script>
 </body>

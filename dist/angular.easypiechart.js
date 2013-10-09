@@ -15,6 +15,9 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 		return {
 			restrict: 'A',
 			require: '?ngModel',
+			scope: {
+				percent: '=ngPercent'
+			},
 			link: function (scope, element, attrs) {
 				var options = {};
 				var fx = attrs.easypiechart;
