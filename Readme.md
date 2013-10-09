@@ -78,10 +78,10 @@ Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 <script src="../dist/angular.easypiechart.min.js"></script>
 <script>
-	var app = angular.module('app',['easypiechart']);
-	function PieChart($scope) {
-		$scope.percent = 65;
-	}
+	var app = angular.module('app', ['easypiechart']);
+	app.controller('chartCtrl', ['$scope', function ($scope) {        
+        $scope.percent = 65;
+    }]);
 </script>
 ```
 
