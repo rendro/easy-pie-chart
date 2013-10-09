@@ -75,7 +75,7 @@ Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 	<input type="range" min="0" max="100" step="1" ng-model="percent" />
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 <script src="../dist/angular.easypiechart.min.js"></script>
 <script>
 	var app = angular.module('app',['easypiechart']);
