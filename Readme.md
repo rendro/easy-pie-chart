@@ -70,9 +70,8 @@ new EasyPieChart(element, {
 Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 
 ```html
-<div class="angular" ng-controller="PieChart">
-	<span class="chart" easypiechart="your:options;go:here" ng-percent="percent"></span>
-	<input type="range" min="0" max="100" step="1" ng-model="percent" />
+<div ng-controller="chartCtrl">
+	<div easypiechart="your:options;go:here" ng-percent="percent"></div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
