@@ -6,7 +6,7 @@ It shipps in three different versions:
 
 * Vanilla JS *(no dependencies)* (~800 bytes)
 * jQuery plugin (~830 bytes)
-* Angular Module **!new!** (~980 bytes)
+* Angular Module **!new!** (~990 bytes)
 
 The plugin is:
 
@@ -78,7 +78,7 @@ Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 <script src="../dist/angular.easypiechart.min.js"></script>
 <script>
 	var app = angular.module('app', ['easypiechart']);
-	app.controller('chartCtrl', ['$scope', function ($scope) {        
+	app.controller('chartCtrl', ['$scope', function ($scope) {
         $scope.percent = 65;
     }]);
 </script>
@@ -219,6 +219,16 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Changlog
+
+### Version 2.0.4 - Oct 10, 2013
+* Use the internal timing function of angular
+* Added the ability to create two instances of the chart on one main scope
+* Removed unnecessary stuff from the angular example to provide the minimal setup
+* Added more conventional way to create controller in angular
+
+### Version 2.0.3 - Sep 29, 2013
+* Fixed render bug on retina displays
+* Auto detect and load renderer (in preparation of a svg renderer)
 
 ### Version 2.0.2 - Sep 26, 2013
 * Improved render performance by approx. 300%
