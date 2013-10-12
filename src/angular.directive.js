@@ -50,7 +50,9 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 					pieChart.update(newVal);
 
 					// this is needed or the last value won't be updated
-					timer.cancel();
+					if(timer) {
+						$timeout.cancel(timer);
+					}
 					timer = $timeout(function() {
 						pieChart.update(scope.percent);
 					}, 1000 / 60);
