@@ -5,8 +5,8 @@ describe('Unit testing easypiechart', function() {
 	beforeEach(module('easypiechart'));
 
 	beforeEach(inject(function(_$compile_, _$rootScope_){
-	  $compile = _$compile_;
-	  $rootScope = _$rootScope_;
+		$compile = _$compile_;
+		$rootScope = _$rootScope_;
 	}));
 
 	it('inserts the element with a canvas element', function() {
