@@ -9,44 +9,30 @@
 
 (function() {
 // Angular directives for easyPieChart
-if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
+if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 	angular.module('easypiechart',[])
 	.directive('easypiechart', ['$timeout', function($timeout) {
 		return {
 			restrict: 'A',
 			require: '?ngModel',
 			scope: {
-				percent: '=ngPercent'
+				percent: '=',
+				options: '='
 			},
 			link: function (scope, element, attrs) {
-				var options = {};
-				var fx = attrs.easypiechart;
-				if (fx.length > 0) {
-					fx = fx.split(';'); // CSS like syntax
-					var REkey = new RegExp('[a-z]+', 'i');
-					var REvalue = new RegExp(':.+');
-					// Parse Effects
-					for (var i in fx) {
-						var value = fx[i].match(REkey);
-						var key = fx[i].match(REvalue);
-						value = value[0];
-						key = key[0].substring(1);
-						if (!isNaN(parseInt(key, 10))) {
-							options[value] = parseFloat(key);
-						} else{
-							switch (key) {
-								case 'true':
-									options[value] = true;
-									break;
-								case 'false':
-									options[value] = false;
-									break;
-								default:
-									options[value] = key;
-							}
-						}
-					}
-				}
+				var options = {
+					barColor: '#ef1e25',
+					trackColor: '#f9f9f9',
+					scaleColor: '#dfe0e0',
+					scaleLength: 5,
+					lineCap: 'round',
+					lineWidth: 3,
+					size: 110,
+					rotate: 0,
+					animate: 1000
+				};
+				angular.extend(options, scope.options);
+
 				var pieChart = new EasyPieChart(element[0], options);
 
 				// initial pie rendering
@@ -68,7 +54,7 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 					}, 1000 / 60);
 				});
 			}
-		}
+		};
 	}]);
 } else{
 	console.log('Angular not detected.');
@@ -266,7 +252,10 @@ var EasyPieChart = function(el, opts) {
 		rotate: 0,
 		animate: 1000,
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
-			if ((t/=d/2) < 1) return c/2*t*t + b;
+			t = t / (d/2);
+			if (t < 1) {
+				return c / 2 * t * t + b;
+			}
 			return -c/2 * ((--t)*(t-2) - 1) + b;
 		},
 		onStart: function(from, to) {
