@@ -6,38 +6,11 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 			restrict: 'A',
 			require: '?ngModel',
 			scope: {
-				percent: '=ngPercent'
+				percent: '=percent',
+				options: '=options'
 			},
 			link: function (scope, element, attrs) {
-				var options = {};
-				var fx = attrs.easypiechart;
-				if (fx.length > 0) {
-					fx = fx.split(';'); // CSS like syntax
-					var REkey = new RegExp('[a-z]+', 'i');
-					var REvalue = new RegExp(':.+');
-					// Parse Effects
-					for (var i in fx) {
-						var value = fx[i].match(REkey);
-						var key = fx[i].match(REvalue);
-						value = value[0];
-						key = key[0].substring(1);
-						if (!isNaN(parseInt(key, 10))) {
-							options[value] = parseFloat(key);
-						} else{
-							switch (key) {
-								case 'true':
-									options[value] = true;
-									break;
-								case 'false':
-									options[value] = false;
-									break;
-								default:
-									options[value] = key;
-							}
-						}
-					}
-				}
-				var pieChart = new EasyPieChart(element[0], options);
+				var pieChart = new EasyPieChart(element[0], scope.options);
 
 				// initial pie rendering
 				if (scope.percent) {
