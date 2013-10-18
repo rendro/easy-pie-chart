@@ -49,4 +49,3 @@ if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 } else{
 	console.log('Angular not detected.');
 }
-

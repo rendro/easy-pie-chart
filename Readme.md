@@ -1,8 +1,7 @@
-# easy pie chart
+## easy pie chart
 
-![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)
-
-![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)
+[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart) 
+[![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 
 easy pie chart is a leightweight plugin to draw simple, animated pie charts for single values.
 
@@ -20,7 +19,7 @@ The plugin is:
 * uses requestAnimationFrame for smooth animations on modern devices and
 * works in all modern browsers and even in IE7+ with excanvas.
 
-![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)
+[![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
 
 ## Get started
 
@@ -39,16 +38,16 @@ $ bower install jquery.easy-pie-chart
 ```html
 <div class="chart" data-percent="73">73%</div>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="/path/to/jquery.easy-pie-chart.js"></script>
 ```
 
-Finally you have to initialize the plugin with your desired configuration:
+Finally you have to initialize the plugin with your desired options:
 
 ```javascript
 $(function() {
     $('.chart').easyPieChart({
-        //your configuration goes here
+        //your options goes here
     });
 });
 ```
@@ -60,22 +59,22 @@ If you don't want to use jQuery, implement the vanilla JS version without any de
 ```html
 <div class="chart" data-percent="73">73%</div>
 
-<script type="text/javascript" src="/path/to/easy-pie-chart.js"></script>
-<script type="text/javascript">
+<script src="/path/to/easy-pie-chart.js"></script>
+<script>
 var element = document.querySelector('.chart');
 new EasyPieChart(element, {
-    // your configuration goes here
+    // your options goes here
 });
 </script>
 ```
 
 ### Angular Module
 
-Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
+Angular module for the easy pie chart plugin
 
 ```html
 <div ng-controller="chartCtrl">
-    <div easypiechart="your:options;go:here" ng-percent="percent"></div>
+    <div easypiechart options="options" percent="percent"></div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
@@ -84,11 +83,18 @@ Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
     var app = angular.module('app', ['easypiechart']);
     app.controller('chartCtrl', ['$scope', function ($scope) {
         $scope.percent = 65;
+        $scope.options = {
+            animate:false,
+            barColor:'#2C3E50',
+            scaleColor:false,
+            lineWidth:20,
+            lineCap:'circle'
+        };
     }]);
 </script>
 ```
 
-## Configuration parameter
+## Options parameter
 
 You can pass these options to the initialize function to set a custom look and feel for the plugin.
 
@@ -151,7 +157,7 @@ All callbacks will only be called if `animate` is not `false`.
 
 <table>
     <tr>
-        <th>Callback(parameter, …)</th>
+        <th>Callback(parameter, ...)</th>
         <th>Description</th>
     </tr>
     <tr>
@@ -179,7 +185,6 @@ If you want to update the current percentage of the a pie chart, you can call th
 $(function() {
     // instantiate the plugin
     ...
-
     // update
     $('.chart').data('easyPieChart').update(40);
 });
@@ -190,18 +195,13 @@ $(function() {
 ```javascript
 // instantiate the plugin
 var chart = new EasyPieChart(element, options);
-
 // update
 chart.update(40);
 ```
 
 ### Angular
 
-For a value binding in angular you need to add the `ng-percent` attribute and bind it to your angular controller:
-
-```html
-<span class="chart" easypiechart ng-percent="percent">
-```
+For a value binding in angular you need to add the `percent` attribute and bind it to your angular controller [as shown above](#angular-module).
 
 ## Browser support
 
