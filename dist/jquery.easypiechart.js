@@ -201,7 +201,7 @@ var EasyPieChart = function(el, opts) {
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
 			t = t / (d/2);
 			if (t < 1) {
-					return c / 2 * t * t + b;
+				return c / 2 * t * t + b;
 			}
 			return -c/2 * ((--t)*(t-2) - 1) + b;
 		},
