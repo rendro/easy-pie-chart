@@ -68,7 +68,7 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 					}, 1000 / 60);
 				});
 			}
-		}
+		};
 	}]);
 } else{
 	console.log('Angular not detected.');
@@ -266,7 +266,10 @@ var EasyPieChart = function(el, opts) {
 		rotate: 0,
 		animate: 1000,
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
-			if ((t/=d/2) < 1) return c/2*t*t + b;
+			t = t / (d/2);
+			if (t < 1) {
+					return c / 2 * t * t + b;
+			}
 			return -c/2 * ((--t)*(t-2) - 1) + b;
 		},
 		onStart: function(from, to) {

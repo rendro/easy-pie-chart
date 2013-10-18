@@ -58,7 +58,7 @@ if ( (typeof(angular) === 'object') && (typeof(angular.version) === 'object')){
 					}, 1000 / 60);
 				});
 			}
-		}
+		};
 	}]);
 } else{
 	console.log('Angular not detected.');
