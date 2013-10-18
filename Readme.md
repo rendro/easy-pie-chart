@@ -1,7 +1,7 @@
-![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)
-![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)
-
 # easy pie chart
+
+![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png) 
+![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)
 
 easy pie chart is a leightweight plugin to draw simple, animated pie charts for single values.
 
@@ -63,7 +63,7 @@ If you don't want to use jQuery, implement the vanilla JS version without any de
 <script type="text/javascript">
 var element = document.querySelector('.chart');
 new EasyPieChart(element, {
-	// your configuration goes here
+    // your configuration goes here
 });
 </script>
 ```
@@ -74,14 +74,14 @@ Brand new in version 2.0.0 is the angular module for the easy pie chart plugin
 
 ```html
 <div ng-controller="chartCtrl">
-	<div easypiechart="your:options;go:here" ng-percent="percent"></div>
+    <div easypiechart="your:options;go:here" ng-percent="percent"></div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 <script src="../dist/angular.easypiechart.min.js"></script>
 <script>
-	var app = angular.module('app', ['easypiechart']);
-	app.controller('chartCtrl', ['$scope', function ($scope) {
+    var app = angular.module('app', ['easypiechart']);
+    app.controller('chartCtrl', ['$scope', function ($scope) {
         $scope.percent = 65;
     }]);
 </script>
@@ -149,7 +149,7 @@ You can pass these options to the initialize function to set a custom look and f
 All callbacks will only be called if `animate` is not `false`.
 
 <table>
-	<tr>
+    <tr>
         <th>Callback(parameter, …)</th>
         <th>Description</th>
     </tr>
@@ -176,11 +176,11 @@ If you want to update the current percentage of the a pie chart, you can call th
 
 ```javascript
 $(function() {
-	// instantiate the plugin
-	...
+    // instantiate the plugin
+    ...
 
-	// update
-	$('.chart').data('easyPieChart').update(40);
+    // update
+    $('.chart').data('easyPieChart').update(40);
 });
 ```
 
