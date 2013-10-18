@@ -213,6 +213,10 @@ With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) poly
 
 * Internet Explorer 7, 8
 
+## Test
+
+To run the test just use the karma adapter of grunt: `grunt karma:unit`
+
 ## Credits
 
 Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribble shot](http://drbl.in/ezuc) which inspired me building this plugin.

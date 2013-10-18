@@ -129,8 +129,19 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			files: ['src/*.js'],
+			files: ['src/*.js', 'test/**/*.js'],
 			options: {}
+		},
+
+		karma: {
+			unit: {
+				configFile: 'karma.conf.coffee'
+			},
+			ci: {
+				configFile: 'karma.conf.coffee',
+				singleRun: true,
+				browsers: ['PhantomJS']
+			}
 		},
 
 		less: {
@@ -151,6 +162,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-karma');
 
 	// Default task(s).
 	grunt.registerTask('default', [
