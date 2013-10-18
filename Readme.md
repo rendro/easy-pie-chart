@@ -1,3 +1,6 @@
+![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)
+![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)
+
 # easy pie chart
 
 easy pie chart is a leightweight plugin to draw simple, animated pie charts for single values.
