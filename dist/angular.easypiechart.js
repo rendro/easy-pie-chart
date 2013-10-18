@@ -60,7 +60,6 @@ if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 	console.log('Angular not detected.');
 }
 
-
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)

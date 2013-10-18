@@ -9,14 +9,14 @@ It shipps in three different versions:
 
 * Vanilla JS *(no dependencies)* (~800 bytes)
 * jQuery plugin (~830 bytes)
-* Angular Module **!new!** (~990 bytes)
+* Angular Module (~990 bytes)
 
 The plugin is:
 
 * highly customizable,
 * very easy to implement,
 * resolution independent (retina optimized),
-* uses requestAnimationFrame for smooth animations on modern devices and
+* uses `requestAnimationFrame` for smooth animations on modern devices and
 * works in all modern browsers and even in IE7+ with excanvas.
 
 [![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
