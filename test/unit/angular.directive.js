@@ -16,7 +16,10 @@ describe('Unit testing easypiechart', function() {
 	});
 
 	it('takes size option the right way', function() {
-		var element = $compile("<div easypiechart='size:200'></div>")($rootScope);
+		$rootScope.options = {
+			size: 200
+		};
+		var element = $compile("<div easypiechart options='options'></div>")($rootScope);
 		$rootScope.$digest();
 		expect(element.html()).toContain("200");
 	});
