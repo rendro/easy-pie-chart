@@ -7,7 +7,17 @@
  * @version 2.0.5
  **/
 
-(function() {
+(function(root, factory) {
+    if(typeof exports === 'object') {
+        module.exports = factory();
+    }
+    else if(typeof define === 'function' && define.amd) {
+        define('EasyPieChart', [], factory);
+    }
+    else {
+        root['EasyPieChart'] = factory();
+    }
+}(this, function() {
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
@@ -187,27 +197,6 @@ var CanvasRenderer = function(el, options) {
 	}.bind(this);
 };
 
-// Polyfill for older versions of JS < 1.8.5 for IE8 support
-if (!Function.prototype.bind) {
-	Function.prototype.bind = function (oThis) {
-		if (typeof this !== "function") {
-			throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-		}
-
-		var aArgs = Array.prototype.slice.call(arguments, 1),
-			fToBind = this,
-			fNOP = function () {},
-			fBound = function () {
-				return fToBind.apply(this instanceof fNOP && oThis ? this: oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
-			};
-
-		fNOP.prototype = this.prototype;
-		fBound.prototype = new fNOP();
-
-		return fBound;
-	};
-}
-
 var EasyPieChart = function(el, opts) {
 	var defaultOptions = {
 		barColor: '#ef1e25',
@@ -306,4 +295,5 @@ var EasyPieChart = function(el, opts) {
 	init();
 };
 
-window.EasyPieChart = EasyPieChart;}());
+    return EasyPieChart;
+}));

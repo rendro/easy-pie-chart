@@ -43,39 +43,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		wrap: {
-			vanilla: {
-				options: {
-					wrapper: [
-						'(function() {',
-						'window.EasyPieChart = EasyPieChart;}());'
-					]
-				},
-				src: [tmpDir + vanillaName],
-				dest: destDir + vanillaName
-			},
-			jquery: {
-				options: {
-					wrapper: [
-						'(function($) {',
-						'}(jQuery));'
-					]
-				},
-				src: [tmpDir + jqueryName],
-				dest: destDir + jqueryName
-			},
-			angular: {
-				options: {
-					wrapper: [
-						'(function() {',
-						'}());'
-					]
-				},
-				src: [tmpDir + angularName],
-				dest: destDir + angularName
-			}
-		},
-
 		usebanner: {
 			options: {
 				position: 'top',
@@ -150,6 +117,38 @@ module.exports = function(grunt) {
 					'demo/style.css': ['demo/style.less']
 				}
 			}
+		},
+
+		umd: {
+			vanilla: {
+				src: tmpDir + vanillaName,
+				dest: destDir + vanillaName,
+				objectToExport: 'EasyPieChart',
+				amdModuleId: 'EasyPieChart',
+				globalAlias: 'EasyPieChart'
+			},
+			jquery: {
+				src: tmpDir + jqueryName,
+				dest: destDir + jqueryName,
+				amdModuleId: 'EasyPieChart',
+				deps: {
+					'default': ['$'],
+					amd: ['jQuery'],
+					cjs: ['jQuery'],
+					global: ['jQuery']
+				}
+			},
+			anuglar: {
+				src: tmpDir + angularName,
+				dest: destDir + angularName,
+				amdModuleId: 'EasyPieChart',
+				deps: {
+					'default': ['anuglar'],
+					amd: ['anuglar'],
+					cjs: ['anuglar'],
+					global: ['anuglar']
+				}
+			}
 		}
 	});
 
@@ -157,19 +156,19 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-banner');
-	grunt.loadNpmTasks('grunt-wrap');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-karma');
+	grunt.loadNpmTasks('grunt-umd');
 
 	// Default task(s).
 	grunt.registerTask('default', [
 		'clean:all',
 		'jshint',
 		'concat',
-		'wrap',
+		'umd',
 		'usebanner',
 		'uglify',
 		'clean:tmp'
