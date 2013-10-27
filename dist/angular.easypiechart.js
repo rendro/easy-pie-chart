@@ -239,6 +239,27 @@ var CanvasRenderer = function(el, options) {
 	}.bind(this);
 };
 
+// Polyfill for older versions of JS < 1.8.5 for IE8 support
+if (!Function.prototype.bind) {
+	Function.prototype.bind = function (oThis) {
+		if (typeof this !== "function") {
+			throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+		}
+
+		var aArgs = Array.prototype.slice.call(arguments, 1),
+			fToBind = this,
+			fNOP = function () {},
+			fBound = function () {
+				return fToBind.apply(this instanceof fNOP && oThis ? this: oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+			};
+
+		fNOP.prototype = this.prototype;
+		fBound.prototype = new fNOP();
+
+		return fBound;
+	};
+}
+
 var EasyPieChart = function(el, opts) {
 	var defaultOptions = {
 		barColor: '#ef1e25',
@@ -312,7 +333,9 @@ var EasyPieChart = function(el, opts) {
 
 		// initial update
 		if (el.dataset && el.dataset.percent) {
-			this.update(parseInt(el.dataset.percent, 10));
+			this.update(parseFloat(el.dataset.percent));
+		} else if (el.getAttribute && el.getAttribute('data-percent')) {
+			this.update(parseFloat(el.getAttribute('data-percent')));
 		}
 	}.bind(this);
 
@@ -322,7 +345,7 @@ var EasyPieChart = function(el, opts) {
 	 * @return {object}          Instance of the plugin for method chaining
 	 */
 	this.update = function(newValue) {
-		newValue = parseInt(newValue, 10);
+		newValue = parseFloat(newValue);
 		if (options.animate) {
 			this.renderer.animate(currentValue, newValue);
 		} else {

@@ -92,7 +92,9 @@ var EasyPieChart = function(el, opts) {
 
 		// initial update
 		if (el.dataset && el.dataset.percent) {
-			this.update(parseInt(el.dataset.percent, 10));
+			this.update(parseFloat(el.dataset.percent));
+		} else if (el.getAttribute && el.getAttribute('data-percent')) {
+			this.update(parseFloat(el.getAttribute('data-percent')));
 		}
 	}.bind(this);
 
@@ -102,7 +104,7 @@ var EasyPieChart = function(el, opts) {
 	 * @return {object}          Instance of the plugin for method chaining
 	 */
 	this.update = function(newValue) {
-		newValue = parseInt(newValue, 10);
+		newValue = parseFloat(newValue);
 		if (options.animate) {
 			this.renderer.animate(currentValue, newValue);
 		} else {
