@@ -1,5 +1,10 @@
 # Changlog
 
+## Version 2.1.0 - Oct 28, 2013
+* Added UMD (Universal Module Definition) wrapper for AMD and requireJS support
+* Angular module: Move options into single attribute and provide it as JSON
+* Allow decimal numbers for percent values
+
 ## Version 2.0.5 – Oct 12, 2013
 * (Angular) Fixed timer bug
 

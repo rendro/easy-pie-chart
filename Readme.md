@@ -1,15 +1,14 @@
 ## easy pie chart
 
-[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart) 
-[![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
+[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart) [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 
 easy pie chart is a leightweight plugin to draw simple, animated pie charts for single values.
 
 It shipps in three different versions:
 
-* Vanilla JS *(no dependencies)* (~800 bytes)
-* jQuery plugin (~830 bytes)
-* Angular Module (~990 bytes)
+* Vanilla JS *(no dependencies)* (~840 bytes)
+* jQuery plugin (~880 bytes)
+* Angular Module (~970 bytes)
 
 The plugin is:
 
@@ -148,6 +147,11 @@ You can pass these options to the initialize function to set a custom look and f
         <td><strong>animate</strong></td>
         <td>false</td>
         <td>Time in milliseconds for an animation of the bar growing, or false to deactivate animations.</td>
+    </tr>
+    <tr>
+        <td><strong>easing</strong></td>
+        <td>defaultEasing</td>
+        <td>Easing function or string with the name of a <a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jQuery easing function</a></td>
     </tr>
 </table>
 
