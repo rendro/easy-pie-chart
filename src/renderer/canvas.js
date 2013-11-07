@@ -46,13 +46,14 @@ var CanvasRenderer = function(el, options) {
 	 * Draw a circle around the center of the canvas
 	 * @param  {strong} color     Valid CSS color string
 	 * @param  {number} lineWidth Width of the line in px
-	 * @param  {number} percent   Percentage to draw (float between 0 and 1)
+	 * @param  {number} percent   Percentage to draw (float between -1 and 1)
 	 */
 	var drawCircle = function(color, lineWidth, percent) {
-		percent = Math.min(Math.max(0, percent || 1), 1);
+		percent = Math.min(Math.max(-1, percent || 1), 1);
+		var isNegative = percent < 0 ? true : false;
 
 		ctx.beginPath();
-		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, false);
+		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, isNegative);
 
 		ctx.strokeStyle = color;
 		ctx.lineWidth = lineWidth;
@@ -116,7 +117,7 @@ var CanvasRenderer = function(el, options) {
 
 	/**
 	 * Draw the complete chart
-	 * @param  {number} percent Percent shown by the chart between 0 and 100
+	 * @param  {number} percent Percent shown by the chart between -100 and 100
 	 */
 	this.draw = function(percent) {
 		// do we need to render a background
@@ -148,9 +149,7 @@ var CanvasRenderer = function(el, options) {
 		}
 
 		// draw bar
-		if (percent > 0) {
-			drawCircle(color, options.lineWidth, percent / 100);
-		}
+		drawCircle(color, options.lineWidth, percent / 100);
 	}.bind(this);
 
 	/**
