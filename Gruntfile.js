@@ -133,8 +133,8 @@ module.exports = function(grunt) {
 				amdModuleId: 'EasyPieChart',
 				deps: {
 					'default': ['$'],
-					amd: ['jQuery'],
-					cjs: ['jQuery'],
+					amd: ['jquery'],
+					cjs: ['jquery'],
 					global: ['jQuery']
 				}
 			},

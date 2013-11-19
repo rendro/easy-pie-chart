@@ -4,15 +4,15 @@
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.0
+ * @version 2.1.1
  **/
 
 (function(root, factory) {
     if(typeof exports === 'object') {
-        module.exports = factory(require('jQuery'));
+        module.exports = factory(require('jquery'));
     }
     else if(typeof define === 'function' && define.amd) {
-        define('EasyPieChart', ['jQuery'], factory);
+        define('EasyPieChart', ['jquery'], factory);
     }
     else {
         factory(root.jQuery);
