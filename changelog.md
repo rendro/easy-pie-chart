@@ -1,5 +1,8 @@
 # Changlog
 
+## Version 2.1.2 - Nov 19, 2013
+* Allow override of default options with data attributes in JQuery plugin
+
 ## Version 2.1.1 - Nov 19, 2013
 * Fixed AMD support for jQuery version
 

@@ -35,7 +35,7 @@ $ bower install jquery.easy-pie-chart
 **How to use the plugin:**
 
 ```html
-<div class="chart" data-percent="73">73%</div>
+<div class="chart" data-percent="73" data-scale-color="#ffb400">73%</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="/path/to/jquery.easy-pie-chart.js"></script>
