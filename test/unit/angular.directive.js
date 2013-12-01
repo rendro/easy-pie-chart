@@ -10,17 +10,17 @@ describe('Unit testing easypiechart', function() {
 	}));
 
 	it('inserts the element with a canvas element', function() {
-		var element = $compile("<div easypiechart></div>")($rootScope);
+		var element = $compile('<div easypiechart></div>')($rootScope);
 		$rootScope.$digest();
-		expect(element.html()).toContain("canvas");
+		expect(element.html()).toContain('canvas');
 	});
 
 	it('takes size option the right way', function() {
 		$rootScope.options = {
 			size: 200
 		};
-		var element = $compile("<div easypiechart options='options'></div>")($rootScope);
+		var element = $compile('<div easypiechart options="options"></div>')($rootScope);
 		$rootScope.$digest();
-		expect(element.html()).toContain("200");
+		expect(element.html()).toContain('200');
 	});
 });

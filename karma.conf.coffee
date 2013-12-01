@@ -4,20 +4,20 @@ module.exports = (config) ->
   config.set
 
     # base path, that will be used to resolve files and exclude
-    basePath: ""
+    basePath: ''
 
     # testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ["jasmine"]
+    frameworks: ['jasmine']
 
     # list of files / patterns to load in the browser
     files: [
-      "test/polyfills/bind.js",
-      "bower_components/angular/angular.js",
-      "bower_components/angular-mocks/angular-mocks.js",
-      "src/renderer/canvas.js",
-      "src/easypiechart.js",
-      "src/angular.directive.js",
-      "test/**/*.js"
+      'test/polyfills/bind.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/renderer/canvas.js',
+      'src/easypiechart.js',
+      'src/angular.directive.js',
+      'test/**/*.js'
     ]
 
     # list of files / patterns to exclude
