@@ -9,7 +9,7 @@ describe('Unit testing jQuery version of easy pie chart', function() {
 			$('body').append($el);
 			$el.easyPieChart(options);
 		};
-	}
+	};
 
 	describe('initialize plugin', function() {
 		beforeEach(createInstance());
