@@ -1,4 +1,4 @@
-describe('Unit testing easypiechart', function() {
+describe('Unit testing angular easypiechart', function() {
 	var $compile;
 	var $rootScope;
 
