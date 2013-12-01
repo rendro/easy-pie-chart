@@ -4,7 +4,7 @@
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.2
+ * @version 2.1.3
  **/
 
 (function(root, factory) {
@@ -64,13 +64,13 @@ var CanvasRenderer = function(el, options) {
 
 	/**
 	 * Draw a circle around the center of the canvas
-	 * @param  {strong} color     Valid CSS color string
-	 * @param  {number} lineWidth Width of the line in px
-	 * @param  {number} percent   Percentage to draw (float between -1 and 1)
+	 * @param {strong} color     Valid CSS color string
+	 * @param {number} lineWidth Width of the line in px
+	 * @param {number} percent   Percentage to draw (float between -1 and 1)
 	 */
 	var drawCircle = function(color, lineWidth, percent) {
-		percent = Math.min(Math.max(-1, percent || 1), 1);
-		var isNegative = percent < 0 ? true : false;
+		percent = Math.min(Math.max(-1, percent || 0), 1);
+		var isNegative = percent <= 0 ? true : false;
 
 		ctx.beginPath();
 		ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, isNegative);
@@ -125,7 +125,7 @@ var CanvasRenderer = function(el, options) {
 	 */
 	var drawBackground = function() {
 		options.scaleColor && drawScale();
-		options.trackColor && drawCircle(options.trackColor, options.lineWidth);
+		options.trackColor && drawCircle(options.trackColor, options.lineWidth, 1);
 	};
 
 	/**
@@ -137,7 +137,7 @@ var CanvasRenderer = function(el, options) {
 
 	/**
 	 * Draw the complete chart
-	 * @param  {number} percent Percent shown by the chart between -100 and 100
+	 * @param {number} percent Percent shown by the chart between -100 and 100
 	 */
 	this.draw = function(percent) {
 		// do we need to render a background
@@ -174,8 +174,8 @@ var CanvasRenderer = function(el, options) {
 
 	/**
 	 * Animate from some percent to some other percentage
-	 * @param  {number} from Starting percentage
-	 * @param  {number} to   Final percentage
+	 * @param {number} from Starting percentage
+	 * @param {number} to   Final percentage
 	 */
 	this.animate = function(from, to) {
 		var startTime = Date.now();

@@ -1,5 +1,8 @@
 # Changlog
 
+## Version 2.1.3 - Dec 1, 2013
+* allow negative percent values with a reversed pie chart
+
 ## Version 2.1.2 - Dec 1, 2013
 * Allow override of default options with data attributes in JQuery plugin
 
