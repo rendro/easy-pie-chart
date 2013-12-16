@@ -2,7 +2,7 @@
   "name": "easyPieChart",
   "description": "Lightweight plugin to render simple, animated and retina optimized pie charts",
   "license": "Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "author": {
     "name": "Robert Fleischmann",
     "email": "rendro87@gmail.com",
