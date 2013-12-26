@@ -39,7 +39,10 @@ if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 					lineWidth: 3,
 					size: 110,
 					rotate: 0,
-					animate: 1000
+					animate: {
+						duration: 1000,
+						enabled: true
+					}
 				};
 				angular.extend(options, scope.options);
 
