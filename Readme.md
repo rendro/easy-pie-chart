@@ -83,7 +83,10 @@ Angular module for the easy pie chart plugin
     app.controller('chartCtrl', ['$scope', function ($scope) {
         $scope.percent = 65;
         $scope.options = {
-            animate:false,
+            animate:{
+                duration:0,
+                enabled:false
+            },
             barColor:'#2C3E50',
             scaleColor:false,
             lineWidth:20,
@@ -145,8 +148,8 @@ You can pass these options to the initialize function to set a custom look and f
     </tr>
     <tr>
         <td><strong>animate</strong></td>
-        <td>false</td>
-        <td>Time in milliseconds for an animation of the bar growing, or false to deactivate animations.</td>
+        <td>object</td>
+        <td>Object with time in milliseconds and boolean for an animation of the bar growing (<code>{ duration: 1000, enabled: true }</code>), or false to deactivate animations.</td>
     </tr>
     <tr>
         <td><strong>easing</strong></td>
@@ -191,6 +194,12 @@ $(function() {
     ...
     // update
     $('.chart').data('easyPieChart').update(40);
+    ...
+    // disable animation
+    $('.chart').data('easyPieChart').disableAnimation();
+    ...
+    // enable animation
+    $('.chart').data('easyPieChart').enableAnimation();
 });
 ```
 
@@ -201,6 +210,10 @@ $(function() {
 var chart = new EasyPieChart(element, options);
 // update
 chart.update(40);
+// disable animation
+chart.disableAnimation();
+// enable animation
+chart.enableAnimation();
 ```
 
 ### Angular
