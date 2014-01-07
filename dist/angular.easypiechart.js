@@ -4,7 +4,7 @@
  *
  * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.3
+ * @version 2.1.4
  **/
 
 (function(root, factory) {
@@ -79,6 +79,8 @@ var CanvasRenderer = function(el, options) {
 	var cachedBackground;
 	var canvas = document.createElement('canvas');
 
+	el.appendChild(canvas);
+
 	if (typeof(G_vmlCanvasManager) !== 'undefined') {
 		G_vmlCanvasManager.initElement(canvas);
 	}
@@ -86,8 +88,6 @@ var CanvasRenderer = function(el, options) {
 	var ctx = canvas.getContext('2d');
 
 	canvas.width = canvas.height = options.size;
-
-	el.appendChild(canvas);
 
 	// canvas on retina devices
 	var scaleBy = 1;
