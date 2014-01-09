@@ -161,11 +161,11 @@ var CanvasRenderer = function(el, options) {
 		var startTime = Date.now();
 		options.onStart(from, to);
 		var animation = function() {
-			var process = Math.min(Date.now() - startTime, options.animate);
-			var currentValue = options.easing(this, process, from, to - from, options.animate);
+			var process = Math.min(Date.now() - startTime, options.animate.duration);
+			var currentValue = options.easing(this, process, from, to - from, options.animate.duration);
 			this.draw(currentValue);
 			options.onStep(from, to, currentValue);
-			if (process >= options.animate) {
+			if (process >= options.animate.duration) {
 				options.onStop(from, to);
 			} else {
 				reqAnimationFrame(animation);
