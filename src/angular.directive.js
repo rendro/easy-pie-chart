@@ -1,7 +1,7 @@
 // Angular directives for easyPieChart
 if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 	angular.module('easypiechart',[])
-	.directive('easypiechart', ['$timeout', function($timeout) {
+	.directive('easypiechart', [function() {
 		return {
 			restrict: 'A',
 			require: '?ngModel',
@@ -34,17 +34,8 @@ if ((typeof(angular) === 'object') && (typeof(angular.version) === 'object')) {
 				}
 
 				// on change of value
-				var timer = null;
-				scope.$watch('percent', function(oldVal, newVal) {
+				scope.$watch('percent', function(newVal, oldVal) {
 					pieChart.update(newVal);
-
-					// this is needed or the last value won't be updated
-					if(timer) {
-						$timeout.cancel(timer);
-					}
-					timer = $timeout(function() {
-						pieChart.update(scope.percent);
-					}, 1000 / 60);
 				});
 			}
 		};
