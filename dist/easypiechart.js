@@ -2,7 +2,7 @@
  * easyPieChart
  * Lightweight plugin to render simple, animated and retina optimized pie charts
  *
- * @license Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * @license 
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
  * @version 2.1.3
  **/
@@ -87,18 +87,18 @@ var CanvasRenderer = function(el, options) {
 	var drawScale = function() {
 		var offset;
 		var length;
-		var i = 24;
+		var max = 24;
 
-		ctx.lineWidth = 1
+		ctx.lineWidth = 1;
 		ctx.fillStyle = options.scaleColor;
 
 		ctx.save();
-		for (var i = 24; i > 0; --i) {
-			if (i%6 === 0) {
+		for (var i = 24; max > 0; --i) {
+			if (i % 6 === 0) {
 				length = options.scaleLength;
 				offset = 0;
 			} else {
-				length = options.scaleLength * .6;
+				length = options.scaleLength * 0.6;
 				offset = options.scaleLength - length;
 			}
 			ctx.fillRect(-options.size/2 + offset, 0, length, 1);
@@ -124,8 +124,8 @@ var CanvasRenderer = function(el, options) {
 	 * Draw the background of the plugin including the scale and the track
 	 */
 	var drawBackground = function() {
-		options.scaleColor && drawScale();
-		options.trackColor && drawCircle(options.trackColor, options.lineWidth, 1);
+		if(options.scaleColor) drawScale();
+		if(options.trackColor) drawCircle(options.trackColor, options.lineWidth, 1);
 	};
 
 	/**

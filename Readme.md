@@ -1,16 +1,16 @@
-## easy pie chart
+# easyPieChart
 
-[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart) [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
+> Lightweight plugin to render simple, animated and retina optimized pie charts
 
-easy pie chart is a leightweight plugin to draw simple, animated pie charts for single values.
+![Version](http://img.shields.io/version/2.1.3.png?color=green)
+[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
+[![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
+[![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
 
-It shipps in three different versions:
 
-* Vanilla JS *(no dependencies)* (~840 bytes)
-* jQuery plugin (~890 bytes)
-* Angular Module (~970 bytes)
 
-The plugin is:
+## Features
+[![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
 
 * highly customizable
 * very easy to implement
@@ -18,58 +18,56 @@ The plugin is:
 * uses `requestAnimationFrame` for smooth animations on modern devices and
 * works in all modern browsers, even in IE7+ with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions)
 
-[![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
+#### framework support
+
+* Vanilla JS *(no dependencies)* (~840 bytes)
+* jQuery plugin (~890 bytes)
+* Angular Module (~970 bytes)
+
+
 
 ## Get started
-
-### jQuery
-
-To use the easy pie chart plugin you need to load the current version of jQuery (tested with 1.6.4) and the source of the plugin.
+#### Installation
 
 You can also use [bower](http://bower.io) to install the component:
 
-```
-$ bower install jquery.easy-pie-chart
-```
+> $ bower install jquery.easy-pie-chart
 
-**How to use the plugin:**
+#### jQuery
+
+To use the easy pie chart plugin you need to load the current version of jQuery (> 1.6.4) and the source of the plugin.
 
 ```html
 <div class="chart" data-percent="73" data-scale-color="#ffb400">73%</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="/path/to/jquery.easy-pie-chart.js"></script>
-```
-
-Finally you have to initialize the plugin with your desired options:
-
-```javascript
-$(function() {
-    $('.chart').easyPieChart({
-        //your options goes here
+<script>
+    $(function() {
+        $('.chart').easyPieChart({
+            //your options goes here
+        });
     });
-});
+</script>
 ```
 
-### Vanilla JS
+#### Vanilla JS
 
-If you don't want to use jQuery, implement the vanilla JS version without any dependencies:
+If you don't want to use jQuery, implement the Vanilla JS version without any dependencies.
 
 ```html
 <div class="chart" data-percent="73">73%</div>
 
 <script src="/path/to/easy-pie-chart.js"></script>
 <script>
-var element = document.querySelector('.chart');
-new EasyPieChart(element, {
-    // your options goes here
-});
+    var element = document.querySelector('.chart');
+    new EasyPieChart(element, {
+        // your options goes here
+    });
 </script>
 ```
 
-### Angular Module
-
-Angular module for the easy pie chart plugin
+#### AngularJS
 
 ```html
 <div ng-controller="chartCtrl">
@@ -96,8 +94,9 @@ Angular module for the easy pie chart plugin
 </script>
 ```
 
-## Options parameter
 
+
+## Options
 You can pass these options to the initialize function to set a custom look and feel for the plugin.
 
 <table>
@@ -158,8 +157,9 @@ You can pass these options to the initialize function to set a custom look and f
     </tr>
 </table>
 
-### Callbacks
 
+
+## Callbacks
 All callbacks will only be called if `animate` is not `false`.
 
 <table>
@@ -182,11 +182,9 @@ All callbacks will only be called if `animate` is not `false`.
 </table>
 
 
-## Plugin API
 
-If you want to update the current percentage of the a pie chart, you can call the `update` method.
-
-### jQuery implementation
+## Plugin api
+#### jQuery
 
 ```javascript
 $(function() {
@@ -203,7 +201,7 @@ $(function() {
 });
 ```
 
-### vanilla JS
+#### Vanilla JS
 
 ```javascript
 // instantiate the plugin
@@ -216,13 +214,14 @@ chart.disableAnimation();
 chart.enableAnimation();
 ```
 
-### Angular
+#### AngularJS
 
-For a value binding in angular you need to add the `percent` attribute and bind it to your angular controller [as shown above](#angular-module).
+For a value binding you need to add the `percent` attribute and bind it to your controller.
 
-## Browser support
 
-Native support:
+
+## Browser Support
+Native support
 
 * Chrome
 * Safari
@@ -230,16 +229,19 @@ Native support:
 * Opera
 * Internet Explorer 9+
 
-With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill:
+Support for Internet Explorer 7 and 8 with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill.
 
-* Internet Explorer 7, 8
+
 
 ## Test
-
 To run the test just use the karma adapter of grunt: `grunt test`
 
-## Credits
 
+
+## Credits
 Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribble shot](http://drbl.in/ezuc) which inspired me building this plugin.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
+
+
+## Copyright
+Copyright (c) 2014 Robert Fleischmann, contributors.

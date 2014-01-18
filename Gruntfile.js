@@ -1,45 +1,51 @@
 module.exports = function(grunt) {
 
-	var srcDir      = 'src/';
-	var destDir     = 'dist/';
-	var tmpDir      = 'tmp/';
-	var vanillaName = 'easypiechart.js';
-	var jqueryName  = 'jquery.' + vanillaName;
-	var angularName = 'angular.' + vanillaName;
-
-	// Project configuration.
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
 
+		cfg: {
+			filename: 'easypiechart',
+			amdname: 'EasyPieChart'
+		},
+
+		dirs: {
+			tmp: 'tmp',
+			src: 'src',
+			dest: 'dist',
+			docs: 'docs',
+			test: 'test',
+			demo: 'demo'
+		},
+
 		clean: {
-			all: [destDir, tmpDir],
-			tmp: [tmpDir]
+			all: ['<%= dirs.dest %>/', '<%= dirs.tmp %>/'],
+			tmp: ['<%= dirs.tmp %>/']
 		},
 
 		concat: {
 			vanilla: {
 				src: [
-					srcDir + 'renderer/canvas.js',
-					srcDir + vanillaName
+					'<%= dirs.src %>/renderer/canvas.js',
+					'<%= dirs.src %>/<%= cfg.filename %>.js'
 				],
-				dest: tmpDir + vanillaName
+				dest: '<%= dirs.tmp %>/<%= cfg.filename %>.js'
 			},
 			jquery: {
 				src: [
-					srcDir + 'renderer/canvas.js',
-					srcDir + vanillaName,
-					srcDir + 'jquery.plugin.js'
+					'<%= dirs.src %>/renderer/canvas.js',
+					'<%= dirs.src %>/<%= cfg.filename %>.js',
+					'<%= dirs.src %>/jquery.plugin.js'
 				],
-				dest: tmpDir + jqueryName
+				dest: '<%= dirs.tmp %>/jquery.<%= cfg.filename %>.js'
 			},
 			angular: {
 				src: [
-					srcDir + 'angular.directive.js',
-					srcDir + 'renderer/canvas.js',
-					srcDir + vanillaName
+					'<%= dirs.src %>/angular.directive.js',
+					'<%= dirs.src %>/renderer/canvas.js',
+					'<%= dirs.src %>/<%= cfg.filename %>.js'
 				],
-				dest: tmpDir + angularName
+				dest: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js'
 			}
 		},
 
@@ -57,9 +63,9 @@ module.exports = function(grunt) {
 			},
 			files: {
 				src: [
-					destDir + vanillaName,
-					destDir + jqueryName,
-					destDir + angularName
+					'<%= dirs.dest %>/<%= cfg.filename %>.js',
+					'<%= dirs.dest %>/jquery.<%= cfg.filename %>.js',
+					'<%= dirs.dest %>/angular.<%= cfg.filename %>.js'
 				]
 			}
 		},
@@ -71,24 +77,31 @@ module.exports = function(grunt) {
 					preserveComments: 'some'
 				},
 				files: {
-					'dist/easypiechart.min.js': ['dist/easypiechart.js'],
-					'dist/jquery.easypiechart.min.js': ['dist/jquery.easypiechart.js'],
-					'dist/angular.easypiechart.min.js': ['dist/angular.easypiechart.js']
+					'dist/<%= cfg.filename %>.min.js': ['dist/<%= cfg.filename %>.js'],
+					'dist/jquery.<%= cfg.filename %>.min.js': ['dist/jquery.<%= cfg.filename %>.js'],
+					'dist/angular.<%= cfg.filename %>.min.js': ['dist/angular.<%= cfg.filename %>.js']
 				}
 			}
 		},
 
 		watch: {
-			allthethings: {
-				files: srcDir  + '**/*.js',
+			scripts: {
+				files: '<%= dirs.src %>/**/*.js',
 				tasks: ['default'],
 				options: {
 					debounceDelay: 250
 				}
 			},
 			less: {
-				files: 'demo/*.less',
-				tasks: ['style'],
+				files: '<%= dirs.demo %>/*.less',
+				tasks: ['less'],
+				options: {
+					debounceDelay: 250
+				}
+			},
+			readme: {
+				files: '<%= dirs.docs %>/**/*.md',
+				tasks: ['readme'],
 				options: {
 					debounceDelay: 250
 				}
@@ -96,7 +109,10 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			files: ['src/*.js', 'test/**/*.js'],
+			files: [
+				'<%= dirs.src %>/**/*.js',
+				'<%= dirs.test %>/**/*.js'
+			],
 			options: {}
 		},
 
@@ -114,23 +130,23 @@ module.exports = function(grunt) {
 		less: {
 			demo: {
 				files: {
-					'demo/style.css': ['demo/style.less']
+					'<%= dirs.demo %>/style.css': ['<%= dirs.demo %>/style.less']
 				}
 			}
 		},
 
 		umd: {
 			vanilla: {
-				src: tmpDir + vanillaName,
-				dest: destDir + vanillaName,
-				objectToExport: 'EasyPieChart',
-				amdModuleId: 'EasyPieChart',
-				globalAlias: 'EasyPieChart'
+				src: '<%= dirs.tmp %>/<%= cfg.filename %>.js',
+				dest: '<%= dirs.dest %>/<%= cfg.filename %>.js',
+				objectToExport: '<%= cfg.amdname %>',
+				amdModuleId: '<%= cfg.amdname %>',
+				globalAlias: '<%= cfg.amdname %>'
 			},
 			jquery: {
-				src: tmpDir + jqueryName,
-				dest: destDir + jqueryName,
-				amdModuleId: 'EasyPieChart',
+				src: '<%= dirs.tmp %>/jquery.<%= cfg.filename %>.js',
+				dest: '<%= dirs.dest %>/jquery.<%= cfg.filename %>.js',
+				amdModuleId: '<%= cfg.amdname %>',
 				deps: {
 					'default': ['$'],
 					amd: ['jquery'],
@@ -139,8 +155,8 @@ module.exports = function(grunt) {
 				}
 			},
 			anuglar: {
-				src: tmpDir + angularName,
-				dest: destDir + angularName,
+				src: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js',
+				dest: '<%= dirs.dest %>/angular.<%= cfg.filename %>.js',
 				amdModuleId: 'EasyPieChart',
 				deps: {
 					'default': ['anuglar'],
@@ -152,18 +168,10 @@ module.exports = function(grunt) {
 		}
 	});
 
-	// Load the plugin that provides the "uglify" task.
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-banner');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-karma');
-	grunt.loadNpmTasks('grunt-umd');
+	// load all installed grunt tasks
+	require('load-grunt-tasks')(grunt);
 
-	// Default task(s).
+	// task defiinitions
 	grunt.registerTask('default', [
 		'clean:all',
 		'jshint',
@@ -171,11 +179,10 @@ module.exports = function(grunt) {
 		'umd',
 		'usebanner',
 		'uglify',
-		'clean:tmp'
+		'clean:tmp',
+		'readme'
 	]);
 
-	grunt.registerTask('style', ['less']);
-
 	grunt.registerTask('test', ['karma:unit']);
-	grunt.registerTask('all', ['default', 'style']);
+	grunt.registerTask('all', ['default', 'less']);
 };
