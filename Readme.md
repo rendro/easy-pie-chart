@@ -12,11 +12,11 @@ It shipps in three different versions:
 
 The plugin is:
 
-* highly customizable,
-* very easy to implement,
-* resolution independent (retina optimized),
+* highly customizable
+* very easy to implement
+* resolution independent (retina optimized)
 * uses `requestAnimationFrame` for smooth animations on modern devices and
-* works in all modern browsers and even in IE7+ with excanvas.
+* works in all modern browsers, even in IE7+ with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions)
 
 [![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
 
@@ -236,7 +236,7 @@ With [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) poly
 
 ## Test
 
-To run the test just use the karma adapter of grunt: `grunt karma:unit`
+To run the test just use the karma adapter of grunt: `grunt test`
 
 ## Credits
 

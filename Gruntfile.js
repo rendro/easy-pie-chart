@@ -176,6 +176,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('style', ['less']);
 
+	grunt.registerTask('test', ['karma:unit']);
 	grunt.registerTask('all', ['default', 'style']);
-
 };
