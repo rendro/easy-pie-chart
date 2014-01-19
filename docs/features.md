@@ -8,6 +8,6 @@
 
 ### framework support
 
-* Vanilla JS *(no dependencies)* (~840 bytes)
-* jQuery plugin (~890 bytes)
-* Angular Module (~970 bytes)
+* Vanilla JS *(no dependencies)* (~872 bytes)
+* jQuery plugin (~921 bytes)
+* Angular Module (~983 bytes)

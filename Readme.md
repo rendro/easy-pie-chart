@@ -20,9 +20,9 @@
 
 #### framework support
 
-* Vanilla JS *(no dependencies)* (~840 bytes)
-* jQuery plugin (~890 bytes)
-* Angular Module (~970 bytes)
+* Vanilla JS *(no dependencies)* (~872 bytes)
+* jQuery plugin (~921 bytes)
+* Angular Module (~983 bytes)
 
 
 
@@ -31,7 +31,9 @@
 
 You can also use [bower](http://bower.io) to install the component:
 
-`$ bower install jquery.easy-pie-chart`
+```
+$ bower install jquery.easy-pie-chart
+```
 
 #### jQuery
 
