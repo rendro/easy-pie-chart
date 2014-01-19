@@ -2,7 +2,7 @@
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
 
-![Version](http://img.shields.io/version/2.1.3.png?color=green)
+![Version](http://img.shields.io/version/2.1.3.png?color=green) 
 [![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
 [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 [![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
@@ -31,7 +31,7 @@
 
 You can also use [bower](http://bower.io) to install the component:
 
-> $ bower install jquery.easy-pie-chart
+`$ bower install jquery.easy-pie-chart`
 
 #### jQuery
 
@@ -164,7 +164,7 @@ All callbacks will only be called if `animate` is not `false`.
 
 <table>
     <tr>
-        <th>Callback(parameter, ...)</th>
+        <th>Callback(params, ...)</th>
         <th>Description</th>
     </tr>
     <tr>
@@ -244,4 +244,4 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Copyright
-Copyright (c) 2014 Robert Fleischmann, contributors.
+Copyright (c) 2014 Robert Fleischmann, contributors. Released under the MIT, GPL licenses

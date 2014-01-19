@@ -29,4 +29,4 @@
 {%= _.doc("credits.md") %}
 
 ## Copyright
-{%= copyright %}
+{%= copyright %} {%= license %}
