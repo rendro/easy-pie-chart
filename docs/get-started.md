@@ -2,7 +2,7 @@
 
 You can also use [bower](http://bower.io) to install the component:
 
-> $ bower install jquery.easy-pie-chart
+`$ bower install jquery.easy-pie-chart`
 
 ### jQuery
 

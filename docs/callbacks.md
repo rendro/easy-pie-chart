@@ -2,7 +2,7 @@ All callbacks will only be called if `animate` is not `false`.
 
 <table>
     <tr>
-        <th>Callback(parameter, ...)</th>
+        <th>Callback(params, ...)</th>
         <th>Description</th>
     </tr>
     <tr>
