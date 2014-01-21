@@ -32,7 +32,6 @@ if (
 					options: '='
 				},
 				link: function (scope, element, attrs) {
-
 					/**
 					 * default easy pie chart options
 					 * @type {Object}
