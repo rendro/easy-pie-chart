@@ -32,6 +32,9 @@ if (
 					options: '='
 				},
 				link: function (scope, element, attrs) {
+
+					scope.percent = scope.percent || 0;
+
 					/**
 					 * default easy pie chart options
 					 * @type {Object}
@@ -50,7 +53,7 @@ if (
 							enabled: true
 						}
 					};
-					angular.extend(options, scope.options);
+					scope.options = angular.extend(options, scope.options);
 
 					var pieChart = new EasyPieChart(element[0], options);
 
@@ -73,6 +76,8 @@ var CanvasRenderer = function(el, options) {
 	var cachedBackground;
 	var canvas = document.createElement('canvas');
 
+	el.appendChild(canvas);
+
 	if (typeof(G_vmlCanvasManager) !== 'undefined') {
 		G_vmlCanvasManager.initElement(canvas);
 	}
@@ -80,8 +85,6 @@ var CanvasRenderer = function(el, options) {
 	var ctx = canvas.getContext('2d');
 
 	canvas.width = canvas.height = options.size;
-
-	el.appendChild(canvas);
 
 	// canvas on retina devices
 	var scaleBy = 1;

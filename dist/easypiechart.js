@@ -27,6 +27,8 @@ var CanvasRenderer = function(el, options) {
 	var cachedBackground;
 	var canvas = document.createElement('canvas');
 
+	el.appendChild(canvas);
+
 	if (typeof(G_vmlCanvasManager) !== 'undefined') {
 		G_vmlCanvasManager.initElement(canvas);
 	}
@@ -34,8 +36,6 @@ var CanvasRenderer = function(el, options) {
 	var ctx = canvas.getContext('2d');
 
 	canvas.width = canvas.height = options.size;
-
-	el.appendChild(canvas);
 
 	// canvas on retina devices
 	var scaleBy = 1;
