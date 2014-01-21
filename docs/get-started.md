@@ -47,7 +47,7 @@ If you don't want to use jQuery, implement the Vanilla JS version without any de
     <div easypiechart options="options" percent="percent"></div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
 <script src="../dist/angular.easypiechart.min.js"></script>
 <script>
     var app = angular.module('app', ['easypiechart']);
