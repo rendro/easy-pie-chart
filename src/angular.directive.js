@@ -33,10 +33,10 @@ if (
 					};
 					angular.extend(options, scope.options);
 
-					scope.pieChart = new EasyPieChart(element[0], options);
+					var pieChart = new EasyPieChart(element[0], options);
 
 					scope.$watch('percent', function(newVal, oldVal) {
-						scope.pieChart.update(newVal);
+						pieChart.update(newVal);
 					});
 				}
 			};

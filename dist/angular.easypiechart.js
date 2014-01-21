@@ -53,10 +53,10 @@ if (
 					};
 					angular.extend(options, scope.options);
 
-					scope.pieChart = new EasyPieChart(element[0], options);
+					var pieChart = new EasyPieChart(element[0], options);
 
 					scope.$watch('percent', function(newVal, oldVal) {
-						scope.pieChart.update(newVal);
+						pieChart.update(newVal);
 					});
 				}
 			};
@@ -134,13 +134,12 @@ var CanvasRenderer = function(el, options) {
 	var drawScale = function() {
 		var offset;
 		var length;
-		var max = 24;
 
 		ctx.lineWidth = 1;
 		ctx.fillStyle = options.scaleColor;
 
 		ctx.save();
-		for (var i = 24; max > 0; --i) {
+		for (var i = 24; i > 0; --i) {
 			if (i % 6 === 0) {
 				length = options.scaleLength;
 				offset = 0;
