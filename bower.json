@@ -8,11 +8,8 @@
     "demo",
     ".editorconfig"
   ],
-  "dependencies": {
-    "jquery": ">=1.6.4"
-  },
   "devDependencies": {
-    "angular": "~1.0.8",
-    "angular-mocks": "~1.0.8"
+    "angular": "~1.2.9",
+    "angular-mocks": "~1.2.9"
   }
 }
