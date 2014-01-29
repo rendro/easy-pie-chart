@@ -107,6 +107,20 @@ var CanvasRenderer = function(el, options) {
 		if(options.trackColor) drawCircle(options.trackColor, options.lineWidth, 1);
 	};
 
+  /**
+    * Canvas accessor
+   */
+  this.getCanvas = function() {
+    return canvas;
+  };
+  
+  /**
+    * Canvas 2D context 'ctx' accessor
+   */
+  this.getCtx = function() {
+    return ctx;
+  };
+
 	/**
 	 * Clear the complete canvas
 	 */
