@@ -9,15 +9,15 @@
 
 (function(root, factory) {
     if(typeof exports === 'object') {
-        module.exports = factory();
+        module.exports = factory(require('angular'));
     }
     else if(typeof define === 'function' && define.amd) {
-        define('EasyPieChart', [], factory);
+        define('angular-easypiechart', ['angular'], factory);
     }
     else {
-        factory(root.anuglar);
+        factory(root.angular);
     }
-}(this, function(anuglar) {
+}(this, function(angular) {
 (function (angular) {
 
 	'use strict';

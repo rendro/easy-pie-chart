@@ -1,14 +1,12 @@
-html {
+html,
+body {
   padding: 0;
   margin: 0;
 }
 body {
+  -webkit-font-smoothing: antialiased;
   text-align: center;
-  padding: 0;
-  margin: 0;
-  font: 18px / 1.4 'Arial', 'Helvetica', sans-serif;
-}
-body {
+  font: 18px / 1.4 'Helvetica', 'Arial', sans-serif;
   padding-top: 60px;
 }
 ul {
@@ -19,7 +17,7 @@ ul {
   margin: 0;
   padding: 0;
   height: 60px;
-  background: #2c3e50;
+  background: #cccccc;
   font-size: 0;
   line-height: 0;
   letter-spacing: -0.3em;
@@ -28,7 +26,7 @@ li {
   position: relative;
   display: inline-block;
   vertical-align: top;
-  width: 33.333333333333336%;
+  width: 25%;
   text-align: center;
   font-size: 18px;
   line-height: 60px;
@@ -36,17 +34,15 @@ li {
 }
 li a {
   display: block;
-  color: #ecf0f1;
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
 }
 li a:hover,
 li a.active {
-  background: #e67e22;
-  color: #2c3e50;
+  background: #333333;
+  color: #ffffff;
 }
 li a.active:after {
   content: '';
@@ -56,7 +52,7 @@ li a.active:after {
   margin-left: -10px;
   border: 10px solid;
   border-color: transparent;
-  border-top-color: #e67e22;
+  border-top-color: #333333;
 }
 .chart {
   position: relative;
@@ -98,19 +94,21 @@ input {
   width: 200px;
   margin: 0 auto;
   padding: 10px 20px;
-  background: #2c3e50;
-  color: #ecf0f1;
+  background: #cccccc;
+  color: #ffffff;
   text-transform: uppercase;
   cursor: pointer;
   font-size: 0.8em;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
 }
 .btn:hover {
-  background: #e67e22;
-  color: #2c3e50;
+  background: #333333;
+  color: #ffffff;
+}
+.span6 {
+  float: left;
+  width: 50%;
 }
 @media only screen and (max-width: 600px) {
   li {
@@ -118,6 +116,10 @@ input {
   }
 }
 @media only screen and (max-width: 430px) {
+  .span6 {
+    float: none;
+    width: 100%;
+  }
   body {
     padding-top: 0;
   }

@@ -12,10 +12,10 @@
         module.exports = factory();
     }
     else if(typeof define === 'function' && define.amd) {
-        define('EasyPieChart', [], factory);
+        define('easypiechart', [], factory);
     }
     else {
-        root['EasyPieChart'] = factory();
+        root['easypiechart'] = factory();
     }
 }(this, function() {
 /**
@@ -329,5 +329,5 @@ var EasyPieChart = function(el, opts) {
 	init();
 };
 
-    return EasyPieChart;
+    return easypiechart;
 }));

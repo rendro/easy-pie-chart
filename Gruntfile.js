@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
 		cfg: {
 			filename: 'easypiechart',
-			amdname: 'EasyPieChart'
+			amdname: 'easypiechart'
 		},
 
 		dirs: {
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 			jquery: {
 				src: '<%= dirs.tmp %>/jquery.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/jquery.<%= cfg.filename %>.js',
-				amdModuleId: '<%= cfg.amdname %>',
+				amdModuleId: 'jquery-<%= cfg.amdname %>',
 				deps: {
 					'default': ['$'],
 					amd: ['jquery'],
@@ -157,15 +157,15 @@ module.exports = function(grunt) {
 					global: ['jQuery']
 				}
 			},
-			anuglar: {
+			angular: {
 				src: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/angular.<%= cfg.filename %>.js',
-				amdModuleId: '<%= cfg.amdname %>',
+				amdModuleId: 'angular-<%= cfg.amdname %>',
 				deps: {
-					'default': ['anuglar'],
-					amd: [],
-					cjs: [],
-					global: ['anuglar']
+					'default': ['angular'],
+					amd: ['angular'],
+					cjs: ['angular'],
+					global: ['angular']
 				}
 			}
 		}
