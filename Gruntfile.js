@@ -85,6 +85,9 @@ module.exports = function(grunt) {
 		},
 
 		watch: {
+			gruntfile: {
+				files: ['Gruntfile.js']
+			},
 			scripts: {
 				files: '<%= dirs.src %>/**/*.js',
 				tasks: ['default'],
