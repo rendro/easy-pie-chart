@@ -9,20 +9,21 @@
 
 (function(root, factory) {
     if(typeof exports === 'object') {
-        module.exports = factory(require('anuglar'));
+        module.exports = factory();
     }
     else if(typeof define === 'function' && define.amd) {
-        define('EasyPieChart', ['anuglar'], factory);
+        define('EasyPieChart', [], factory);
     }
     else {
         factory(root.anuglar);
     }
 }(this, function(anuglar) {
-if (
-	typeof angular === 'object' &&
-	typeof angular.version === 'object'
-) {
-	angular.module('easypiechart', [])
+(function (angular) {
+
+	'use strict';
+
+	return angular.module('easypiechart', [])
+
 		.directive('easypiechart', [function() {
 			return {
 				restrict: 'A',
@@ -63,10 +64,8 @@ if (
 				}
 			};
 		}]);
-} else {
-	console.log('angular not detected.');
-}
 
+})(angular);
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)

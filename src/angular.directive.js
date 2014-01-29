@@ -1,8 +1,9 @@
-if (
-	typeof angular === 'object' &&
-	typeof angular.version === 'object'
-) {
-	angular.module('easypiechart', [])
+(function (angular) {
+
+	'use strict';
+
+	return angular.module('easypiechart', [])
+
 		.directive('easypiechart', [function() {
 			return {
 				restrict: 'A',
@@ -43,6 +44,5 @@ if (
 				}
 			};
 		}]);
-} else {
-	console.log('angular not detected.');
-}
+
+})(angular);

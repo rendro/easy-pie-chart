@@ -157,11 +157,11 @@ module.exports = function(grunt) {
 			anuglar: {
 				src: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/angular.<%= cfg.filename %>.js',
-				amdModuleId: 'EasyPieChart',
+				amdModuleId: '<%= cfg.amdname %>',
 				deps: {
 					'default': ['anuglar'],
-					amd: ['anuglar'],
-					cjs: ['anuglar'],
+					amd: [],
+					cjs: [],
 					global: ['anuglar']
 				}
 			}
