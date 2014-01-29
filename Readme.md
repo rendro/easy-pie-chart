@@ -216,6 +216,21 @@ chart.disableAnimation();
 chart.enableAnimation();
 ```
 
+###### Using a gradient
+
+```
+new EasyPieChart(element, {
+  barColor: function(percent) {
+    var ctx = this.renderer.ctx();
+    var canvas = this.renderer.canvas();
+    var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+        gradient.addColorStop(0, "#ffe57e");
+        gradient.addColorStop(1, "#de5900");
+    return gradient;
+  }
+});
+```
+
 #### AngularJS
 
 For a value binding you need to add the `percent` attribute and bind it to your controller.
