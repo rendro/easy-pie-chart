@@ -46,3 +46,7 @@ new EasyPieChart(element, {
 ### AngularJS
 
 For a value binding you need to add the `percent` attribute and bind it to your controller.
+
+### RequireJS
+
+When using [RequireJS](http://requirejs.org) you can define your own name. Examples can be found in the `demo/requirejs.html`.
