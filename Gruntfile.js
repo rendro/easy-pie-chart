@@ -5,8 +5,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		cfg: {
-			filename: 'easypiechart',
-			amdname: 'easypiechart'
+			filename: 'easypiechart'
 		},
 
 		dirs: {
@@ -143,13 +142,11 @@ module.exports = function(grunt) {
 				src: '<%= dirs.tmp %>/<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/<%= cfg.filename %>.js',
 				objectToExport: '<%= cfg.amdname %>',
-				amdModuleId: '<%= cfg.amdname %>',
 				globalAlias: '<%= cfg.amdname %>'
 			},
 			jquery: {
 				src: '<%= dirs.tmp %>/jquery.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/jquery.<%= cfg.filename %>.js',
-				amdModuleId: 'jquery-<%= cfg.amdname %>',
 				deps: {
 					'default': ['$'],
 					amd: ['jquery'],
@@ -160,7 +157,6 @@ module.exports = function(grunt) {
 			angular: {
 				src: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/angular.<%= cfg.filename %>.js',
-				amdModuleId: 'angular-<%= cfg.amdname %>',
 				deps: {
 					'default': ['angular'],
 					amd: ['angular'],
