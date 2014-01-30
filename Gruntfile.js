@@ -157,7 +157,6 @@ module.exports = function(grunt) {
 			angular: {
 				src: '<%= dirs.tmp %>/angular.<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/angular.<%= cfg.filename %>.js',
-				amdModuleId: 'angular-<%= cfg.amdname %>',
 				deps: {
 					'default': ['angular'],
 					amd: ['angular'],
