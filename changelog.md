@@ -1,5 +1,8 @@
 # Changlog
 
+## Version 2.1.4 - Feb 1, 2014
+* various updates and pull requests
+
 ## Version 2.1.3 - Dec 1, 2013
 * allow negative percent values with a reversed pie chart
 
