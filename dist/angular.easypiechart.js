@@ -4,7 +4,7 @@
  *
  * @license 
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.4
+ * @version 2.1.5
  **/
 
 (function(root, factory) {
@@ -18,6 +18,7 @@
         factory(root.angular);
     }
 }(this, function(angular) {
+
 (function (angular) {
 
 	'use strict';
@@ -390,5 +391,6 @@ var EasyPieChart = function(el, opts) {
 
 	init();
 };
+
 
 }));

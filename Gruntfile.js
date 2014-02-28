@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		cfg: {
-			filename: 'easypiechart'
+			filename: 'easypiechart',
+			vanillaExportName: 'EasyPieChart'
 		},
 
 		dirs: {
@@ -141,8 +142,8 @@ module.exports = function(grunt) {
 			vanilla: {
 				src: '<%= dirs.tmp %>/<%= cfg.filename %>.js',
 				dest: '<%= dirs.dest %>/<%= cfg.filename %>.js',
-				objectToExport: '<%= cfg.amdname %>',
-				globalAlias: '<%= cfg.amdname %>'
+				objectToExport: '<%= cfg.vanillaExportName %>',
+				globalAlias: '<%= cfg.vanillaExportName %>'
 			},
 			jquery: {
 				src: '<%= dirs.tmp %>/jquery.<%= cfg.filename %>.js',

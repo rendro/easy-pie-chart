@@ -4,7 +4,7 @@
  *
  * @license 
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.4
+ * @version 2.1.5
  **/
 
 (function(root, factory) {
@@ -15,9 +15,10 @@
         define([], factory);
     }
     else {
-        factory();
+        root['EasyPieChart'] = factory();
     }
 }(this, function() {
+
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
@@ -342,5 +343,8 @@ var EasyPieChart = function(el, opts) {
 
 	init();
 };
+
+
+return EasyPieChart;
 
 }));
