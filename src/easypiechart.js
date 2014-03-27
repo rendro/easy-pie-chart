@@ -103,6 +103,7 @@ var EasyPieChart = function(el, opts) {
 	this.update = function(newValue) {
 		newValue = parseFloat(newValue);
 		if (options.animate.enabled) {
+			options.animate.stopped = false;
 			this.renderer.animate(currentValue, newValue);
 		} else {
 			this.renderer.draw(newValue);
@@ -126,6 +127,26 @@ var EasyPieChart = function(el, opts) {
 	 */
 	this.enableAnimation = function() {
 		options.animate.enabled = true;
+		return this;
+	};
+
+	/**
+	 * Stop animation
+	 * @return {object} Instance of the plugin for method chaining
+	 */
+	this.stop = function () {
+		this.renderer.stop();
+		currentValue = options.value;
+		return this;
+	};
+
+	/**
+	 * Update options
+	 * @param newOptions
+	 * @returns {EasyPieChart}
+	 */
+	this.setOptions = function (newOptions) {
+		$.extend(true, options, newOptions);
 		return this;
 	};
 
