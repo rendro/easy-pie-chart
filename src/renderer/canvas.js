@@ -163,6 +163,10 @@ var CanvasRenderer = function(el, options) {
 
 		// draw bar
 		drawCircle(color, options.lineWidth, percent / 100);
+
+		// store value
+		options.value = percent;
+
 	}.bind(this);
 
 	/**
@@ -178,7 +182,7 @@ var CanvasRenderer = function(el, options) {
 			var currentValue = options.easing(this, process, from, to - from, options.animate.duration);
 			this.draw(currentValue);
 			options.onStep(from, to, currentValue);
-			if (process >= options.animate.duration) {
+			if (options.animate.stopped || process >= options.animate.duration) {
 				options.onStop(from, to);
 			} else {
 				reqAnimationFrame(animation);
@@ -187,4 +191,11 @@ var CanvasRenderer = function(el, options) {
 
 		reqAnimationFrame(animation);
 	}.bind(this);
+
+	/**
+	 * Stop animation
+	 */
+	this.stop = function () {
+		options.animate.stopped = true;
+	};
 };
