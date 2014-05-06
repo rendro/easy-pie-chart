@@ -2,7 +2,7 @@
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
 
-![Version](http://img.shields.io/version/2.1.5.png?color=green) 
+![Version](http://img.shields.io/version/2.1.5.png?color=green)
 [![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
 [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 [![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
@@ -218,7 +218,7 @@ chart.enableAnimation();
 
 ###### Using a gradient
 
-```
+```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
     var ctx = this.renderer.ctx();
@@ -238,6 +238,7 @@ For a value binding you need to add the `percent` attribute and bind it to your 
 #### RequireJS
 
 When using [RequireJS](http://requirejs.org) you can define your own name. Examples can be found in the `demo/requirejs.html`.
+
 
 
 ## Browser Support

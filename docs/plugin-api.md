@@ -30,7 +30,7 @@ chart.enableAnimation();
 
 ##### Using a gradient
 
-```
+```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
     var ctx = this.renderer.ctx();
