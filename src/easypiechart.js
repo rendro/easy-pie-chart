@@ -6,6 +6,7 @@ var EasyPieChart = function(el, opts) {
 		scaleLength: 5,
 		lineCap: 'round',
 		lineWidth: 3,
+		trackWidth: undefined,
 		size: 110,
 		rotate: 0,
 		animate: {
