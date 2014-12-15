@@ -4,7 +4,7 @@
  *
  * @license 
  * @author Robert Fleischmann <rendro87@gmail.com> (http://robert-fleischmann.de)
- * @version 2.1.5
+ * @version 2.1.6
  **/
 
 (function(root, factory) {
