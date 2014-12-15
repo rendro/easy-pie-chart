@@ -1,5 +1,8 @@
 # Changlog
 
+## Version 2.1.6 - Dec 15, 2014
+* Added option for track width
+
 ## Version 2.1.5 - Feb 28, 2014
 * Fixed build error for minified vanilla version
 

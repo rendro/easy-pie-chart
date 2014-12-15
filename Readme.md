@@ -118,6 +118,11 @@ You can pass these options to the initialize function to set a custom look and f
         <td>The color of the track, or false to disable rendering.</td>
     </tr>
     <tr>
+        <td><strong>trackWidth</strong></td>
+        <td>undefined</td>
+        <td>Falls back to lineWidth if not provided.</td>
+    </tr>
+    <tr>
         <td><strong>scaleColor</strong></td>
         <td>#dfe0e0</td>
         <td>The color of the scale lines, false to disable rendering.</td>
