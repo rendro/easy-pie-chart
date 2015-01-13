@@ -6,7 +6,7 @@
 
 		.directive('easypiechart', [function() {
 			return {
-				restrict: 'A',
+				restrict: 'AE',
 				require: '?ngModel',
 				scope: {
 					percent: '=',
