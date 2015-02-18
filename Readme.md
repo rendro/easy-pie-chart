@@ -1,3 +1,5 @@
+> Modified version that add the option to set the total value. So you can build pies with any units. (days, hours, %,...)
+
 # easyPieChart
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
