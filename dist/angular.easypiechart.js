@@ -27,7 +27,7 @@
 
 		.directive('easypiechart', [function() {
 			return {
-				restrict: 'A',
+				restrict: 'AE',
 				require: '?ngModel',
 				scope: {
 					percent: '=',
@@ -67,6 +67,7 @@
 		}]);
 
 })(angular);
+
 /**
  * Renderer to render the chart on a canvas object
  * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
@@ -314,7 +315,7 @@ var EasyPieChart = function(el, opts) {
 		for (var i in defaultOptions) {
 			if (defaultOptions.hasOwnProperty(i)) {
 				options[i] = opts && typeof(opts[i]) !== 'undefined' ? opts[i] : defaultOptions[i];
-				if (typeof(options[i]) === 'function') {
+				if (typeof(options[i]) === 'function' && i !== 'renderer') {
 					options[i] = options[i].bind(this);
 				}
 			}
