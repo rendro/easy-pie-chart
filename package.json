@@ -47,6 +47,8 @@
     "grunt-umd": "~1.7.3",
     "requirejs": "~2.1.10",
     "grunt-readme": "~0.4.5",
-    "load-grunt-tasks": "~0.4.0"
+    "load-grunt-tasks": "~0.4.0",
+    "grunt-exec": "^0.4.6",
+    "spacejam": "^1.1.1"
   }
 }

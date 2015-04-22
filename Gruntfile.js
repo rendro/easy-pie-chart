@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
 	grunt.initConfig({
 
@@ -20,7 +20,8 @@ module.exports = function(grunt) {
 
 		clean: {
 			all: ['<%= dirs.dest %>/', '<%= dirs.tmp %>/'],
-			tmp: ['<%= dirs.tmp %>/']
+			tmp: ['<%= dirs.tmp %>/'],
+			meteor: ['.build.*', 'versions.json']
 		},
 
 		concat: {
@@ -53,13 +54,13 @@ module.exports = function(grunt) {
 			options: {
 				position: 'top',
 				banner: '/**!\n' +
-						' * <%= pkg.name %>\n' +
-						' * <%= pkg.description %>\n' +
-						' *\n' +
-						' * @license <%= pkg.license %>\n'+
-						' * @author <%= pkg.author.name %> <<%= pkg.author.email %>> (<%= pkg.author.url %>)\n' +
-						' * @version <%= pkg.version %>\n' +
-						' **/\n'
+					' * <%= pkg.name %>\n' +
+					' * <%= pkg.description %>\n' +
+					' *\n' +
+					' * @license <%= pkg.license %>\n' +
+					' * @author <%= pkg.author.name %> <<%= pkg.author.email %>> (<%= pkg.author.url %>)\n' +
+					' * @version <%= pkg.version %>\n' +
+					' **/\n'
 			},
 			files: {
 				src: [
@@ -165,11 +166,23 @@ module.exports = function(grunt) {
 					global: ['angular']
 				}
 			}
+		},
+
+		exec: {
+			'meteor-init': {
+				command: [
+          'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }'
+        ].join(';')
+			},
+			'meteor-publish': {
+				command: 'meteor publish'
+			}
 		}
 	});
 
 	// load all installed grunt tasks
 	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks('grunt-exec');
 
 	// task defiinitions
 	grunt.registerTask('default', [
@@ -185,4 +198,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('test', ['karma:unit']);
 	grunt.registerTask('all', ['default', 'less']);
+	grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
+	grunt.registerTask('meteor', ['exec:meteor-init', 'exec:meteor-publish', 'exec:meteor-cleanup']);
 };
