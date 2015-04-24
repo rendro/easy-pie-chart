@@ -9,7 +9,7 @@ var CanvasRenderer = function(el, options) {
 
 	el.appendChild(canvas);
 
-	if (typeof(G_vmlCanvasManager) !== 'undefined') {
+	if (typeof(G_vmlCanvasManager) == 'object') {
 		G_vmlCanvasManager.initElement(canvas);
 	}
 
