@@ -183,7 +183,7 @@ var CanvasRenderer = function(el, options) {
 		}
 
 		// draw bar
-		drawCircle(color, options.lineWidth, percent / 100);
+		drawCircle(color, options.lineWidth, percent / options.total);
 	}.bind(this);
 
 	/**
@@ -212,6 +212,7 @@ var CanvasRenderer = function(el, options) {
 
 var EasyPieChart = function(el, opts) {
 	var defaultOptions = {
+		total: 100,
 		barColor: '#ef1e25',
 		trackColor: '#f9f9f9',
 		scaleColor: '#dfe0e0',
