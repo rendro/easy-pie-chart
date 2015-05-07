@@ -1,6 +1,13 @@
 {
   "name": "easyPieChart",
   "description": "Lightweight plugin to render simple, animated and retina optimized pie charts",
+  "keywords": [
+    "pie chart",
+    "chart",
+    "circular progress",
+    "precent",
+    "progress bar"
+  ],
   "licenses": [
     {
       "type": "MIT",
@@ -18,6 +25,10 @@
     "email": "rendro87@gmail.com",
     "url": "http://robert-fleischmann.de"
   },
+  "contributors": [{
+    "name": "Moritz",
+    "url": "https://github.com/mrzmyr"
+  }],
   "scripts": {
     "test": "grunt karma:ci"
   },
