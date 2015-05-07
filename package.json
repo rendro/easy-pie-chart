@@ -19,7 +19,7 @@
     }
   ],
   "version": "2.1.6",
-  "main": "dist/jquery.easypiechart.js",
+  "main": "dist/easypiechart.js",
   "author": {
     "name": "Robert Fleischmann",
     "email": "rendro87@gmail.com",
