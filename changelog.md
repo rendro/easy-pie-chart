@@ -1,5 +1,8 @@
 # Changlog
 
+## Version 2.1.7 - May 8, 2015
+* Check type of G_vmlCanvasManager. #138
+
 ## Version 2.1.6 - Dec 15, 2014
 * Added option for track width
 

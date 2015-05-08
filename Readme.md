@@ -1,8 +1,8 @@
-# easyPieChart
+# easy-pie-chart
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
 
-![Version](http://img.shields.io/version/2.1.6.png?color=green)
+![Version](http://img.shields.io/version/2.1.7.png?color=green)
 [![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
 [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 [![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
@@ -116,11 +116,6 @@ You can pass these options to the initialize function to set a custom look and f
         <td><strong>trackColor</strong></td>
         <td>#f2f2f2</td>
         <td>The color of the track, or false to disable rendering.</td>
-    </tr>
-    <tr>
-        <td><strong>trackWidth</strong></td>
-        <td>undefined</td>
-        <td>Falls back to lineWidth if not provided.</td>
     </tr>
     <tr>
         <td><strong>scaleColor</strong></td>
@@ -270,4 +265,4 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Copyright
-Copyright (c) 2014 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
