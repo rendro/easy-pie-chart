@@ -143,7 +143,7 @@ var CanvasRenderer = function(el, options) {
 	 * @param {number} percent Percent shown by the chart between -100 and 100
 	 */
 	this.draw = function(percent) {
-		// do we need to render a background
+		// do we need to render extras
 		if (!!options.scaleColor || !!options.trackColor || !!options.backgroundColor) {
 			// getImageData and putImageData are supported
 			if (ctx.getImageData && ctx.putImageData) {
