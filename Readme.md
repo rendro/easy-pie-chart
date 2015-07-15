@@ -2,7 +2,7 @@
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
 
-![Version](http://img.shields.io/version/2.1.7.png?color=green)
+![Version](http://img.shields.io/version/2.2.0.png?color=green)
 [![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
 [![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
 [![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
@@ -110,7 +110,12 @@ You can pass these options to the initialize function to set a custom look and f
     <tr>
         <td><strong>barColor</strong></td>
         <td>#ef1e25</td>
-        <td>The color of the curcular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
+        <td>The color of the circular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
+    </tr>
+    <tr>
+        <td><strong>backgroundColor</strong></td>
+        <td>false</td>
+        <td>The background color of the circular bar, or false to disable rendering.</td>
     </tr>
     <tr>
         <td><strong>trackColor</strong></td>

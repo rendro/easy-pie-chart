@@ -1,4 +1,8 @@
-# Changlog
+# Changelog
+
+## Version 2.2.0 - July 15, 2015
+* Added option for chart background color
+* Some refactoring and typo fixes
 
 ## Version 2.1.7 - May 8, 2015
 * Check type of G_vmlCanvasManager. #138
