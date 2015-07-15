@@ -12,11 +12,11 @@
 ## Features
 [![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
 
-* highly customizable
-* very easy to implement
-* resolution independent (retina optimized)
-* uses `requestAnimationFrame` for smooth animations on modern devices and
-* works in all modern browsers, even in IE7+ with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions)
+* Highly customizable
+* Very easy to implement
+* Resolution independent (retina optimized)
+* Uses `requestAnimationFrame` for smooth animations on modern devices and
+* Works in all modern browsers, even in IE7+ with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions)
 
 #### framework support
 
@@ -180,7 +180,7 @@ All callbacks will only be called if `animate` is not `false`.
     </tr>
     <tr>
         <td><strong>onStep(from, to, currentValue)</strong></td>
-        <td>Is called during animations providing the current value (the method is scoped to the context of th eplugin, so you can access the DOM element via <code>this.el</code>).</td>
+        <td>Is called during animations providing the current value (the method is scoped to the context of the plugin, so you can access the DOM element via <code>this.el</code>).</td>
     </tr>
     <tr>
         <td><strong>onStop(from, to)</strong></td>

@@ -47,14 +47,14 @@ var CanvasRenderer = function(el, options) {
 	 * @param {strong} barColor        Valid CSS color string for bar
 	 * @param {strong} backgroundColor Valid CSS color string for background
 	 * @param {number} lineWidth       Width of the line in pixels
-	 * @param {number} percent         Percentage to draw (float between -1 and 1)
+	 * @param {number} percent         Percentage to draw
 	 */
 	 var drawCircle = function(barColor, backgroundColor, lineWidth, percent) {
-		 percent = Math.min(Math.max(-1, percent || 0), 1);
-		 var isNegative = percent <= 0 ? true : false;
+		 decimal = Math.min(Math.max(-1, percent/100 || 0), 1);
+		 var isNegative = decimal <= 0 ? true : false;
 
 		 ctx.beginPath();
-		 ctx.arc(0, 0, radius, 0, Math.PI * 2 * percent, isNegative);
+		 ctx.arc(0, 0, radius, 0, Math.PI * 2 * decimal, isNegative);
 
 		 if (backgroundColor) {
 			 ctx.fillStyle = backgroundColor;
@@ -109,12 +109,12 @@ var CanvasRenderer = function(el, options) {
 	}());
 
 	/**
-	 * Draw the extras of the plugin, including the scale, track and background
+	 * Draw the extras of the plugin, including the background, scale and track
 	 */
 	var drawExtras = function() {
+		if(options.backgroundColor) drawCircle(options.backgroundColor, options.backgroundColor, options.trackWidth || options.lineWidth, 100);
 		if(options.scaleColor) drawScale();
-		if(options.trackColor) drawCircle(options.trackColor, false, options.trackWidth || options.lineWidth, 1);
-		if(options.backgroundColor) drawCircle(options.backgroundColor, options.backgroundColor, options.trackWidth || options.lineWidth, 1);
+		if(options.trackColor) drawCircle(options.trackColor, false, options.trackWidth || options.lineWidth, 100);
 	};
 
   /**
@@ -172,7 +172,7 @@ var CanvasRenderer = function(el, options) {
 		}
 
 		// draw bar
-		drawCircle(color, options.backgroundColor, options.lineWidth, percent / 100);
+		drawCircle(color, false, options.lineWidth, percent);
 	}.bind(this);
 
 	/**

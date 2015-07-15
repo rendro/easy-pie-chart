@@ -11,7 +11,7 @@ All callbacks will only be called if `animate` is not `false`.
     </tr>
     <tr>
         <td><strong>onStep(from, to, currentValue)</strong></td>
-        <td>Is called during animations providing the current value (the method is scoped to the context of th eplugin, so you can access the DOM element via <code>this.el</code>).</td>
+        <td>Is called during animations providing the current value (the method is scoped to the context of the plugin, so you can access the DOM element via <code>this.el</code>).</td>
     </tr>
     <tr>
         <td><strong>onStop(from, to)</strong></td>

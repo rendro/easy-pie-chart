@@ -9,7 +9,12 @@ You can pass these options to the initialize function to set a custom look and f
     <tr>
         <td><strong>barColor</strong></td>
         <td>#ef1e25</td>
-        <td>The color of the curcular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
+        <td>The color of the circular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
+    </tr>
+    <tr>
+        <td><strong>backgroundColor</strong></td>
+        <td>false</td>
+        <td>The background color of the circular bar, or false to disable rendering.</td>
     </tr>
     <tr>
         <td><strong>trackColor</strong></td>
