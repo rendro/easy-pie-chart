@@ -221,8 +221,8 @@ chart.enableAnimation();
 ```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
-    var ctx = this.renderer.ctx();
-    var canvas = this.renderer.canvas();
+    var ctx = this.renderer.getCtx();
+    var canvas = this.renderer.getCanvas();
     var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
         gradient.addColorStop(0, "#ffe57e");
         gradient.addColorStop(1, "#de5900");
