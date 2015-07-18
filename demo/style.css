@@ -21,12 +21,14 @@ ul {
   font-size: 0;
   line-height: 0;
   letter-spacing: -0.3em;
+  width:100%; 
+  display: table;
 }
 li {
   position: relative;
-  display: inline-block;
+  display: table-cell;
   vertical-align: top;
-  width: 25%;
+  
   text-align: center;
   font-size: 18px;
   line-height: 60px;

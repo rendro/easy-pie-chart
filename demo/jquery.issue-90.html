@@ -5,13 +5,18 @@
 	<title>jQuery</title>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" href="style.css"/>
+	<style>
+		body{
+			background: green;
+		}
+	</style>
 </head>
 <body>
 
 	<ul>
 		<li><a href="index.html">Vanilla JS</a></li>
-		<li><a href="jquery.html" class="active">jQuery plugin</a></li>
-		<li><a href="jquery.issue-90.html">jQuery issue #90 plugin</a></li>
+		<li><a href="jquery.html">jQuery plugin</a></li>
+		<li><a href="jquery.issue-90.html" class="active">jQuery issue #90 plugin</a></li>
 		<li><a href="angular.html">Angular module</a></li>
 		<li><a href="requirejs.html">RequireJS module</a></li>
 	</ul>
@@ -24,7 +29,7 @@
 
 	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="../dist/jquery.easypiechart.min.js"></script>
+	<script src="../dist/jquery.easypiechart.issue-90.js"></script>
 	<script>
 	$(function() {
 		$('.chart').easyPieChart({
