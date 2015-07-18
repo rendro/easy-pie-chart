@@ -97,12 +97,16 @@ var EasyPieChart = function(el, opts) {
 	}.bind(this);
 
 	/**
-	 * Update the value of the chart
+	 * Update the chart value and options
 	 * @param  {number} newValue Number between 0 and 100
+	 * @param  {newOptions} newOptions chart options
 	 * @return {object}          Instance of the plugin for method chaining
 	 */
-	this.update = function(newValue) {
-		newValue = parseFloat(newValue);
+	this.update = function(newValue, newOptions) {
+	    newValue = parseFloat(newValue);
+	    
+	    this.setOptions(newOptions);
+
 		if (options.animate.enabled) {
 			this.renderer.animate(currentValue, newValue);
 		} else {
@@ -112,7 +116,16 @@ var EasyPieChart = function(el, opts) {
 		return this;
 	}.bind(this);
 
-	/**
+        /**
+	 * Update options
+	 * @param newOptions
+	 * @returns {EasyPieChart}
+	 */
+	this.setOptions = function (newOptions) {
+	   		$.extend(true, options, newOptions);
+	    		return this;
+	    	};	
+	 /**
 	 * Disable animation
 	 * @return {object} Instance of the plugin for method chaining
 	 */
