@@ -29,10 +29,16 @@
 ## Get started
 #### Installation
 
-You can also use [bower](http://bower.io) to install the component:
+You can use [bower](http://bower.io) to install the component
 
 ```
 $ bower install jquery.easy-pie-chart
+```
+
+or [npm](https://www.npmjs.com)
+
+```
+$ npm install easy-pie-chart
 ```
 
 #### jQuery
