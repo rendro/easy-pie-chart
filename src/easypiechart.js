@@ -9,6 +9,7 @@ var EasyPieChart = function(el, opts) {
 		trackWidth: undefined,
 		size: 110,
 		rotate: 0,
+                currentValue: 0,
 		animate: {
 			duration: 1000,
 			enabled: true
@@ -59,6 +60,8 @@ var EasyPieChart = function(el, opts) {
 				}
 			}
 		}
+
+                currentValue = parseFloat(options.currentValue);
 
 		// check for jQuery easing
 		if (typeof(options.easing) === 'string' && typeof(jQuery) !== 'undefined' && jQuery.isFunction(jQuery.easing[options.easing])) {
