@@ -53,7 +53,7 @@ var EasyPieChart = function(el, opts) {
 		// merge user options into default options
 		for (var i in defaultOptions) {
 			if (defaultOptions.hasOwnProperty(i)) {
-				options[i] = opts && typeof(opts[i]) !== 'undefined' ? opts[i] : defaultOptions[i];
+				options[i] = opts && typeof(opts[i]) !== 'undefined' ? opts[i] : (el.dataset.hasOwnProperty(i.toLowerCase()) ? el.dataset[i.toLowerCase()] : defaultOptions[i]);
 				if (typeof(options[i]) === 'function') {
 					options[i] = options[i].bind(this);
 				}
