@@ -103,6 +103,9 @@ var EasyPieChart = function(el, opts) {
 	 */
 	this.update = function(newValue) {
 		newValue = parseFloat(newValue);
+		if (isNaN(newValue)) {
+			newValue = 0;
+		}
 		if (options.animate.enabled) {
 			this.renderer.animate(currentValue, newValue);
 		} else {
