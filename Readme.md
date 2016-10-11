@@ -221,8 +221,8 @@ chart.enableAnimation();
 ```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
-    var ctx = this.renderer.getCtx();
-    var canvas = this.renderer.getCanvas();
+    var ctx = this.renderer.ctx();
+    var canvas = this.renderer.canvas();
     var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
         gradient.addColorStop(0, "#ffe57e");
         gradient.addColorStop(1, "#de5900");
@@ -265,4 +265,4 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Copyright
-Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+Copyright (c) 2016 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
