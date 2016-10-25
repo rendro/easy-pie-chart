@@ -4,6 +4,8 @@ var EasyPieChart = function(el, opts) {
 		trackColor: '#f9f9f9',
 		scaleColor: '#dfe0e0',
 		scaleLength: 5,
+		scaleDensity: 24,
+		scaleBugle: 0.6,
 		lineCap: 'round',
 		lineWidth: 3,
 		trackWidth: undefined,
