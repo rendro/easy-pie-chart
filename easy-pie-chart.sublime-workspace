@@ -1,0 +1,1195 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"scaleB",
+				"scaleBulge\t(canvas.js)"
+			],
+			[
+				"url",
+				"urlpath"
+			],
+			[
+				"prox",
+				"proxyOptions"
+			],
+			[
+				"rote",
+				"routers"
+			],
+			[
+				"fo",
+				"forEach\tMeteor: cursor.forEach(callback)"
+			],
+			[
+				"expo",
+				"export\t(index.js)"
+			],
+			[
+				"sc",
+				"scripts"
+			],
+			[
+				"jque",
+				"jquery"
+			],
+			[
+				"out",
+				"outputFile"
+			],
+			[
+				"we",
+				"webpack"
+			],
+			[
+				"build",
+				"build/"
+			],
+			[
+				"char",
+				"chartOptions"
+			],
+			[
+				"defa",
+				"defaults"
+			],
+			[
+				"pie",
+				"pie-chart\t(PieChat.vue)"
+			],
+			[
+				"material",
+				"material.min.js\t(package.json)"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"foma",
+				"formatter"
+			],
+			[
+				"layout",
+				"layout-pages"
+			],
+			[
+				"curr",
+				"curr"
+			],
+			[
+				"type",
+				"typeof"
+			],
+			[
+				"cur",
+				"curr"
+			],
+			[
+				"page",
+				"pageLoader\t(pageloader.js)"
+			],
+			[
+				"Page",
+				"Pageloader"
+			],
+			[
+				"que",
+				"queryParams"
+			],
+			[
+				"par",
+				"params"
+			],
+			[
+				"fil",
+				"filters"
+			],
+			[
+				"ser",
+				"serialize\t(dialog.js)"
+			],
+			[
+				"pars",
+				"parsed"
+			],
+			[
+				"pa",
+				"params"
+			],
+			[
+				"para",
+				"params"
+			],
+			[
+				"me",
+				"method"
+			],
+			[
+				"reg",
+				"regExp"
+			],
+			[
+				"pre",
+				"preventDefault"
+			],
+			[
+				"disa",
+				"disableMultiTools"
+			],
+			[
+				"gene",
+				"generatorApartMenu"
+			],
+			[
+				"new",
+				"newLeft"
+			],
+			[
+				"mou",
+				"mousedown\t(dialog.js)"
+			],
+			[
+				"tra",
+				"transition"
+			],
+			[
+				"bl",
+				"block"
+			],
+			[
+				"text-",
+				"text-overflow"
+			],
+			[
+				"over",
+				"overflow"
+			],
+			[
+				"word",
+				"word-break"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"white",
+				"white-space\t(dataTables.bootstrap.css)"
+			],
+			[
+				"sty",
+				"style"
+			],
+			[
+				"no",
+				"nowrap"
+			],
+			[
+				"whi",
+				"white-space"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"get",
+				"getModal"
+			],
+			[
+				"Boot",
+				"BootstrapDialog"
+			],
+			[
+				"layou",
+				"layout-pages\t(layout.html)"
+			],
+			[
+				"css",
+				"cssClass"
+			],
+			[
+				"quer",
+				"queryParams"
+			],
+			[
+				"row",
+				"rowid"
+			],
+			[
+				"getR",
+				"getDataByRowId"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"list",
+				"listLength"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"conte",
+				"container"
+			],
+			[
+				"dele",
+				"deleteUrl"
+			],
+			[
+				"edit",
+				"editable"
+			],
+			[
+				"check",
+				"checkbox"
+			],
+			[
+				"che",
+				"checkbox"
+			],
+			[
+				"sta",
+				"status"
+			],
+			[
+				"status",
+				"statusContainer\t(jquery.pagination.js)"
+			],
+			[
+				"eve",
+				"event"
+			],
+			[
+				"load",
+				"loadData"
+			],
+			[
+				"pag",
+				"pagination"
+			],
+			[
+				"param",
+				"paramKeys"
+			],
+			[
+				"old",
+				"oldCurrPage"
+			],
+			[
+				"call",
+				"callbacks"
+			],
+			[
+				"inser",
+				"insertLayout"
+			],
+			[
+				"prev",
+				"prevPage"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"total",
+				"totalNum"
+			],
+			[
+				"te",
+				"textStatus"
+			],
+			[
+				"li",
+				"limit2"
+			],
+			[
+				"option",
+				"options"
+			],
+			[
+				"limi",
+				"limit1"
+			],
+			[
+				"ins",
+				"instance"
+			],
+			[
+				"gri",
+				"grid_1_pg"
+			],
+			[
+				"con",
+				"container"
+			],
+			[
+				"ignor",
+				"ignoring_files"
+			],
+			[
+				"th",
+				"thumbs\t(语义化版本2-0-0.md)"
+			],
+			[
+				"thu",
+				"thumbnail\t(语义化版本2-0-0.md)"
+			],
+			[
+				"thum",
+				"thumbs\t(九月的村庄.md)"
+			],
+			[
+				"met",
+				"metro1.jpg"
+			],
+			[
+				"im",
+				"imgs"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"str",
+				"stringify\tMeteor: EJSON.stringify(val)"
+			],
+			[
+				"back",
+				"backgroung-size"
+			],
+			[
+				"ex",
+				"existsSync"
+			],
+			[
+				"down",
+				"downloadImg"
+			],
+			[
+				"mat",
+				"matchImgs"
+			],
+			[
+				"com",
+				"completeDomain"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"p",
+				"padding"
+			],
+			[
+				"border-sty",
+				"border-style"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"test",
+				"testHeightTicket"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"z",
+				"z-index"
+			],
+			[
+				"re",
+				"relative"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"pro",
+				"property"
+			],
+			[
+				"do",
+				"document"
+			],
+			[
+				"P",
+				"Projects/"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/renderer/canvas.js",
+			"settings":
+			{
+				"buffer_size": 5105,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "docs/get-started.md",
+			"settings":
+			{
+				"buffer_size": 2101,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/easypiechart.js",
+			"settings":
+			{
+				"buffer_size": 3337,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "ip",
+		"selected_items":
+		[
+			[
+				"ip",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 601.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/colin/Projects/github/easy-pie-chart",
+		"/Users/colin/Projects/github/easy-pie-chart/docs",
+		"/Users/colin/Projects/github/easy-pie-chart/src",
+		"/Users/colin/Projects/github/easy-pie-chart/src/renderer"
+	],
+	"file_history":
+	[
+		"/Users/colin/Projects/github/easy-pie-chart/docs/options.md",
+		"/Users/colin/Projects/github/easy-pie-chart/Readme.md",
+		"/Users/colin/yidou/yidou-webapp/node_modules/easy-pie-chart/dist/easypiechart.back.js",
+		"/Users/colin/yidou/yidou-webapp/src/styles.js",
+		"/Users/colin/yidou/yidou-webapp/dist/styles.js",
+		"/Users/colin/yidou/yidou-webapp/dist/views/home2.html",
+		"/Users/colin/yidou/yidou-webapp/build/webpack.config.js",
+		"/Users/colin/yidou/yidou-webapp/src/views/home.html",
+		"/Users/colin/yidou/yidou-webapp/.eslintrc",
+		"/Users/colin/yidou/yidou-webapp/.editorconfig",
+		"/Users/colin/yidou/yidou-webapp/dist/index.html",
+		"/Users/colin/yidou/yidou-webapp/dist/index-1.html",
+		"/Users/colin/yidou/yidou-webapp/dist/views/home.html",
+		"/Users/colin/yidou/yidou-webapp/package.json",
+		"/Users/colin/yidou/yidou-webapp/src/index.js",
+		"/Users/colin/yidou/yidou-webapp/src/scripts/jquery-export.js",
+		"/Users/colin/yidou/yidou-webapp/.babelrc",
+		"/Users/colin/yidou/yidou-webapp/build/webpack.config.dev.js",
+		"/Users/colin/Projects/music-beauty/package.json",
+		"/Users/colin/Projects/music-beauty/app/src/scripts/components/image-search/baidu-image.jsx",
+		"/Users/colin/Projects/music-beauty/app/src/scripts/components/image-engine/baidu-image.jsx",
+		"/Users/colin/yidou/webapp-react/webpack.base.conf.js",
+		"/Users/colin/yidou/yidou-webapp/src/assets/css/material-theme.min.css",
+		"/Users/colin/yidou/yidou-webapp/build/webpack.base.conf.js",
+		"/Users/colin/yidou/yidou-webapp/src/App.vue",
+		"/Users/colin/yidou/yidou-webapp/index.html",
+		"/Users/colin/yidou/yidou-webapp/build/webpack.dev.conf.js",
+		"/Users/colin/yidou/yidou-webapp/build/webpack.prod.conf.js",
+		"/Users/colin/yidou/yidou-webapp/src/components/Dropdown.vue",
+		"/Users/colin/yidou/yidou-webapp/src/components/Hello.vue",
+		"/Users/colin/yidou/yidou-webapp/src/views/Home/index.vue",
+		"/Users/colin/yidou/yidou-webapp/src/views/Home/Jumbotron.vue",
+		"/Users/colin/yidou/backstage/.gitignore",
+		"/Users/colin/yidou/backstage/dist/css/AdminLTE.min.css",
+		"/Users/colin/yidou/backstage/dist/css/AdminLTE.css",
+		"/Users/colin/yidou/backstage/plugins/dialog/bootstrap-dialog.js",
+		"/Users/colin/yidou/backstage/plugins/dialog/bootstrap-dialog.min.js",
+		"/Users/colin/yidou/backstage/plugins/dialog/bootstrap-dialog.css",
+		"/Users/colin/yidou/backstage/plugins/dialog/bootstrap-dialog.min.css",
+		"/Users/colin/yidou/backstage/plugins/dialog/jquery.dialog.js",
+		"/Users/colin/yidou/backstage/index.html",
+		"/Users/colin/yidou/backstage/layout.html",
+		"/Users/colin/yidou/backstage/Gruntfile.js",
+		"/Users/colin/Projects/blog/themes/xhueman/source/css/style.styl",
+		"/Users/colin/Projects/blog/themes/xhueman/source/css/_partial/header.styl",
+		"/Users/colin/Projects/github/hexo-qiniu-sync/README.md",
+		"/Users/colin/Projects/github/hexo-qiniu-sync/.gitignore",
+		"/Users/colin/Projects/blog/package.json",
+		"/Users/colin/Projects/blog/scaffolds/post.md",
+		"/Users/colin/Projects/blog/scaffolds/page.md",
+		"/Users/colin/Projects/blog/scaffolds/draft.md",
+		"/Users/colin/Projects/blog/scaffolds/photo.md",
+		"/Users/colin/Projects/blog/_config.yml",
+		"/Users/colin/Projects/blog/themes/hueman/_config.yml",
+		"/Users/colin/.qiniu",
+		"/Users/colin/Projects/blog/source/_posts/彻底放弃node-sass改用Ruby-Sass.md",
+		"/Users/colin/Projects/blog/source/_posts/Sass.md",
+		"/Users/colin/Projects/blog/source/_posts/列车.md",
+		"/Users/colin/Projects/blog/source/_posts/魔都沦陷.md",
+		"/Users/colin/Projects/blog/source/_posts/网站-Blog支持Gravatar.md",
+		"/Users/colin/Projects/blog/source/_posts/实现修改Actionscript文件后不必重新发布swf.md",
+		"/Users/colin/Projects/blog/source/_posts/语义化版本2-0-0.md",
+		"/Users/colin/Projects/blog/source/_posts/UIDesigner-3-0架构设计总结.md",
+		"/Users/colin/Projects/blog/source/_posts/潇湘大地.md",
+		"/Users/colin/Projects/blog/source/_posts/感谢有你.md",
+		"/Users/colin/Projects/blog/source/_posts/天地荒老.md",
+		"/Users/colin/Projects/blog/source/_posts/夏夜.md",
+		"/Users/colin/Projects/blog/source/_posts/地铁.md",
+		"/Users/colin/Projects/blog/source/_posts/一半.md",
+		"/Users/colin/Library/Application Support/Sublime Text 3/Packages/AutoFileName/autofilename.sublime-settings",
+		"/Users/colin/Projects/blog/source/_posts/移动Web实现摇一摇.md",
+		"/Users/colin/Projects/blog/source/_posts/九月的村庄.md",
+		"/Users/colin/Projects/blog/source/_posts/晚归.md",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/package.json",
+		"/Users/colin/Projects/blog/themes/hueman/languages/zh-CN.yml",
+		"/Users/colin/Projects/blog/source/_posts/廣州日報第6屆【港澳優質誠信商號】推選活動.md",
+		"/Users/colin/Projects/blog/source/_posts/恒江网站.md",
+		"/Users/colin/Projects/blog/source/_posts/档案管理系统-景鸿移民顾问有限公司.md",
+		"/Users/colin/Projects/blog/source/_posts/环球医生门诊系统及门户网站.md",
+		"/Users/colin/Projects/blog/source/_posts/磨碟沙.md",
+		"/Users/colin/Projects/blog/source/_posts/为触摸而设计.md",
+		"/Users/colin/Projects/blog/source/_posts/唯有前行.md",
+		"/Users/colin/Projects/blog/source/_posts/Bower支持Packages多版本共存.md",
+		"/Users/colin/Projects/blog/source/_posts/让Yeoman生成器的默认Grunt预览服务器支持随机端口.md",
+		"/Users/colin/Projects/blog/source/_posts/NodeJS版本的Gitlab-API.md",
+		"/Users/colin/Projects/blog/source/_posts/Metro风格设计指南.md",
+		"/Users/colin/Projects/blog/source/_posts/解决iframe在iPad内不能滚动的问题.md",
+		"/Users/colin/Projects/blog/source/_posts/实验性项目IMIS系统（类WebQQ）.md",
+		"/Users/colin/Projects/blog/source/_posts/三清山初行记.md",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/README.md",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/LICENSE",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/.npmignore",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/.gitignore",
+		"/Users/colin/Projects/blog/source/_posts/Dr-kong客户关系管理系统登录界面.md",
+		"/Users/colin/Projects/blog/source/imgs/恒江网站/hengjing_1-300x218.jpg",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/index.js",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/img-download.js",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpressimg/map301.js",
+		"/Users/colin/Projects/blog/node_modules/hexo/lib/hexo/post.js",
+		"/Users/colin/Projects/blog/301.json",
+		"/Users/colin/Projects/blog/db.json",
+		"/Users/colin/Projects/blog/themes/hueman/source/css/_partial/header.styl",
+		"/Users/colin/Projects/blog/themes/hueman/source/css/_variables.styl",
+		"/Users/colin/Projects/blog/themes/hueman/source/css/_partial/nav.styl",
+		"/Users/colin/Projects/blog/themes/icarus/_config.yml",
+		"/Users/colin/Projects/blog/source/_posts/转-–-php5将xml转换成json最简单的办法.md",
+		"/Users/colin/Projects/blog/themes/next/_config.yml",
+		"/Users/colin/Projects/blog/source/_posts/广东省道路信息服务系统.md",
+		"/Users/colin/Projects/blog/source/_posts/互联网用户常见心理特征.md",
+		"/Users/colin/Projects/blog/source/_posts/e5-ae-9e-e9-aa-8c-e6-80-a7-e9-a1-b9-e7-9b-aeimis-e7-b3-bb-e7-bb-9f-1.md",
+		"/Users/colin/Projects/blog/node_modules/moment/moment.d.ts",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpress-img/index.js",
+		"/Users/colin/Projects/blog/node_modules/hexo-migrator-wordpress-img/img-download.js",
+		"/Users/colin/Projects/blog/hexo-site.sublime-project",
+		"/Users/colin/www/blog/node_modules/hexo/lib/plugins/helper/index.js",
+		"/Users/colin/www/blog/node_modules/hexo/lib/plugins/helper/open_graph.js",
+		"/Users/colin/www/blog/themes/icarus/layout/widget/recent_posts.ejs",
+		"/Users/colin/www/blog/themes/icarus/languages/zh-CN.yml",
+		"/Users/colin/www/blog/themes/icarus/languages/zh.yml",
+		"/Users/colin/www/blog/themes/icarus/source/js/main.js",
+		"/Users/colin/www/blog/themes/icarus/layout/common/head.ejs",
+		"/Users/colin/www/blog/db.json",
+		"/Users/colin/www/blog/themes/hueman/_config.yml",
+		"/Users/colin/www/blog/themes/hueman/layout/layout.ejs",
+		"/Users/colin/www/blog/themes/hueman/layout/common/scripts.ejs",
+		"/Users/colin/www/blog/themes/hueman/layout/comment/scripts.ejs",
+		"/Users/colin/www/blog/themes/hueman/layout/common/header.ejs",
+		"/Users/colin/www/blog/themes/hueman/layout/common/footer.ejs"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 106.0,
+		"where_history":
+		[
+			"<project>",
+			"/Users/colin/Projects/blog/source/_posts",
+			"./"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"options.scaleLength",
+			"file",
+			"url",
+			"eslint",
+			"utils.assetsPath",
+			"10",
+			"percent",
+			"pieChart",
+			"pie",
+			"-c",
+			"filter",
+			"Filter",
+			"pagination",
+			"dialog",
+			"categoryId",
+			"catogoryId",
+			"debugger",
+			"redirect",
+			"this.container",
+			"redirect",
+			"renderF",
+			"serializeArray",
+			"replaceUrlParams",
+			"setUrlParams",
+			"https://cdnjs.cloudflare.com/ajax/libs",
+			"filter",
+			"generatorApartMenu",
+			"googleapis",
+			"batchAction",
+			"{\n                    icon: 'fa-pencil',\n                    title: '编辑',\n                    style: 'default', // default, primary, success, info, warning, danger, link\n                    action: function(data, button, grid) {\n                        var url = grid.options.addPageUrl + \"?id=\" + data.id;\n                        $.get(url)\n                        .success(function(html) {\n\n                            Dialog.show({\n                                title: '编辑'+ data.moduleName,\n                                message: $(html),\n                                submitDataType: 'json', // json, form\n                                submit: function(data, dialog) {\n\n                                    $.post('layout-pages/add-page.html', data)\n                                        .success(function() {\n                                            Dialog.alert({message:'保存成功。', size:'size-small', type:'type-success'});\n                                            grid.reload(); //刷新表格\n                                            dialog.close();\n                                        })\n                                        .error(function() {\n                                            Dialog.alert({message:'提交失败。', size:'size-small', type:'type-danger'});\n                                        });\n                                },\n                                buttons: [{\n                                    label: '取消',\n                                    action: function(dialog) {\n                                        dialog.close();\n                                    }\n                                }, {\n                                    label: '保存',\n                                    cssClass: 'btn-primary',\n                                    action: function(dialog) {\n                                        dialog.submit();\n                                    }\n                                }]\n                            });\n                        });\n                        console.log(data);\n                    }\n                }, ",
+			"Math.min(",
+			"bindEvents",
+			"table-wrap",
+			"模块名称",
+			"name",
+			"multiToolAction",
+			"getSelected",
+			"handleMultiToolAction",
+			"Multi",
+			"handleMultiToolAction",
+			"generatorMultiMenu",
+			"TYPE_DANGER",
+			"SIZE_SMALL",
+			".title",
+			"makeModalDraggable",
+			"realize",
+			".open",
+			"BootstrapDialog",
+			"Title 2",
+			"Title 1",
+			"add-page.html",
+			",,",
+			"，",
+			"\n",
+			"</button>",
+			"$tools",
+			"tools",
+			"multiDelete",
+			"toggleMultiDeleteButton",
+			"disableMultiDeleteButton",
+			"enableMultiDeleteButton",
+			"multi",
+			"generatorMultiMenu",
+			"getSelected",
+			"\n\n        handleToolAction: function(targetElement) {\n            var options = this.options;\n            var toolIndex = targetElement.attr('data-toolindex');\n            var tool = options.tools[toolIndex];\n            var action = tool.action;\n            var rowid = targetElement.attr('data-id');\n            var row = this.getDataByRowId(rowid);\n\n            if ($.isFunction(action)) {\n                action.call(this, row, targetElement, this);\n            }\n        },",
+			"Information",
+			"BootstrapDialog.DEFAULT_TEXTS",
+			"Information",
+			"modal-dialog",
+			"status",
+			"Status",
+			"status",
+			"body",
+			"__\"",
+			"'",
+			"\"",
+			"dataUrl",
+			"rowData",
+			"loadData",
+			"pagination",
+			"Pagination",
+			"pagination",
+			"Pagination",
+			"high",
+			"generatorRowMenu",
+			"col.filter",
+			"filter",
+			"row[options.idField]",
+			"action",
+			"this",
+			"this.role",
+			"align:",
+			"'', ",
+			"'',",
+			"update",
+			"delete",
+			"rows",
+			"row.push",
+			"Feild",
+			"rows",
+			"table",
+			"render",
+			"status",
+			"Status",
+			"status",
+			"render",
+			"buildList",
+			"render",
+			"insertLayout",
+			"}",
+			"{",
+			"https://cdnjs.cloudflare.com/ajax/libs",
+			">/\n",
+			"data",
+			"this.options",
+			"this.options.container",
+			"containe",
+			":",
+			"'\n",
+			"[type]",
+			"currentPage",
+			"pageCount",
+			"pageSize",
+			"this.options",
+			"tabindex=\"0\" aria-controls=\"example1\" rowspan=\"1\" colspan=\"1\" aria-label=\"Browser: activate to sort column ascending\"",
+			"}",
+			"{",
+			"pagination"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/renderer/canvas.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5105,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1990,
+								2000
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/glacier.tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1075.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "docs/get-started.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2101,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								709,
+								709
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/easypiechart.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								177,
+								187
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_complete": false,
+							"bh_regions":
+							[
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/glacier.tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "easy-pie-chart.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"sass",
+				"source/_posts/彻底放弃node-sass改用Ruby-Sass.md"
+			],
+			[
+				"列车",
+				"source/_posts/列车.md"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 269.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -67,21 +67,23 @@ var CanvasRenderer = function(el, options) {
 	var drawScale = function() {
 		var offset;
 		var length;
+		var density = options.scaleDensity || 24;
+		var bulge = options.scaleBulge || 0.6;
 
 		ctx.lineWidth = 1;
 		ctx.fillStyle = options.scaleColor;
 
 		ctx.save();
-		for (var i = 24; i > 0; --i) {
+		for (var i = density; i > 0; --i) {
 			if (i % 6 === 0) {
 				length = options.scaleLength;
 				offset = 0;
 			} else {
-				length = options.scaleLength * 0.6;
+				length = options.scaleLength * bulge;
 				offset = options.scaleLength - length;
 			}
 			ctx.fillRect(-options.size/2 + offset, 0, length, 1);
-			ctx.rotate(Math.PI / 12);
+			ctx.rotate(Math.PI / (density / 2));
 		}
 		ctx.restore();
 	};
