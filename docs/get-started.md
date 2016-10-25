@@ -6,6 +6,12 @@ You can also use [bower](http://bower.io) to install the component:
 $ bower install jquery.easy-pie-chart
 ```
 
+or use `npm` to install this component:
+
+```
+$ npm install easy-pie-chart
+```
+
 ### jQuery
 
 To use the easy pie chart plugin you need to load the current version of jQuery (> 1.6.4) and the source of the plugin.
