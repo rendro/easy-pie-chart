@@ -1,0 +1,11 @@
+{
+    "folders": [
+        {
+            "follow_symlinks": true,
+            "file_exclude_patterns": [
+                ".fuse_hidden*"
+            ],
+            "path": "."
+        }
+    ]
+}

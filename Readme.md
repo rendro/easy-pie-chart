@@ -35,6 +35,12 @@ You can also use [bower](http://bower.io) to install the component:
 $ bower install jquery.easy-pie-chart
 ```
 
+or use `npm` to install this component:
+
+```
+$ npm install easy-pie-chart
+```
+
 #### jQuery
 
 To use the easy pie chart plugin you need to load the current version of jQuery (> 1.6.4) and the source of the plugin.
@@ -63,9 +69,22 @@ If you don't want to use jQuery, implement the Vanilla JS version without any de
 <script src="/path/to/easy-pie-chart.js"></script>
 <script>
     var element = document.querySelector('.chart');
-    new EasyPieChart(element, {
-        // your options goes here
-    });
+
+    // your options goes here
+    var options = {
+        animate:{
+            duration:0,
+            enabled:false
+        },
+        barColor:'#2C3E50',
+        scaleColor:false,
+        scaleDensity: 48,
+        scaleBulge: 0.6,
+        lineWidth:20,
+        lineCap:'circle'
+    }
+
+    new EasyPieChart(element, options);
 </script>
 ```
 
@@ -89,6 +108,8 @@ If you don't want to use jQuery, implement the Vanilla JS version without any de
             },
             barColor:'#2C3E50',
             scaleColor:false,
+            scaleDensity: 48,
+            scaleBulge: 0.6,
             lineWidth:20,
             lineCap:'circle'
         };
@@ -126,6 +147,16 @@ You can pass these options to the initialize function to set a custom look and f
         <td><strong>scaleLength</strong></td>
         <td>5</td>
         <td>Length of the scale lines (reduces the radius of the chart).</td>
+    </tr>
+    <tr>
+        <td><strong>scaleDensity</strong></td>
+        <td>24</td>
+        <td>Density of the scale lines 360/density.</td>
+    </tr>
+    <tr>
+        <td><strong>scaleBulge</strong></td>
+        <td>0.6</td>
+        <td>Bulge offset length relative to options.scaleLength each 6 scale lines.</td>
     </tr>
     <tr>
         <td><strong>lineCap</strong></td>
@@ -221,8 +252,8 @@ chart.enableAnimation();
 ```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
-    var ctx = this.renderer.getCtx();
-    var canvas = this.renderer.getCanvas();
+    var ctx = this.renderer.ctx();
+    var canvas = this.renderer.canvas();
     var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
         gradient.addColorStop(0, "#ffe57e");
         gradient.addColorStop(1, "#de5900");
@@ -265,4 +296,4 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Copyright
-Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+Copyright (c) 2016 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
