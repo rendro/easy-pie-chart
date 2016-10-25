@@ -128,6 +128,16 @@ You can pass these options to the initialize function to set a custom look and f
         <td>Length of the scale lines (reduces the radius of the chart).</td>
     </tr>
     <tr>
+        <td><strong>scaleDensity</strong></td>
+        <td>24</td>
+        <td>Density of the scale lines 360/density.</td>
+    </tr>
+    <tr>
+        <td><strong>scaleBulge</strong></td>
+        <td>0.6</td>
+        <td>Bulge offset length relative to options.scaleLength each 6 scale lines.</td>
+    </tr>
+    <tr>
         <td><strong>lineCap</strong></td>
         <td>round</td>
         <td>Defines how the ending of the bar line looks like. Possible values are: <code>butt</code>, <code>round</code> and <code>square</code>.</td>
@@ -221,8 +231,8 @@ chart.enableAnimation();
 ```javascript
 new EasyPieChart(element, {
   barColor: function(percent) {
-    var ctx = this.renderer.getCtx();
-    var canvas = this.renderer.getCanvas();
+    var ctx = this.renderer.ctx();
+    var canvas = this.renderer.canvas();
     var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
         gradient.addColorStop(0, "#ffe57e");
         gradient.addColorStop(1, "#de5900");
@@ -265,4 +275,4 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 
 ## Copyright
-Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+Copyright (c) 2016 Robert Fleischmann, contributors. Released under the MIT, GPL licenses

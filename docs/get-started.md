@@ -34,9 +34,22 @@ If you don't want to use jQuery, implement the Vanilla JS version without any de
 <script src="/path/to/easy-pie-chart.js"></script>
 <script>
     var element = document.querySelector('.chart');
-    new EasyPieChart(element, {
-        // your options goes here
-    });
+
+    // your options goes here
+    var options = {
+        animate:{
+            duration:0,
+            enabled:false
+        },
+        barColor:'#2C3E50',
+        scaleColor:false,
+        scaleDensity: 48,
+        scaleBulge: 0.6,
+        lineWidth:20,
+        lineCap:'circle'
+    }
+
+    new EasyPieChart(element, options);
 </script>
 ```
 
@@ -60,6 +73,8 @@ If you don't want to use jQuery, implement the Vanilla JS version without any de
             },
             barColor:'#2C3E50',
             scaleColor:false,
+            scaleDensity: 48,
+            scaleBulge: 0.6,
             lineWidth:20,
             lineCap:'circle'
         };
