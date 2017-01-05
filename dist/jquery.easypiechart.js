@@ -235,7 +235,7 @@ var EasyPieChart = function(el, opts) {
 		border: {
 			width: 1,
 			color: '#ffffff',
-			enabled: true
+			enabled: false
 		},
 		animate: {
 			duration: 1000,
