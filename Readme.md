@@ -148,6 +148,11 @@ You can pass these options to the initialize function to set a custom look and f
         <td>Rotation of the complete chart in degrees.</td>
     </tr>
     <tr>
+        <td><strong>border</strong></td>
+        <td>object</td>
+        <td>Object with width in pixels, color and boolean for a lead and tail border (<code>{ width: 1,	color: '#ffffff', enabled: true }</code>), or false to deactivate border.</td>
+    </tr>
+    <tr>
         <td><strong>animate</strong></td>
         <td>object</td>
         <td>Object with time in milliseconds and boolean for an animation of the bar growing (<code>{ duration: 1000, enabled: true }</code>), or false to deactivate animations.</td>
