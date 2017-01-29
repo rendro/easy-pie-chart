@@ -11,7 +11,8 @@ var EasyPieChart = function(el, opts) {
 		rotate: 0,
 		animate: {
 			duration: 1000,
-			enabled: true
+			enabled: true,
+			delay: false
 		},
 		easing: function (x, t, b, c, d) { // more can be found here: http://gsgd.co.uk/sandbox/jquery/easing/
 			t = t / (d/2);
@@ -71,7 +72,8 @@ var EasyPieChart = function(el, opts) {
 		if (typeof(options.animate) === 'number') {
 			options.animate = {
 				duration: options.animate,
-				enabled: true
+				enabled: true,
+				delay: false
 			};
 		}
 
@@ -99,16 +101,32 @@ var EasyPieChart = function(el, opts) {
 	/**
 	 * Update the value of the chart
 	 * @param  {number} newValue Number between 0 and 100
+	 * @param  {boolean} delayComplete Boolean set to true after delay has completed, will proceed with animation
 	 * @return {object}          Instance of the plugin for method chaining
 	 */
-	this.update = function(newValue) {
+	this.update = function(newValue, delayComplete) {
 		newValue = parseFloat(newValue);
-		if (options.animate.enabled) {
-			this.renderer.animate(currentValue, newValue);
-		} else {
-			this.renderer.draw(newValue);
-		}
-		currentValue = newValue;
+			if (options.animate.enabled) {
+				if (options.animate.delay && !delayComplete) {
+        			
+					var delayDuration;
+					if(typeof(options.animate) === 'boolean') {
+						delayDuration = 2000;
+					} else {
+						delayDuration = options.animate.delay;
+					}
+					
+					var _this = this;
+					setTimeout(function(){ _this.update(newValue, true) }, delayDuration);
+					
+				} else {
+					this.renderer.animate(currentValue, newValue);
+					currentValue = newValue;
+				}
+			} else {
+				this.renderer.draw(newValue);
+				currentValue = newValue;
+			}
 		return this;
 	}.bind(this);
 
