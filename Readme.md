@@ -150,7 +150,7 @@ You can pass these options to the initialize function to set a custom look and f
     <tr>
         <td><strong>animate</strong></td>
         <td>object</td>
-        <td>Object with time in milliseconds and boolean for an animation of the bar growing (<code>{ duration: 1000, enabled: true }</code>), or false to deactivate animations.</td>
+        <td>Object with time in milliseconds, a boolean for an animation of the bar growing, and delay time in milliseconds (<code>{ duration: 1000, enabled: true, delay: 3000 }</code>), or false to deactivate animations. Set delay to false for no delay before animation begins.</td>
     </tr>
     <tr>
         <td><strong>easing</strong></td>
