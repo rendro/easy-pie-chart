@@ -187,7 +187,7 @@ var CanvasRenderer = function(el, options) {
 		}
 
 		// draw bar
-		drawCircle(color, options.lineWidth, percent / 100);
+		drawCircle(color, options.lineWidth, percent / options.total);
 	}.bind(this);
 
 	/**
@@ -224,6 +224,7 @@ var EasyPieChart = function(el, opts) {
 		lineWidth: 3,
 		trackWidth: undefined,
 		size: 110,
+		total: 100,
 		rotate: 0,
 		animate: {
 			duration: 1000,
