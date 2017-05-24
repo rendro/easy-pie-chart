@@ -1,5 +1,4 @@
 node_modules
-bower_components
+.vscode
 .grunt
-_SpecRunner.html
 npm-debug.log
