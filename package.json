@@ -28,14 +28,30 @@
     }
   ],
   "scripts": {
-    "test": "echo 'NOPE'"
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "pretest": "npm run lint",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/rendro/easy-pie-chart.git"
   },
   "devDependencies": {
+    "@types/jest": "^19.2.3",
+    "jest": "^20.0.3",
+    "ts-jest": "^20.0.4",
     "tslint": "^5.3.2",
     "typescript": "^2.3.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/__tests__/.*\\.(ts|tsx|js)$"
   }
 }
