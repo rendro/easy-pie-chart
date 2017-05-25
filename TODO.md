@@ -20,3 +20,43 @@
 * [ ] npm
 * [ ] meteor
 * [ ] bower
+
+
+## Config
+
+Q: how handle different visual styles that require different data configuration?
+
+* classic
+	* 1 value (min, max)
+* multiple
+	* n values (min, max)
+* multiple[auto fill]
+	* n values (always 360 deg)
+* real pie (actually looks like a pie chart, no track, auto fill)
+	* n values (always 360 deg)
+
+### Appearance
+
+* BAR / TRACK
+	* color: string
+	* width: number
+	* lineCap: butt | round | square
+* SCALE
+	* color: string
+	* length: number
+	* segments: number
+* CHART
+	* rotation: number
+	* size: number
+	* arc: number
+* LABEL
+	* prefix
+	* suffix
+	* font (css shorthand)
+
+### Animation
+
+* easing
+* from [datapoints]
+* to [datapoints]
+* duration
