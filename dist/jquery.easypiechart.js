@@ -40,6 +40,7 @@ var CanvasRenderer = function(el, options) {
 
 	var ctx = canvas.getContext('2d');
 
+	canvas.className = 'easy-pie-canvas';
 	canvas.width = canvas.height = options.size;
 
 	// canvas on retina devices
