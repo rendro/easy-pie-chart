@@ -254,6 +254,12 @@ Support for Internet Explorer 7 and 8 with [excanvas](https://code.google.com/p/
 
 
 
+This is the easy pie chart plugin wher you can include in your html and css code to get visible in your layout.
+This plugin supports all required/current using browsers to work with.
+It is very easy to implement and include in yout code to deliver your progress using piecharts.
+
+
+
 ## Test
 To run the test just use the karma adapter of grunt: `grunt test`
 
