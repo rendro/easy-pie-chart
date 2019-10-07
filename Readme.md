@@ -266,3 +266,8 @@ Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribb
 
 ## Copyright
 Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+
+
+This is the easy pie chart plugin wher you can include in your html and css code to get visible in your layout.
+This plugin supports all required/current using browsers to work with.
+It is very easy to implement and include in yout code to deliver your progress using piecharts.
