@@ -1,218 +1,595 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>EASY PIE CHART by rendro</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>easy-pie-chart, one metric, total control</title>
+<meta name="description" content="Lightweight canvas plugin for simple, animated, retina-optimized pie charts. No dependencies, TypeScript types, 2 kB gzipped.">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <link rel="stylesheet" href="stylesheets/jquery.easy-pie-chart.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="javascripts/excanvas.js"></script>
-    <![endif]-->
-  </head>
-  <body onLoad="initCharts();">
-    <div class="wrapper">
-      <header>
-        <h1>EASY PIE CHART</h1>
-        <p>Lightweight jQuery plugin to render and animate nice pie charts with the HTML5 canvas element</p>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHGXLQ4ZRZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-        <p class="view"><a href="https://github.com/rendro/easy-pie-chart">View the Project on GitHub <small>rendro/easy-pie-chart</small></a></p>
+  gtag('config', 'G-ZHGXLQ4ZRZ');
+</script>
+<style>
+:root{
+  /* drafting film, ink, and the library's own default barColor */
+  --paper:#ffffff; --inset:#f6f8f8; --ink:#10161a; --graphite:#5d6b73;
+  --rule:#c3cdd1; --rule-soft:#d8e0e2; --signal:#ef1e25; --track:#d5dcdf;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --pad:clamp(1.25rem,4vw,3.5rem);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.6;
+}
+a{color:var(--ink);text-decoration-color:var(--rule);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--signal)}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+code,kbd{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--pad)}
 
+.mast{background:rgba(255,255,255,.88);backdrop-filter:blur(6px);position:sticky;top:0;z-index:20}
+.mast .wrap{display:flex;gap:1rem;align-items:baseline;justify-content:space-between;padding-top:.7rem;padding-bottom:.7rem}
+.mark{font-family:var(--mono);font-size:.95rem;letter-spacing:-.02em;font-weight:600;white-space:nowrap}
+.mark b{color:var(--signal);font-weight:600}
+.meta{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);display:flex;gap:1.1rem;flex-wrap:wrap}
+.meta a{text-decoration:none;border-bottom:1px solid var(--rule)}
 
-        <ul>
-          <li><a href="https://github.com/rendro/easy-pie-chart/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/rendro/easy-pie-chart/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/rendro/easy-pie-chart">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>easy pie chart</h1>
+.hero{padding:clamp(2.5rem,7vw,5.5rem) 0 clamp(2rem,5vw,3.5rem)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(2.5rem,8vw,6.5rem);align-items:center}
+@media(min-width:980px){.hero-grid{grid-template-columns:minmax(0,400px) minmax(0,1fr)}}
+h1{font-family:var(--mono);font-weight:600;letter-spacing:-.045em;line-height:.95;font-size:clamp(2.6rem,7.5vw,4.3rem);margin:0 0 1.2rem}
+h1 .dim{color:var(--graphite)}
+h1 .dot{color:var(--signal)}
+.lede{font-size:clamp(1.02rem,1.9vw,1.18rem);max-width:46ch;margin:0 0 1.6rem;color:#26313a}
+.lede strong{font-weight:600}
 
-<p>Easy pie chart is a jQuery plugin that uses the canvas element to render simple pie charts for single values.
-These charts are highly customizable, very easy to implement, scale to the resolution of the display of the client to provide sharp charts even on retina displays, <strong>and use requestAnimationFrame for smooth animations on modern devices</strong>.</p>
+.plate{position:relative;display:grid;place-items:center;min-height:340px}
+.chart{position:relative;display:inline-grid;place-items:center}
+.chart canvas{display:block}
+.readout{position:absolute;inset:0;display:grid;place-content:center;text-align:center;pointer-events:none}
+.readout .n{font-family:var(--mono);font-size:2.3rem;font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1}
+.readout .n::after{content:"%";font-size:.9rem;vertical-align:.9em;margin-left:.1em;color:var(--graphite)}
+.readout.raw .n::after{content:none}
+.readout .cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);margin-top:.45rem}
 
-<div class="piedemo clearfix">
-  <div class="chart">
-    <div class="percentage" data-percent="55"><span>55</span>%</div>
-    <div class="label">New visitors</div>
+/* leader lines: the options table, drawn in place */
+.ann{position:absolute;font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--graphite);white-space:nowrap;display:flex;align-items:center;gap:.45rem;transform:translateY(-50%)}
+.ann::before{content:"";height:1px;width:42px;background:var(--rule);display:block}
+/* the dot marks where the line meets the drawing */
+.ann::after{content:"";width:4px;height:4px;border-radius:50%;background:var(--rule);position:absolute}
+.ann.l{flex-direction:row-reverse}
+.ann.l::after{right:-2px}
+.ann.r::after{left:-2px}
+.ann b{color:var(--ink);font-weight:600;letter-spacing:-.01em;text-transform:none;font-size:.72rem}
+/* horizontal offset = sqrt(r^2 - dy^2): where a level line actually meets a circle */
+.ann-1{top:75px;right:calc(50% + 77px)}
+.ann-2{top:156px;left:calc(50% + 113px)}
+.ann-3{top:238px;right:calc(50% + 90px)}
+@media(max-width:979px){.ann{display:none}}
+
+.ctl{margin-top:1.9rem;display:grid;gap:.55rem;max-width:420px}
+.ctl-row{display:flex;align-items:center;gap:.9rem}
+.ctl-row label{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);min-width:5.2rem}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:2px;background:var(--rule);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--signal);border:2px solid var(--paper);cursor:grab}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--signal);border:2px solid var(--paper);cursor:grab}
+
+.install{margin-top:1.7rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.cmd{font-family:var(--mono);font-size:.86rem;background:var(--ink);color:#e6ecec;border-radius:3px;display:flex;align-items:stretch;overflow:hidden}
+.cmd .p{color:#7d8f93;padding:.7rem 0 .7rem .95rem}
+.cmd-text{padding:.7rem .5rem .7rem .55rem;white-space:nowrap}
+.copy{display:grid;place-items:center;width:2.6rem;background:none;border:0;border-left:1px solid #2a3338;color:#8fa2a6;cursor:pointer;transition:color .15s,background .15s}
+.copy:hover{color:#fff;background:#1b2429}
+.copy .ico-done{display:none}
+.copy[data-done]{color:#34d399}
+.copy[data-done] .ico-copy{display:none}
+.copy[data-done] .ico-done{display:block}
+
+section{padding:clamp(3.5rem,9vw,6.5rem) 0}
+.eyebrow{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite);margin:0 0 .9rem}
+h2{font-family:var(--mono);font-weight:600;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.035em;margin:0 0 1.2rem;line-height:1.1}
+h3{font-family:var(--mono);font-size:.95rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .5rem}
+p{max-width:62ch}
+.muted{color:var(--graphite)}
+
+.cards{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+@media(min-width:800px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:var(--inset);padding:1.4rem 1.25rem}
+pre{margin:0;overflow-x:auto;font-family:var(--mono);font-size:.75rem;line-height:1.7;color:#1b2429}
+pre .c{color:#7c8a91}
+pre .s{color:var(--signal)}
+pre .k{color:#0f5a6e}
+
+.shelf{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin-top:1.4rem}
+@media(min-width:700px){.shelf{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.slot{background:var(--inset);padding:1.5rem 1rem;display:grid;justify-items:center;gap:.9rem;text-align:center}
+.slot .lab{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite)}
+.slot .lab b{display:block;color:var(--ink);font-size:.74rem;letter-spacing:-.01em;text-transform:none;margin-bottom:.2rem}
+
+.play{display:grid;gap:1.5rem;margin-top:1.4rem}
+@media(min-width:860px){.play{grid-template-columns:280px minmax(0,1fr)}}
+.knobs{display:grid;gap:.7rem;align-content:start}
+.knobs .ctl-row label{min-width:6.4rem}
+.val{font-family:var(--mono);font-size:.72rem;color:var(--ink);min-width:3.1rem;text-align:right;font-variant-numeric:tabular-nums}
+.swatches{display:flex;gap:.4rem}
+.sw{width:24px;height:24px;border-radius:50%;border:1px solid var(--rule);cursor:pointer;padding:0}
+.sw[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:2px}
+.out{background:var(--ink);border-radius:3px;padding:1.1rem 1.2rem;overflow-x:auto}
+.out pre{color:#d7e0e0;font-size:.8rem}
+.out .c{color:#6f8288}.out .s{color:#ff8a8f}.out .k{color:#7fd0e0}
+.stage{display:grid;place-items:center;padding:1.5rem 0;min-height:240px}
+
+table{border-collapse:collapse;width:100%;margin-top:1.1rem;font-size:.88rem}
+caption{text-align:left;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--graphite);padding-bottom:.6rem}
+th,td{text-align:left;padding:.62rem .8rem .62rem 0;vertical-align:top}
+thead th{border-bottom:1px solid var(--rule);padding-bottom:.5rem}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--graphite);font-weight:400}
+td:first-child{font-family:var(--mono);font-size:.82rem;white-space:nowrap}
+td:nth-child(2){font-family:var(--mono);font-size:.78rem;color:var(--graphite);white-space:nowrap}
+.scroll{overflow-x:auto}
+
+.note{border-left:2px solid var(--signal);padding:.15rem 0 .15rem 1rem;margin:1.4rem 0 0;max-width:62ch}
+.note h3{margin-bottom:.3rem}
+
+footer{padding:3rem 0 3.5rem;font-family:var(--mono);font-size:.72rem;color:var(--graphite)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;justify-content:space-between}
+
+/* On a phone the third column falls off the edge and rows take ragged heights
+   from text wrapping out of view, so each row becomes a small stacked block.
+   Spacing separates them, no rules. */
+@media(max-width:640px){
+  table,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  table{margin-top:.4rem}
+  tr{padding:0 0 1.15rem}
+  td{padding:0;white-space:normal}
+  td:first-child{font-size:.88rem;color:var(--ink)}
+  td:nth-child(2){font-size:.76rem;margin:.15rem 0 .35rem;white-space:normal}
+  td:nth-child(3){font-size:.9rem;color:var(--graphite);line-height:1.55}
+}
+
+@media(max-width:720px){
+  .mast .wrap{padding-top:.65rem;padding-bottom:.65rem;align-items:center}
+  .meta{gap:0}
+  .meta>span,.meta a[href^="#"]{display:none}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(6px);animation:rise .55s cubic-bezier(.2,.7,.3,1) forwards}
+  .reveal-1{animation-delay:.05s}.reveal-2{animation-delay:.14s}.reveal-3{animation-delay:.23s}
+  @keyframes rise{to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <span class="mark">easy-pie-chart<b>.</b></span>
+    <nav class="meta">
+      <span>2.4 kB gzipped</span>
+      <a href="#options">Options</a>
+      <a href="#api">API</a>
+      <a href="#migrate">2.x &rarr; 3.x</a>
+      <a href="https://github.com/rendro/easy-pie-chart">GitHub</a>
+    </nav>
   </div>
-  <div class="chart">
-    <div class="percentage" data-percent="21"><span>21</span>%</div>
-    <div class="label">Bounce rate</div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-grid">
+
+    <div class="plate reveal reveal-1">
+      <span class="ann l ann-1"><span><b>trackColor</b> &middot; behind the bar</span></span>
+      <span class="ann r ann-2"><span><b>lineWidth</b> &middot; px</span></span>
+      <span class="ann l ann-3"><span><b>scaleColor</b> &middot; 24 ticks</span></span>
+      <div class="chart" id="hero"><span class="readout"><span class="n" id="hero-n">0</span><span class="cap">you draw this</span></span></div>
+    </div>
+
+    <div>
+      <h1 class="reveal reveal-1">One Metric<span class="dot">.</span><br><span class="dim">Total control.</span></h1>
+      <p class="lede reveal reveal-2">
+        A canvas ring for a single value. Every part is an option, and
+        <strong>the center is yours to fill</strong>.
+      </p>
+
+      <div class="ctl reveal reveal-2">
+        <div class="ctl-row">
+          <label for="hero-range">value</label>
+          <input id="hero-range" type="range" min="0" max="100" value="73" aria-label="Chart value in percent">
+          <span class="val" id="hero-val">73</span>
+        </div>
+      </div>
+
+      <div class="install reveal reveal-3">
+        <div class="cmd">
+          <span class="p">$</span>
+          <span class="cmd-text">npm install easy-pie-chart</span>
+          <button class="copy" data-copy="npm install easy-pie-chart" aria-label="Copy install command">
+            <svg class="ico ico-copy" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="6" width="8.2" height="8.2" rx="1.6"/>
+              <path d="M11 6V3.6A1.6 1.6 0 0 0 9.4 2H3.6A1.6 1.6 0 0 0 2 3.6v5.8A1.6 1.6 0 0 0 3.6 11H6"/>
+            </svg>
+            <svg class="ico ico-done" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"
+                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8.4l3.4 3.4L13 5.2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="muted reveal reveal-3" style="font-size:.82rem;margin-top:.8rem">
+        Or a script tag:
+        <a href="https://unpkg.com/easy-pie-chart/dist/easypiechart.min.js"><code>unpkg.com/easy-pie-chart</code></a>
+      </p>
+    </div>
+
   </div>
 </div>
 
-<a href="#" class="button updatePieCharts">Update pie charts</a>
+<section id="start">
+  <div class="wrap">
+    <p class="eyebrow">Three ways in</p>
+    <h2>Pick your entry point</h2>
+    <p class="muted">The core is framework-agnostic. jQuery is an optional second entry point, never a dependency.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>ES modules</h3>
+<pre><span class="k">import</span> { EasyPieChart }
+  <span class="k">from</span> <span class="s">'easy-pie-chart'</span>;
 
-<h2>Browser support</h2>
-<p>This plugin supports all major browsers that support the canvas element. With excanvas you can even render the charts on IE 7+8.</p>
-
-<h2>Get started</h2>
-
-<p>To use the easy pie chart plugin you need to load the current version of jQuery (testet with 1.7.2) and the source (css+js) of the plugin.
-You can also use <a href="http://bower.io" target="_blank">bower</a> to install the component:</p>
-
-<pre><code>bower install jquery.easy-pie-chart
-</code></pre>
-
-<p>Then just add the following lines to the <code>head</code> of your website:</p>
-
-<pre><code>&lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
-&lt;script type="text/javascript" src="/path/to/jquery.easy-pie-chart.js"&gt;&lt;/script&gt;
-
-&lt;link rel="stylesheet"type="text/css" href="/path/to/jquery.easy-pie-chart.css"&gt;
-</code></pre>
-
-<p>The second step is to add a element to your site to represent chart and add the <code>data-percent</code> attribute with the percent number the pie chart should have:</p>
-
-<pre><code>&lt;div class="chart" data-percent="73"&gt;73%&lt;/div&gt;
-</code></pre>
-
-<p>Finally you have to initialize the plugin with your desired configuration:</p>
-
-<pre><code>&lt;script type="text/javascript"&gt;
-$(function() {
-    $('.chart').easyPieChart({
-        //your configuration goes here
-    });
+<span class="k">const</span> chart = <span class="k">new</span> EasyPieChart(el, {
+  barColor: <span class="s">'#ef1e25'</span>,
 });
+chart.update(<span class="s">65</span>);</pre>
+      </div>
+      <div class="card">
+        <h3>Script tag</h3>
+<pre><span class="c">&lt;!-- exposes window.EasyPieChart --&gt;</span>
+&lt;script src=<span class="s">"easypiechart.min.js"</span>&gt;
 &lt;/script&gt;
-</code></pre>
 
-<h2>Configuration parameter</h2>
-
-<p>You can pass a set of these options to the initialize function to set a custom behaviour and look for the plugin.</p>
-
-<table>
-<tr>
-<th>Property (Type)</th>
-        <th>Default</th>
-        <th>Description</th>
-    </tr>
-<tr>
-<td><strong>barColor</strong></td>
-        <td>#ef1e25</td>
-        <td>The color of the curcular bar. You can pass either a css valid color string like rgb, rgba hex or string colors. But you can also pass a function that accepts the current percentage as a value to return a dynamically generated color.</td>
-    </tr>
-<tr>
-<td><strong>trackColor</strong></td>
-        <td>#f2f2f2</td>
-        <td>The color of the track for the bar, false to disable rendering.</td>
-    </tr>
-<tr>
-<td><strong>scaleColor</strong></td>
-        <td>#dfe0e0</td>
-        <td>The color of the scale lines, false to disable rendering.</td>
-    </tr>
-<tr>
-<td><strong>lineCap</strong></td>
-        <td>round</td>
-        <td>Defines how the ending of the bar line looks like. Possible values are: <code>butt</code>, <code>round</code> and <code>square</code>.</td>
-    </tr>
-<tr>
-<td><strong>lineWidth</strong></td>
-        <td>3</td>
-        <td>Width of the bar line in px.</td>
-    </tr>
-<tr>
-<td><strong>size</strong></td>
-        <td>110</td>
-        <td>Size of the pie chart in px. It will always be a square.</td>
-    </tr>
-<tr>
-<td><strong>animate</strong></td>
-        <td>false</td>
-        <td>Time in milliseconds for a eased animation of the bar growing, or false to deactivate.</td>
-    </tr>
-<tr>
-<td><strong>onStart</strong></td>
-        <td>$.noop</td>
-        <td>Callback function that is called at the start of any animation (only if animate is not false).</td>
-    </tr>
-<tr>
-<td><strong>onStop</strong></td>
-        <td>$.noop</td>
-        <td>Callback function that is called at the end of any animation (only if animate is not false).</td>
-    </tr>
-<tr>
-<td><strong>onStep</strong></td>
-        <td>$.noop</td>
-        <td>Callback function that is called during animations providing the current value (the context is the plugin, so you can access the DOM element via <code>this.$el</code>).</td>
-    </tr>
-</table><h2>Plugin API</h2>
-
-<p>If you want to update the current percentage of the a pie chart, you can call the <code>update</code> method. The instance of the plugin is saved in the jQuery-data.</p>
-
-<pre><code>&lt;script type="text/javascript"&gt;
-$(function() {
-    //create instance
-    $('.chart').easyPieChart({
-        animate: 2000
-    });
-    //update instance after 5 sec
-    setTimeout(function() {
-        $('.chart').data('easyPieChart').update(40);
-    }, 5000);
+<span class="k">new</span> EasyPieChart(el, {
+  size: <span class="s">140</span>,
+}).update(<span class="s">65</span>);</pre>
+      </div>
+      <div class="card">
+        <h3>jQuery</h3>
+<pre>$(<span class="s">'.chart'</span>).easyPieChart({
+  barColor: <span class="s">'#10b981'</span>,
 });
-&lt;/script&gt;
-</code></pre>
 
-<h2>Credits</h2>
-
-<p>Thanks to <a href="http://www.paranoida.com/">Rafal Bromirski</a> for making <a href="http://drbl.in/ezuc">this dribble shot</a> which inspired me and <a href="http://philipthrasher.com/">Philip Thrasher</a> for his <a href="https://github.com/pthrasher/coffee-plate">CoffeeScript jQuery boilerplate</a></p>
-<h2>Changlog</h2>
-<h3>Version 1.0.2 - Jun 07, 2013</h3>
-<ul>
-    <li>Use requestAnimationFrame for smooth animations</li>
-    <li>Added <code>onStep</code> option to get the current value during animations</li>
-</ul>
-<h3>Version 1.0.1 - Feb 07, 2013</h3>
-<ul>
-    <li>Added retina support</li>
-</ul>
-<h3>Version 1.0.0 - Aug 02, 2012</h3>
-<ul>
-    <li>Initial version</li>
-</ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/rendro">rendro</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+$(<span class="s">'.chart'</span>)
+  .data(<span class="s">'easyPieChart'</span>)
+  .update(<span class="s">42</span>);</pre>
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="javascripts/jquery.easy-pie-chart.js"></script>
-    <script>
-    var initCharts = function() {
-      var charts = $('.percentage');
-      charts.easyPieChart({
-        animate: 1000,
-        onStep: function(value) {
-          this.$el.find('span').text(~~value);
-        }
+    <div class="note">
+      <h3>Put your own number in the middle</h3>
+      <p class="muted" style="font-size:.92rem;margin:0">
+        The chart draws the ring only. Position an element over it and update it from
+        <code>onStep</code>. <code>this.el</code> is the host element.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="playground">
+  <div class="wrap">
+    <p class="eyebrow">Live</p>
+    <h2>Turn the knobs</h2>
+    <p class="muted">Every change below is the real library redrawing, and the code is what you would write to get it.</p>
+    <div class="play">
+      <div class="knobs">
+        <div class="ctl-row"><label for="k-size">size</label><input id="k-size" type="range" min="80" max="220" step="10" value="150"><span class="val" id="v-size">150</span></div>
+        <div class="ctl-row"><label for="k-line">lineWidth</label><input id="k-line" type="range" min="1" max="26" value="10"><span class="val" id="v-line">10</span></div>
+        <div class="ctl-row"><label for="k-arc">arcLength</label><input id="k-arc" type="range" min="90" max="360" step="10" value="360"><span class="val" id="v-arc">360</span></div>
+        <div class="ctl-row"><label for="k-rot">rotate</label><input id="k-rot" type="range" min="-180" max="180" step="5" value="0"><span class="val" id="v-rot">0</span></div>
+        <div class="ctl-row"><label for="k-val">value</label><input id="k-val" type="range" min="0" max="100" value="68"><span class="val" id="v-val">68</span></div>
+        <div class="ctl-row"><label id="lab-color">barColor</label><span class="swatches" id="k-color" role="group" aria-labelledby="lab-color"></span></div>
+        <div class="ctl-row"><label for="k-scale">scale</label><input id="k-scale" type="checkbox" checked style="accent-color:#ef1e25"></div>
+      </div>
+      <div>
+        <div class="stage"><div class="chart" id="pg"></div></div>
+        <div class="out"><pre id="pg-code"></pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="showcase">
+  <div class="wrap">
+    <p class="eyebrow">Since 3.1</p>
+    <h2>Not only percentages</h2>
+    <div class="shelf">
+      <div class="slot"><div class="chart" id="s-gauge"></div><span class="lab"><b>Gauge</b>arcLength 180</span></div>
+      <div class="slot"><div class="chart" id="s-max"><span class="readout raw"><span class="n" id="s-max-n" style="font-size:1.15rem">0</span></span></div><span class="lab"><b>Custom max</b>180 of max 250</span></div>
+      <div class="slot"><div class="chart" id="s-grad"></div><span class="lab"><b>Gradient</b>barColor fn</span></div>
+      <div class="slot"><div class="chart" id="s-fill"></div><span class="lab"><b>Fill + border</b>fillColor</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="options">
+  <div class="wrap">
+    <p class="eyebrow">Reference</p>
+    <h2>Options</h2>
+    <p class="muted">Anything except the callbacks can also be set as a <code>data-*</code> attribute, which wins over the options object, so one call can configure many charts.</p>
+    <div class="scroll">
+    <table>
+      <caption>Constructor options</caption>
+      <thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>barColor</td><td>'#ef1e25'</td><td>Color string, canvas gradient/pattern, or <code>(value) =&gt; style</code></td></tr>
+        <tr><td>trackColor</td><td>'#f9f9f9'</td><td>Track behind the bar, or <code>false</code></td></tr>
+        <tr><td>trackBorderColor</td><td>false</td><td>Hairline along both edges of the track</td></tr>
+        <tr><td>fillColor</td><td>false</td><td>Fills the disc inside the ring</td></tr>
+        <tr><td>scaleColor</td><td>'#dfe0e0'</td><td>Tick color, or <code>false</code></td></tr>
+        <tr><td>scaleLength</td><td>5</td><td>Tick length in px</td></tr>
+        <tr><td>scaleCount</td><td>24</td><td>Number of ticks</td></tr>
+        <tr><td>lineCap</td><td>'round'</td><td><code>butt</code>, <code>round</code> or <code>square</code></td></tr>
+        <tr><td>lineWidth</td><td>3</td><td>Bar width in px</td></tr>
+        <tr><td>trackWidth</td><td>lineWidth</td><td>Track width in px</td></tr>
+        <tr><td>size</td><td>110</td><td>Square, in px</td></tr>
+        <tr><td>rotate</td><td>0</td><td>Rotation in degrees</td></tr>
+        <tr><td>arcLength</td><td>360</td><td>Sweep in degrees. 180 gives a gauge</td></tr>
+        <tr><td>max</td><td>100</td><td>Value that fills the bar</td></tr>
+        <tr><td>responsive</td><td>false</td><td>Follow the host element's size</td></tr>
+        <tr><td>canvasClass</td><td>'easy-pie-chart-canvas'</td><td>Class on the generated canvas</td></tr>
+        <tr><td>animate</td><td>{duration:1000, enabled:true}</td><td>A number, <code>false</code>, or a <code>(from,to) =&gt; ms</code> duration</td></tr>
+        <tr><td>easing</td><td>quadratic</td><td><code>(t,b,c,d)</code>; the 2.x five-argument form and jQuery easing names still work</td></tr>
+        <tr><td>onStart / onStep / onStop</td><td>none</td><td>Bound to the chart, so <code>this.el</code> works</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="api">
+  <div class="wrap">
+    <p class="eyebrow">Reference</p>
+    <h2>Instance</h2>
+    <div class="scroll">
+    <table>
+      <caption>Methods and properties</caption>
+      <thead><tr><th>Member</th><th>Returns</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>update(value)</td><td>this</td><td>Animate, or jump when animation is off. Ignores <code>NaN</code></td></tr>
+        <tr><td>setOptions(options)</td><td>this</td><td>Apply new options and redraw at the current value</td></tr>
+        <tr><td>stop()</td><td>this</td><td>Halt a running animation at the current frame</td></tr>
+        <tr><td>enableAnimation() / disableAnimation()</td><td>this</td><td>Toggle animated updates</td></tr>
+        <tr><td>destroy()</td><td>void</td><td>Cancel animation, remove the canvas, stop observing</td></tr>
+        <tr><td>value</td><td>number</td><td>Current value</td></tr>
+        <tr><td>options / el</td><td>object / element</td><td>Resolved options, host element</td></tr>
+        <tr><td>renderer</td><td>IRenderer</td><td><code>getCtx()</code> / <code>getCanvas()</code> for gradients</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section id="migrate">
+  <div class="wrap">
+    <p class="eyebrow">Upgrading</p>
+    <h2>2.x &rarr; 3.x</h2>
+    <p class="muted">
+      3.x is a TypeScript rewrite. Existing jQuery and vanilla configurations keep working:
+      <code>data-*</code> precedence, <code>easing</code> names and the 2.x easing signature are all still honored.
+    </p>
+    <div class="cards" style="margin-top:1.2rem">
+      <div class="card">
+        <h3>Still the same</h3>
+        <p class="muted" style="font-size:.88rem;margin:0">
+          <code>$.fn.easyPieChart</code>, <code>data-percent</code>, every option above,
+          <code>this.el</code> inside callbacks, and the <code>EasyPieChart</code> global.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Gone</h3>
+        <p class="muted" style="font-size:.88rem;margin:0">
+          The AngularJS 1.x directive, Bower and Meteor packaging, and the IE 7/8 excanvas path.
+          Licensing is MIT only.
+        </p>
+      </div>
+      <div class="card">
+        <h3>AngularJS</h3>
+        <p class="muted" style="font-size:.88rem;margin:0">
+          A drop-in directive is in the
+          <a href="https://github.com/rendro/easy-pie-chart#angularjs--migrating-from-2x">Readme</a>,
+          or stay on <code>2.1.7</code>, which remains on npm.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>MIT</span>
+    <span>
+      <a href="https://github.com/rendro/easy-pie-chart">Source</a> &middot;
+      <a href="https://www.npmjs.com/package/easy-pie-chart">npm</a> &middot;
+      <a href="https://github.com/rendro/easy-pie-chart/blob/master/changelog.md">Changelog</a> &middot;
+      <a href="https://github.com/rendro/easy-pie-chart/issues">Issues</a>
+    </span>
+  </div>
+</footer>
+
+<script src="lib/easypiechart.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var RULE = '#c3cdd1', TRACK = '#d5dcdf', SIGNAL = '#ef1e25';
+
+  /* hero */
+  var heroN = document.getElementById('hero-n');
+  var hero = new EasyPieChart(document.getElementById('hero'), {
+    size: 240, lineWidth: 14, trackWidth: 14, scaleColor: RULE, scaleLength: 7,
+    trackColor: TRACK, barColor: SIGNAL, lineCap: 'butt',
+    animate: reduce ? false : { duration: 1400, enabled: true },
+    onStep: function (from, to, value) { heroN.textContent = Math.round(value); }
+  });
+  var heroRange = document.getElementById('hero-range'), heroVal = document.getElementById('hero-val');
+  hero.update(+heroRange.value);
+  heroRange.addEventListener('input', function () {
+    heroVal.textContent = this.value;
+    hero.disableAnimation().update(+this.value);
+    heroN.textContent = this.value;
+  });
+
+  /* playground */
+  var COLORS = ['#ef1e25', '#0f5a6e', '#10b981', '#7c3aed', '#f59e0b'];
+  var state = { size: 150, lineWidth: 10, arcLength: 360, rotate: 0, value: 68, barColor: COLORS[0], scale: true };
+  var pgEl = document.getElementById('pg'), pgCode = document.getElementById('pg-code'), pg = null;
+
+  function code() {
+    var lines = [];
+    lines.push(['size', state.size]);
+    lines.push(['lineWidth', state.lineWidth]);
+    if (state.arcLength !== 360) lines.push(['arcLength', state.arcLength]);
+    if (state.rotate !== 0) lines.push(['rotate', state.rotate]);
+    lines.push(['barColor', "'" + state.barColor + "'"]);
+    if (!state.scale) lines.push(['scaleColor', 'false']);
+
+    var body = lines.map(function (p) {
+      return '  ' + p[0] + ': <span class="s">' + p[1] + '</span>,';
+    }).join('\n');
+
+    pgCode.innerHTML =
+      '<span class="k">const</span> chart = <span class="k">new</span> EasyPieChart(el, {\n' +
+      body + '\n});\n\nchart.update(<span class="s">' + state.value + '</span>);';
+  }
+
+  function build() {
+    if (pg) pg.destroy();
+    pg = new EasyPieChart(pgEl, {
+      size: state.size, lineWidth: state.lineWidth, trackWidth: state.lineWidth,
+      arcLength: state.arcLength, rotate: state.rotate, barColor: state.barColor,
+      trackColor: TRACK, scaleColor: state.scale ? RULE : false, scaleLength: 6,
+      animate: reduce ? false : { duration: 500, enabled: true }
+    });
+    pg.update(state.value);
+    code();
+  }
+
+  function knob(id, valId, key, after) {
+    var input = document.getElementById(id), out = document.getElementById(valId);
+    input.addEventListener('input', function () {
+      state[key] = +this.value;
+      out.textContent = this.value;
+      (after || build)();
+    });
+  }
+  knob('k-size', 'v-size', 'size');
+  knob('k-line', 'v-line', 'lineWidth');
+  knob('k-arc', 'v-arc', 'arcLength');
+  knob('k-rot', 'v-rot', 'rotate');
+  knob('k-val', 'v-val', 'value', function () { pg.update(state.value); code(); });
+
+  var swWrap = document.getElementById('k-color');
+  COLORS.forEach(function (c, i) {
+    var b = document.createElement('button');
+    b.className = 'sw';
+    b.type = 'button';
+    b.style.background = c;
+    b.setAttribute('aria-label', 'Bar color ' + c);
+    b.setAttribute('aria-pressed', String(i === 0));
+    b.addEventListener('click', function () {
+      state.barColor = c;
+      Array.prototype.forEach.call(swWrap.children, function (o) {
+        o.setAttribute('aria-pressed', String(o === b));
       });
-      $('.updatePieCharts').on('click', function(e) {
-        e.preventDefault();
-        charts.each(function() {
-          $(this).data('easyPieChart').update(Math.floor(100*Math.random()));
-        });
-      });
+      build();
+    });
+    swWrap.appendChild(b);
+  });
+  document.getElementById('k-scale').addEventListener('change', function () {
+    state.scale = this.checked;
+    build();
+  });
+  build();
+
+  /* showcase */
+  var base = {
+    size: 118, lineWidth: 9, trackWidth: 9, scaleColor: false, trackColor: TRACK,
+    animate: reduce ? false : { duration: 1100, enabled: true }
+  };
+  function make(id, extra, value) {
+    var o = {}, k;
+    for (k in base) o[k] = base[k];
+    for (k in extra) o[k] = extra[k];
+    return new EasyPieChart(document.getElementById(id), o).update(value);
+  }
+
+  make('s-gauge', { arcLength: 180, rotate: -90, barColor: '#0f5a6e' }, 62);
+
+  var maxN = document.getElementById('s-max-n');
+  make('s-max', {
+    max: 250, barColor: '#f59e0b',
+    onStep: function (f, t, v) { maxN.textContent = Math.round(v); }
+  }, 180);
+
+  make('s-grad', {
+    barColor: function () {
+      var ctx = this.renderer.getCtx(), s = this.options.size;
+      var g = ctx.createLinearGradient(-s / 2, -s / 2, s / 2, s / 2);
+      g.addColorStop(0, '#10b981');
+      g.addColorStop(1, '#0ea5e9');
+      return g;
     }
-    </script>
-    <script type="text/javascript">
-      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-      try {
-        var pageTracker = _gat._getTracker("UA-32192893-2");
-      pageTracker._trackPageview();
-      } catch(err) {}
-    </script>
-  </body>
+  }, 84);
+
+  make('s-fill', {
+    fillColor: '#e3eaec', trackColor: '#dbe3e5', trackBorderColor: RULE,
+    lineWidth: 8, trackWidth: 12, barColor: '#7c3aed'
+  }, 47);
+
+  /* copy */
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    // older browsers, and any page not served over https
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('copy unavailable'));
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]');
+    if (!b) return;
+    copyText(b.dataset.copy).then(function () {
+      b.dataset.done = '1';
+      b.setAttribute('aria-label', 'Copied');
+      setTimeout(function () {
+        delete b.dataset.done;
+        b.setAttribute('aria-label', 'Copy install command');
+      }, 1800);
+    }, function () {
+      // no false confirmation: leave the icon alone and let the user select it
+      b.setAttribute('aria-label', 'Copy failed, select the command manually');
+    });
+  });
+})();
+</script>
+</body>
 </html>
