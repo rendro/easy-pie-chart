@@ -64,6 +64,45 @@ import $ from 'jquery';
 registerJQueryPlugin($);
 ```
 
+### AngularJS — migrating from 2.x
+
+2.x shipped `dist/angular.easypiechart.js`. It is **not** part of 3.x, because
+AngularJS 1.x has been end-of-life since January 2022 and this package will not
+advertise support for an unpatched framework.
+
+The core is framework-agnostic, so the directive is a few lines in your own
+code. This is a drop-in replacement for the 2.x one — same `easypiechart`
+module name, same `percent` and `options` bindings, same `restrict: 'AE'`:
+
+```js
+angular.module('easypiechart', []).directive('easypiechart', () => ({
+  restrict: 'AE',
+  scope: { percent: '=', options: '=' },
+  link(scope, element) {
+    const chart = new EasyPieChart(element[0], scope.options || {});
+
+    scope.$watch('percent', (value) => chart.update(value || 0));
+
+    // optional: rebuild when the options object is replaced
+    scope.$watch('options', (o) => o && chart.setOptions(o), true);
+
+    // 2.x had no teardown, so charts leaked whenever a scope was destroyed
+    scope.$on('$destroy', () => chart.destroy());
+  },
+}));
+```
+
+Markup is unchanged from 2.x:
+
+```html
+<div easypiechart percent="model.percent" options="model.options"></div>
+```
+
+Load the UMD bundle before your app so `EasyPieChart` is a global, or `import`
+it if you bundle. If you would rather not migrate at all, `2.1.7` stays on npm
+indefinitely — `easy-pie-chart@2.1.7/dist/angular.easypiechart.js` resolves on
+unpkg and jsDelivr as it always has.
+
 ### Options via `data-*` attributes
 
 Every option except the callbacks can be set on the element. Attributes win
@@ -201,8 +240,9 @@ Run `npm run build`, then open `examples/index.html` in a browser.
   and a minified UMD bundle for script tags (`dist/easypiechart.min.js`). The
   UMD global is still `EasyPieChart`. TypeScript types are correct under
   `node16`, `nodenext` and `bundler` resolution.
-- The AngularJS 1.x directive was removed. AngularJS has been end-of-life since
-  January 2022.
+- The AngularJS 1.x directive was removed — AngularJS has been end-of-life
+  since January 2022. See [AngularJS — migrating from 2.x](#angularjs--migrating-from-2x)
+  for a drop-in replacement directive, or stay on `2.1.7`.
 - Bower and Meteor packaging were removed. Install from npm.
 - The `easing` signature is now `(t, b, c, d)`. The 2.x form
   `(chart, t, b, c, d)` and jQuery easing names are both still accepted, so
