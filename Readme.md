@@ -99,6 +99,32 @@ the scale. `data-percent` sets the initial value.
 
 Values may be negative — the bar is then drawn counter-clockwise.
 
+Function options (`barColor`, `easing`, `onStart`, `onStep`, `onStop`) are bound
+to the chart instance, so `this.el` inside them is the host element. Arrow
+functions keep their own `this`, as usual.
+
+## Gradients
+
+`barColor` receives the current percent and returns any valid canvas stroke
+style — including a gradient built from the renderer's own context:
+
+```js
+const chart = new EasyPieChart(el, {
+  barColor() {
+    const ctx = this.renderer.getCtx();
+    const { size } = this.options;
+    const gradient = ctx.createLinearGradient(0, 0, size, 0);
+    gradient.addColorStop(0, '#22c55e');
+    gradient.addColorStop(1, '#0ea5e9');
+    return gradient;
+  },
+});
+```
+
+The canvas is translated so `0,0` is its centre and rotated so 0% starts at 12
+o'clock — take that into account when positioning gradient stops. Use
+`this.renderer.getCanvas()` if you need the element itself.
+
 ## API
 
 | Method | Description |
@@ -110,6 +136,8 @@ Values may be negative — the bar is then drawn counter-clockwise.
 | `destroy()` | Cancel animations and remove the canvas. |
 | `value` | Getter for the current value. |
 | `options` | The resolved options object. |
+| `renderer` | The active renderer. `getCtx()` / `getCanvas()` on the canvas renderer. |
+| `el` | The host element. |
 
 All methods except `destroy()` and `value` return the instance for chaining.
 

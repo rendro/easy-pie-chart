@@ -1,4 +1,4 @@
-import type { IRenderer, TOptions } from './types.js';
+import type { IRenderer, TOptions, TStrokeStyle } from './types.js';
 
 /**
  * Renders the chart onto a `<canvas>` appended to the host element.
@@ -43,19 +43,31 @@ export class CanvasRenderer implements IRenderer {
     ctx.translate(options.size / 2, options.size / 2);
     ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI);
 
-    let radius = (options.size - options.lineWidth) / 2;
+    // The widest of the two strokes decides how much room the ring needs: the
+    // track is drawn with trackWidth, so sizing the radius off lineWidth alone
+    // pushed a wider track past the canvas edge and clipped it. The extra
+    // pixel keeps the antialiased outer edge inside the bitmap.
+    const stroke = Math.max(
+      options.lineWidth,
+      options.trackWidth ?? options.lineWidth,
+    );
+    let radius = (options.size - stroke) / 2 - 1;
     if (options.scaleColor && options.scaleLength) {
       // 2 is the distance between scale and bar
       radius -= options.scaleLength + 2;
     }
-    this.radius = radius;
+    this.radius = Math.max(0, radius);
   }
 
   /**
    * Draw a circle segment around the center of the canvas.
    * @param percent float between -1 and 1
    */
-  private drawCircle(color: string, lineWidth: number, percent: number): void {
+  private drawCircle(
+    color: TStrokeStyle,
+    lineWidth: number,
+    percent: number,
+  ): void {
     const p = Math.min(Math.max(-1, percent || 0), 1);
     // a zero-length arc with `lineCap: round` renders as a dot in most browsers
     if (p === 0) {

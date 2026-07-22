@@ -119,12 +119,36 @@ function resolveOptions(base: TOptions, user: TUserOptions): TOptions {
   return merged;
 }
 
+const FUNCTION_KEYS = [
+  'barColor',
+  'easing',
+  'onStart',
+  'onStep',
+  'onStop',
+] as const;
+
+/**
+ * Bind every function option to the chart instance, so callbacks can reach the
+ * host element via `this.el` — behaviour 2.x documented and relied on.
+ * Arrow functions are unaffected, as always.
+ */
+function bindCallbacks(options: TOptions, ctx: EasyPieChart): void {
+  for (const key of FUNCTION_KEYS) {
+    const fn = options[key];
+    if (typeof fn === 'function') {
+      (options as Record<string, unknown>)[key] = fn.bind(ctx);
+    }
+  }
+}
+
 export class EasyPieChart {
   readonly el: HTMLElement;
 
   options: TOptions;
 
-  private renderer: IRenderer;
+  /** Public so callers can reach `getCtx()`/`getCanvas()` to build gradients. */
+  renderer: IRenderer;
+
   private currentValue = 0;
 
   constructor(el: HTMLElement, userOptions: TUserOptions = {}) {
@@ -138,6 +162,7 @@ export class EasyPieChart {
       resolveOptions(defaultOptions, optionsFromDataset(el)),
       userOptions,
     );
+    bindCallbacks(this.options, this);
 
     this.renderer = new this.options.renderer(el, this.options);
     this.renderer.draw(this.currentValue);
@@ -180,6 +205,7 @@ export class EasyPieChart {
   setOptions(userOptions: TUserOptions): this {
     this.renderer.destroy();
     this.options = resolveOptions(this.options, userOptions);
+    bindCallbacks(this.options, this);
     this.renderer = new this.options.renderer(this.el, this.options);
     this.renderer.draw(this.currentValue);
     return this;

@@ -9,7 +9,10 @@ export type TLineCap = 'butt' | 'round' | 'square';
  */
 export type TEasingFn = (t: number, b: number, c: number, d: number) => number;
 
-export type TBarColorFn = (percent: number) => string;
+/** Anything canvas accepts as a stroke style. */
+export type TStrokeStyle = string | CanvasGradient | CanvasPattern;
+
+export type TBarColorFn = (percent: number) => TStrokeStyle;
 
 export type TAnimateOptions = {
   duration: number;
@@ -17,8 +20,11 @@ export type TAnimateOptions = {
 };
 
 export type TOptions = {
-  /** Bar color as a CSS color string, or a function receiving the current percent. */
-  barColor: string | TBarColorFn;
+  /**
+   * Bar color: a CSS color string, a canvas gradient/pattern, or a function
+   * receiving the current percent and returning one of those.
+   */
+  barColor: TStrokeStyle | TBarColorFn;
   /** Track color, or `false` to disable the track. */
   trackColor: string | false;
   /** Scale line color, or `false` to disable the scale. */
@@ -60,6 +66,9 @@ export interface IRenderer {
   stop(): void;
   clear(): void;
   destroy(): void;
+  /** Canvas-backed renderers expose these so callers can build gradients. */
+  getCanvas?(): HTMLCanvasElement;
+  getCtx?(): CanvasRenderingContext2D;
 }
 
 export type TRendererCtor = new (el: HTMLElement, options: TOptions) => IRenderer;

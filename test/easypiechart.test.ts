@@ -295,6 +295,133 @@ describe('EasyPieChart', () => {
     });
   });
 
+  describe('regressions', () => {
+    // #162 / #156 — the ring must stay inside the canvas, antialiasing included
+    const outerEdgeOf = (opts: Record<string, unknown>) => {
+      const el = createEl();
+      new EasyPieChart(el, { animate: false, ...opts });
+      const ctx = getFakeCtx();
+      // the track is drawn first, at the full radius
+      const radius = ctx.arc.mock.calls[0][2] as number;
+      const stroke = Math.max(
+        (opts.lineWidth as number) ?? 3,
+        (opts.trackWidth as number) ?? (opts.lineWidth as number) ?? 3,
+      );
+      return radius + stroke / 2;
+    };
+
+    it('keeps the bar inside the canvas when trackWidth exceeds lineWidth', () => {
+      const size = 110;
+      const outer = outerEdgeOf({
+        size,
+        lineWidth: 3,
+        trackWidth: 20,
+        scaleColor: false,
+      });
+
+      expect(outer).toBeLessThan(size / 2);
+    });
+
+    it.each([
+      { size: 110, lineWidth: 3 },
+      { size: 110, lineWidth: 12 },
+      { size: 140, lineWidth: 20 },
+      { size: 110, lineWidth: 30 },
+    ])('leaves room for antialiasing at $size/$lineWidth', (opts) => {
+      const outer = outerEdgeOf({ ...opts, scaleColor: false });
+      expect(outer).toBeLessThan(opts.size / 2);
+    });
+
+    it('never produces a negative radius for absurd line widths', () => {
+      const el = createEl();
+      new EasyPieChart(el, { animate: false, size: 20, lineWidth: 200 });
+      const radius = getFakeCtx().arc.mock.calls[0]?.[2] as number | undefined;
+      expect(radius ?? 0).toBeGreaterThanOrEqual(0);
+    });
+
+    // #169 — 2.x bound function options to the instance and documented `this.el`
+    it('binds callbacks to the chart so this.el is reachable', () => {
+      const el = createEl();
+      const seen: unknown[] = [];
+      const chart = new EasyPieChart(el, {
+        animate: { duration: 10 },
+        onStart() {
+          seen.push((this as EasyPieChart).el);
+        },
+        onStep() {
+          seen.push((this as EasyPieChart).el);
+        },
+        onStop() {
+          seen.push((this as EasyPieChart).el);
+        },
+      });
+
+      chart.update(50);
+      vi.advanceTimersByTime(200);
+
+      expect(seen.length).toBeGreaterThanOrEqual(3);
+      expect(seen.every((v) => v === el)).toBe(true);
+    });
+
+    it('binds barColor to the chart as well', () => {
+      const el = createEl();
+      let ctxEl: unknown;
+      const chart = new EasyPieChart(el, {
+        animate: false,
+        barColor() {
+          ctxEl = (this as EasyPieChart).el;
+          return '#000';
+        },
+      });
+
+      chart.update(10);
+
+      expect(ctxEl).toBe(el);
+    });
+
+    it('keeps callbacks bound after setOptions', () => {
+      const el = createEl();
+      let ctxEl: unknown;
+      const chart = new EasyPieChart(el, { animate: false });
+
+      chart.setOptions({
+        onStep() {
+          ctxEl = (this as EasyPieChart).el;
+        },
+        animate: { duration: 10, enabled: true },
+      });
+      chart.update(50);
+      vi.advanceTimersByTime(200);
+
+      expect(ctxEl).toBe(el);
+    });
+
+    it('leaves arrow-function callbacks alone', () => {
+      const el = createEl();
+      let called = false;
+      const chart = new EasyPieChart(el, {
+        animate: false,
+        barColor: () => {
+          called = true;
+          return '#000';
+        },
+      });
+
+      chart.update(10);
+
+      expect(called).toBe(true);
+    });
+
+    // #123 / #198 / #200 — the documented gradient technique needs the context
+    it('exposes the renderer canvas and context for gradients', () => {
+      const el = createEl();
+      const chart = new EasyPieChart(el, { animate: false });
+
+      expect(chart.renderer.getCtx?.()).toBe(getFakeCtx());
+      expect(chart.renderer.getCanvas?.()).toBe(el.querySelector('canvas'));
+    });
+  });
+
   describe('defaultEasing', () => {
     it('starts at the begin value and ends at the target', () => {
       expect(defaultEasing(0, 0, 100, 1000)).toBeCloseTo(0);

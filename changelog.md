@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 3.0.1
+
+### Fixed
+* Function options are bound to the chart instance again, so `this.el` works
+  inside `onStart`/`onStep`/`onStop`/`barColor`/`easing`. 2.x documented this
+  and 3.0.0 dropped it silently, breaking label callbacks on upgrade. (#169)
+* The ring no longer overflows the canvas. The radius is derived from the wider
+  of `lineWidth`/`trackWidth` and reserves a pixel for the antialiased edge, so
+  a `trackWidth` greater than `lineWidth` is no longer clipped and edges are no
+  longer shaved. Charts render ~1px smaller as a result. (#162, #156)
+* `chart.renderer` is public and `IRenderer` declares `getCanvas()`/`getCtx()`,
+  so the documented gradient technique works again. `barColor` may now return a
+  `CanvasGradient`/`CanvasPattern` as well as a string. (#123, #198, #200)
+
 ## Version 3.0.0
 
 Rewritten in TypeScript; built with Vite, tested with Vitest. The old

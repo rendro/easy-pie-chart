@@ -10,4 +10,5 @@ export type {
   TOptions,
   TRendererCtor,
   TUserOptions,
+  TStrokeStyle,
 } from './types.js';
