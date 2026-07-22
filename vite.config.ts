@@ -50,8 +50,11 @@ export default defineConfig(({ mode }) => {
         entry: resolve(__dirname, target.entry),
         name: target.base === 'easypiechart' ? 'EasyPieChart' : 'easyPieChartJQuery',
         formats: [target.format],
+        // .cjs so Node reads the UMD bundle as CommonJS despite "type": "module";
+        // the minified build keeps .js because it is loaded via a script tag,
+        // where the package.json type field does not apply.
         fileName: () =>
-          isEs ? `${target.base}.mjs` : `${target.base}.${min ? 'min.js' : 'js'}`,
+          isEs ? `${target.base}.mjs` : `${target.base}.${min ? 'min.js' : 'cjs'}`,
       },
       rollupOptions: {
         // UMD gets a single default export so the global is the value itself

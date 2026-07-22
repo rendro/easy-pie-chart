@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-import { EasyPieChart, defaultEasing } from '../src/easypiechart';
+import { EasyPieChart, defaultEasing } from '../src/easypiechart.js';
 import { getFakeCtx } from './setup';
 
 function createEl(attrs: Record<string, string> = {}): HTMLElement {

@@ -1,4 +1,4 @@
-import { registerJQueryPlugin } from './jquery';
+import { registerJQueryPlugin } from './jquery.js';
 
 /**
  * UMD entry point for the jQuery plugin. Importing `./jquery` auto-registers

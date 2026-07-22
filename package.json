@@ -21,24 +21,36 @@
       "url": "https://github.com/mrzmyr"
     }
   ],
-  "main": "./dist/easypiechart.js",
+  "type": "module",
+  "main": "./dist/easypiechart.cjs",
   "module": "./dist/easypiechart.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/easypiechart.mjs",
-      "require": "./dist/easypiechart.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/easypiechart.mjs"
+      },
+      "require": {
+        "types": "./types/cjs.d.cts",
+        "default": "./dist/easypiechart.cjs"
+      }
     },
     "./jquery": {
-      "types": "./dist/jquery.d.ts",
-      "import": "./dist/jquery.easypiechart.mjs",
-      "require": "./dist/jquery.easypiechart.js"
+      "import": {
+        "types": "./dist/jquery.d.ts",
+        "default": "./dist/jquery.easypiechart.mjs"
+      },
+      "require": {
+        "types": "./types/jquery.d.cts",
+        "default": "./dist/jquery.easypiechart.cjs"
+      }
     }
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "types"
   ],
   "repository": {
     "type": "git",

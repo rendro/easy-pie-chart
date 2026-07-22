@@ -1,10 +1,10 @@
-import { CanvasRenderer } from './canvas-renderer';
+import { CanvasRenderer } from './canvas-renderer.js';
 import type {
   IRenderer,
   TAnimateOptions,
   TOptions,
   TUserOptions,
-} from './types';
+} from './types.js';
 
 export const defaultEasing: TOptions['easing'] = (t, b, c, d) => {
   t = t / (d / 2);

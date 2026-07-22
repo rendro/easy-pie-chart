@@ -1,5 +1,5 @@
-import { CanvasRenderer } from './canvas-renderer';
-import { EasyPieChart, defaultEasing, defaultOptions } from './easypiechart';
+import { CanvasRenderer } from './canvas-renderer.js';
+import { EasyPieChart, defaultEasing, defaultOptions } from './easypiechart.js';
 
 /**
  * UMD entry point. Script-tag users expect `window.EasyPieChart` to be the

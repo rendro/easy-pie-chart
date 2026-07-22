@@ -1,5 +1,5 @@
-import { EasyPieChart } from './easypiechart';
-import type { TUserOptions } from './types';
+import { EasyPieChart } from './easypiechart.js';
+import type { TUserOptions } from './types.js';
 
 const DATA_KEY = 'easyPieChart';
 

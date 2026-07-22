@@ -119,8 +119,10 @@ Run `npm run build`, then open `examples/index.html` in a browser.
 
 ## Migrating from 2.x
 
-- Distributed as ESM (`dist/easypiechart.mjs`) and UMD (`dist/easypiechart.js`).
-  The UMD global is still `EasyPieChart`.
+- Distributed as ESM (`dist/easypiechart.mjs`), CommonJS (`dist/easypiechart.cjs`)
+  and a minified UMD bundle for script tags (`dist/easypiechart.min.js`). The
+  UMD global is still `EasyPieChart`. TypeScript types are correct under
+  `node16`, `nodenext` and `bundler` resolution.
 - The AngularJS 1.x directive was removed. AngularJS has been end-of-life since
   January 2022.
 - Bower and Meteor packaging were removed. Install from npm.

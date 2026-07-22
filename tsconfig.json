@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES2019",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    // nodenext so tsc validates that emitted .d.ts imports carry explicit
+    // extensions — without it the declarations are unresolvable for consumers
+    // on node16/nodenext resolution, and silently degrade to `any` under
+    // skipLibCheck.
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "lib": ["ES2020", "DOM"],
     "strict": true,
     "declaration": true,

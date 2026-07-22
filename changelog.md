@@ -12,7 +12,9 @@ are gone.
 * Removed the IE7/8 excanvas (`G_vmlCanvasManager`) code path.
 * `easing` is now `(t, b, c, d)` — the leading instance argument is gone, and
   jQuery easing names are no longer resolved to functions.
-* `dist/angular.easypiechart.js` is gone; ESM builds are `*.mjs`.
+* `dist/angular.easypiechart.js` is gone. The package is now `"type": "module"`:
+  ESM builds are `*.mjs`, the CommonJS/UMD build for `require()` is `*.cjs`, and
+  the minified UMD bundle for script tags stays `*.min.js`.
 
 ### Added
 * TypeScript types shipped with the package.

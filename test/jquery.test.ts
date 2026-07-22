@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
-import { registerJQueryPlugin } from '../src/jquery';
-import type { EasyPieChart } from '../src/easypiechart';
+import { registerJQueryPlugin } from '../src/jquery.js';
+import type { EasyPieChart } from '../src/easypiechart.js';
 
 /** Minimal stand-in for the slice of the jQuery API the plugin uses. */
 function createFakeJQuery() {

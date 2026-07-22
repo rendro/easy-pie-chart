@@ -1,4 +1,4 @@
-import type { IRenderer, TOptions } from './types';
+import type { IRenderer, TOptions } from './types.js';
 
 /**
  * Renders the chart onto a `<canvas>` appended to the host element.

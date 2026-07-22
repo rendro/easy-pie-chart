@@ -1,6 +1,6 @@
-export { EasyPieChart, defaultEasing, defaultOptions } from './easypiechart';
-export { EasyPieChart as default } from './easypiechart';
-export { CanvasRenderer } from './canvas-renderer';
+export { EasyPieChart, defaultEasing, defaultOptions } from './easypiechart.js';
+export { EasyPieChart as default } from './easypiechart.js';
+export { CanvasRenderer } from './canvas-renderer.js';
 export type {
   IRenderer,
   TAnimateOptions,
@@ -10,4 +10,4 @@ export type {
   TOptions,
   TRendererCtor,
   TUserOptions,
-} from './types';
+} from './types.js';
