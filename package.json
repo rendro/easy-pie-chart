@@ -60,6 +60,7 @@
     "build": "vite build && vite build --mode umd && vite build --mode umd-min && vite build --mode jquery && vite build --mode jquery-umd && vite build --mode jquery-umd-min && tsc",
     "typecheck": "tsc -p tsconfig.check.json",
     "test": "vitest run",
+    "verify:package": "./scripts/verify-package.sh",
     "test:watch": "vitest"
   },
   "devDependencies": {

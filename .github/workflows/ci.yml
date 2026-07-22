@@ -21,3 +21,18 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+
+  # Typechecks a real consumer against the packed tarball with skipLibCheck
+  # off, which is the only way to catch declaration bugs the in-repo build
+  # cannot see. Runs once — it verifies the artifact, not the Node version.
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run verify:package
