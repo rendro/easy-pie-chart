@@ -12,7 +12,19 @@ export type TStrokeStyle = string | CanvasGradient | CanvasPattern;
  */
 export type TEasingFn = (t: number, b: number, c: number, d: number) => number;
 
-export type TBarColorFn = (value: number) => TStrokeStyle;
+/**
+ * What function options see as `this`. They are bound to the chart, so this
+ * mirrors the public surface of EasyPieChart without importing it, which would
+ * make types.ts and easypiechart.ts circular.
+ */
+export interface IChartContext {
+  readonly el: HTMLElement;
+  readonly options: TOptions;
+  readonly renderer: IRenderer;
+  readonly value: number;
+}
+
+export type TBarColorFn = (this: IChartContext, value: number) => TStrokeStyle;
 
 /** Animation duration in ms, or a function deriving it from the transition. */
 export type TDurationFn = (from: number, to: number) => number;
@@ -27,7 +39,7 @@ export type TOptions = {
    * Bar color: a CSS color string, a canvas gradient/pattern, or a function
    * receiving the current value and returning one of those.
    */
-  barColor: TStrokeStyle | TBarColorFn;
+  barColor: TStrokeStyle | ((value: number) => TStrokeStyle);
   /** Track color, or `false` to disable the track. */
   trackColor: string | false;
   /** Color of the thin border along both edges of the track, or `false`. */
@@ -64,6 +76,9 @@ export type TOptions = {
   canvasClass: string;
   animate: TAnimateOptions;
   easing: TEasingFn;
+  // Resolved options hold callbacks already bound to the chart, so they carry
+  // no `this` requirement. The constructor accepts the `this`-typed forms —
+  // see TUserOptions.
   onStart: (from: number, to: number) => void;
   onStep: (from: number, to: number, currentValue: number) => void;
   onStop: (from: number, to: number) => void;
@@ -74,10 +89,23 @@ export type TOptions = {
  * Options accepted by the constructor. `animate` additionally accepts the
  * legacy shorthands: a number (duration) or `false` (disabled).
  */
+export type TUserCallbacks = {
+  barColor: TStrokeStyle | TBarColorFn;
+  onStart: (this: IChartContext, from: number, to: number) => void;
+  onStep: (
+    this: IChartContext,
+    from: number,
+    to: number,
+    currentValue: number,
+  ) => void;
+  onStop: (this: IChartContext, from: number, to: number) => void;
+};
+
 export type TUserOptions = Partial<
-  Omit<TOptions, 'animate'> & {
-    animate: Partial<TAnimateOptions> | number | boolean;
-  }
+  Omit<TOptions, 'animate' | keyof TUserCallbacks> &
+    TUserCallbacks & {
+      animate: Partial<TAnimateOptions> | number | boolean;
+    }
 >;
 
 export interface IRenderer {
@@ -86,9 +114,9 @@ export interface IRenderer {
   stop(): void;
   clear(): void;
   destroy(): void;
-  /** Canvas-backed renderers expose these so callers can build gradients. */
-  getCanvas?(): HTMLCanvasElement;
-  getCtx?(): CanvasRenderingContext2D;
+  /** Exposed so callers can build gradients against the live context. */
+  getCanvas(): HTMLCanvasElement;
+  getCtx(): CanvasRenderingContext2D;
 }
 
 export type TRendererCtor = new (

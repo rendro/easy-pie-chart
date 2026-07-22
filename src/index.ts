@@ -12,4 +12,6 @@ export type {
   TUserOptions,
   TStrokeStyle,
   TDurationFn,
+  TUserCallbacks,
+  IChartContext,
 } from './types.js';

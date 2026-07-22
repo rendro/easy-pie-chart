@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import { EasyPieChart } from '../src/easypiechart.js';
-import { getFakeCtx } from './setup';
+import { getFakeCtx } from './setup.js';
 
 const TAU = Math.PI * 2;
 
@@ -205,7 +205,7 @@ describe('3.1 options', () => {
       });
       const ctx = getFakeCtx();
       // track, then inner border, then outer border
-      const [track, inner, outer] = ctx.arc.mock.calls.map((c) => c[2] as number);
+      const [track, inner, outer] = ctx.arc.mock.calls.map((c: unknown[]) => c[2] as number);
 
       expect(inner).toBeLessThan(track);
       expect(outer).toBeGreaterThan(track);

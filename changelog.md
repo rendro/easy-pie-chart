@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 3.1.1
+
+### Fixed
+* Function options are now typed as bound to the chart, so `this.el`,
+  `this.options`, `this.renderer` and `this.value` resolve inside `barColor`,
+  `onStart`, `onStep` and `onStop`. 3.0.1 bound them at runtime but never said
+  so in the types, which meant TypeScript inferred `this` as the options object
+  and the documented gradient example did not compile.
+* `getCanvas()` / `getCtx()` are required on `IRenderer` rather than optional,
+  so reaching the context no longer needs a non-null assertion.
+
+### Internal
+* `npm run typecheck` now covers `test/` via `tsconfig.check.json`, including a
+  compile-time test file that pins the public type surface. Declarations for
+  tests are kept out of `dist/`.
+
 ## Version 3.1.0
 
 Clears the long-standing feature backlog. All additions are opt-in — a chart

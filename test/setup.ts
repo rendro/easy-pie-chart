@@ -40,7 +40,7 @@ HTMLCanvasElement.prototype.getContext = function getContext(
 ) {
   currentCtx.canvas = this;
   return currentCtx as unknown as CanvasRenderingContext2D;
-} as HTMLCanvasElement['getContext'];
+} as unknown as HTMLCanvasElement['getContext'];
 
 beforeEach(() => {
   currentCtx = createFakeCtx();

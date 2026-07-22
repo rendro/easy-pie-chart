@@ -9,7 +9,7 @@
     "progress bar"
   ],
   "license": "MIT",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": {
     "name": "Robert Fleischmann",
     "email": "rendro87@gmail.com",
@@ -58,7 +58,7 @@
   },
   "scripts": {
     "build": "vite build && vite build --mode umd && vite build --mode umd-min && vite build --mode jquery && vite build --mode jquery-umd && vite build --mode jquery-umd-min && tsc",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -p tsconfig.check.json",
     "test": "vitest run",
     "test:watch": "vitest"
   },

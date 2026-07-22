@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 import { EasyPieChart, defaultEasing } from '../src/easypiechart.js';
-import { getFakeCtx } from './setup';
+import { getFakeCtx } from './setup.js';
 
 function createEl(attrs: Record<string, string> = {}): HTMLElement {
   const el = document.createElement('span');
