@@ -13,6 +13,25 @@ export type TStrokeStyle = string | CanvasGradient | CanvasPattern;
 export type TEasingFn = (t: number, b: number, c: number, d: number) => number;
 
 /**
+ * The five-argument easing signature used by 2.x and by jQuery UI, whose first
+ * argument is ignored. Still accepted so existing configs keep working.
+ */
+export type TLegacyEasingFn = (
+  chart: unknown,
+  t: number,
+  b: number,
+  c: number,
+  d: number,
+) => number;
+
+/**
+ * What you may pass as `easing`: a function of either signature, or the name
+ * of a jQuery easing. Unknown names fall back to the default easing rather
+ * than throwing, as in 2.x.
+ */
+export type TEasingOption = TEasingFn | TLegacyEasingFn | string;
+
+/**
  * What function options see as `this`. They are bound to the chart, so this
  * mirrors the public surface of EasyPieChart without importing it, which would
  * make types.ts and easypiechart.ts circular.
@@ -90,6 +109,7 @@ export type TOptions = {
  * legacy shorthands: a number (duration) or `false` (disabled).
  */
 export type TUserCallbacks = {
+  easing: TEasingOption;
   barColor: TStrokeStyle | TBarColorFn;
   onStart: (this: IChartContext, from: number, to: number) => void;
   onStep: (

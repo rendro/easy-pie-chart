@@ -2,6 +2,8 @@ import { CanvasRenderer } from './canvas-renderer.js';
 import type {
   IRenderer,
   TAnimateOptions,
+  TEasingFn,
+  TLegacyEasingFn,
   TOptions,
   TUserOptions,
 } from './types.js';
@@ -146,13 +148,7 @@ function resolveOptions(base: TOptions, user: TUserOptions): TOptions {
   return merged;
 }
 
-const FUNCTION_KEYS = [
-  'barColor',
-  'easing',
-  'onStart',
-  'onStep',
-  'onStop',
-] as const;
+const FUNCTION_KEYS = ['barColor', 'onStart', 'onStep', 'onStop'] as const;
 
 /**
  * Bind every function option to the chart instance, so callbacks can reach the
@@ -166,6 +162,42 @@ function bindCallbacks(options: TOptions, ctx: EasyPieChart): void {
       (options as Record<string, unknown>)[key] = fn.bind(ctx);
     }
   }
+}
+
+/**
+ * Normalise whatever was passed as `easing` into the four-argument form the
+ * renderer calls.
+ *
+ * Three shapes are accepted, all of which 2.x supported:
+ *   - a `(t, b, c, d)` function — the modern signature
+ *   - a `(chart, t, b, c, d)` function — 2.x's own signature, and jQuery UI's
+ *   - the name of a jQuery easing, resolved against `jQuery.easing`
+ *
+ * Anything else, including an unresolvable name, falls back to the default.
+ * 2.x did the same; 3.0 dropped it and any string reached the renderer as a
+ * non-callable, throwing on every animation frame.
+ */
+function resolveEasing(raw: unknown, ctx: EasyPieChart): TEasingFn {
+  if (typeof raw === 'function') {
+    // arity 5 means the legacy signature, whose first argument is the chart
+    if (raw.length >= 5) {
+      const legacy = raw as TLegacyEasingFn;
+      return (t, b, c, d) => legacy.call(ctx, ctx, t, b, c, d);
+    }
+    return (raw as TEasingFn).bind(ctx);
+  }
+
+  if (typeof raw === 'string') {
+    const named = (globalThis as { jQuery?: { easing?: Record<string, unknown> } })
+      .jQuery?.easing?.[raw];
+    if (typeof named === 'function') {
+      // jQuery easings take (x, t, b, c, d) and ignore x
+      const legacy = named as TLegacyEasingFn;
+      return (t, b, c, d) => legacy.call(ctx, ctx, t, b, c, d);
+    }
+  }
+
+  return defaultEasing;
 }
 
 export class EasyPieChart {
@@ -185,12 +217,15 @@ export class EasyPieChart {
     }
     this.el = el;
 
-    // explicit options win over data attributes on the element
+    // data-* attributes win over the options object, matching the 2.x jQuery
+    // plugin ($.extend({}, options, $(this).data())). That ordering is what
+    // makes "shared JS defaults, per-element data-* overrides" work.
     this.options = resolveOptions(
-      resolveOptions(defaultOptions, optionsFromDataset(el)),
-      userOptions,
+      resolveOptions(defaultOptions, userOptions),
+      optionsFromDataset(el),
     );
     bindCallbacks(this.options, this);
+    this.options.easing = resolveEasing(userOptions.easing, this);
 
     this.renderer = new this.options.renderer(el, this.options);
     this.renderer.draw(this.currentValue);
@@ -261,6 +296,9 @@ export class EasyPieChart {
     this.renderer.destroy();
     this.options = resolveOptions(this.options, userOptions);
     bindCallbacks(this.options, this);
+    if (userOptions.easing !== undefined) {
+      this.options.easing = resolveEasing(userOptions.easing, this);
+    }
     this.renderer = new this.options.renderer(this.el, this.options);
     this.renderer.draw(this.currentValue);
     return this;

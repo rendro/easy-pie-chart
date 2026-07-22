@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 3.1.2
+
+Compatibility fixes. 3.0/3.1 broke three things that worked in 2.1.7; all are
+restored here. If you are on 3.0.x or 3.1.x, upgrade.
+
+### Fixed
+* `easing` given as a string threw `options.easing is not a function` on every
+  animation frame, so the chart never animated. 2.x resolved the name against
+  `jQuery.easing` and fell back to the default for anything unknown; that
+  behaviour is back, and unknown names fall back instead of throwing.
+* `easing` given as a 2.x-style `(chart, t, b, c, d)` function — which is also
+  jQuery UI's signature — was called with the modern four arguments and
+  produced nonsense. Both signatures are now detected and supported.
+* `data-*` attributes no longer lose to the options object. 2.x's jQuery plugin
+  did `$.extend({}, options, $(this).data())`, so per-element attributes won;
+  3.0 reversed it, which silently broke "shared JS defaults, per-element
+  overrides" and re-introduced the problem reported in #146.
+* `dist/easypiechart.js` and `dist/jquery.easypiechart.js` exist again. 3.0
+  renamed them to `.cjs`, 404ing every unpkg/jsDelivr URL and `<script src>`
+  pointing at the 2.x paths. The legacy paths are also mapped in `exports`, so
+  `require('easy-pie-chart/dist/easypiechart.js')` resolves as it did in 2.x.
+
 ## Version 3.1.1
 
 ### Fixed

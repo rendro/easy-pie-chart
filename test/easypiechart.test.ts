@@ -84,11 +84,12 @@ describe('EasyPieChart', () => {
       expect(chart.options.trackColor).toBe(false);
     });
 
-    it('lets explicit options win over data attributes', () => {
+    it('lets data attributes win over explicit options', () => {
+      // matches the 2.x jQuery plugin: $.extend({}, options, $(this).data())
       const el = createEl({ 'data-size': '400' });
       const chart = new EasyPieChart(el, { size: 200, animate: false });
 
-      expect(chart.options.size).toBe(200);
+      expect(chart.options.size).toBe(400);
     });
 
     it('applies data-percent as the initial value', () => {

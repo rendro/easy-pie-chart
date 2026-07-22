@@ -66,8 +66,14 @@ registerJQueryPlugin($);
 
 ### Options via `data-*` attributes
 
-Every option except the callbacks can be set on the element. Explicit options
-passed to the constructor win over attributes.
+Every option except the callbacks can be set on the element. Attributes win
+over the options object, so you can share defaults in JS and override them per
+element — the same ordering the 2.x jQuery plugin used:
+
+```js
+$('.chart').easyPieChart({ barColor: '#ef1e25' }); // default for all
+// <div class="chart" data-bar-color="#10b981"></div>  <- this one is green
+```
 
 ```html
 <div class="chart" data-percent="65" data-size="140" data-bar-color="#7c3aed"></div>
@@ -198,9 +204,9 @@ Run `npm run build`, then open `examples/index.html` in a browser.
 - The AngularJS 1.x directive was removed. AngularJS has been end-of-life since
   January 2022.
 - Bower and Meteor packaging were removed. Install from npm.
-- The `easing` signature dropped its leading instance argument:
-  `(t, b, c, d)` instead of `(chart, t, b, c, d)`. Named jQuery easing strings
-  are no longer resolved — pass a function.
+- The `easing` signature is now `(t, b, c, d)`. The 2.x form
+  `(chart, t, b, c, d)` and jQuery easing names are both still accepted, so
+  existing configs keep working.
 - A 0% bar no longer renders a dot when `lineCap` is `'round'`.
 - `update()` ignores `NaN` instead of leaving the chart stuck.
 - New: `setOptions()`, `stop()`, `destroy()`, `scaleCount`, `data-*` options on
