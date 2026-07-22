@@ -1,5 +1,38 @@
 # Changelog
 
+## Version 3.2.0
+
+Fixes found by an adversarial audit of 3.1.3.
+
+### Fixed
+* **Animation state was shared between every chart on the page.**
+  `normalizeAnimate` returned the fallback object *by reference*, so every chart
+  created without an explicit `animate` option shared one mutable object with
+  the exported `defaultOptions.animate`. `disableAnimation()` on one chart
+  therefore disabled animation on every other chart, including charts created
+  afterwards, and permanently mutated `defaultOptions`.
+* `setOptions({ responsive })` was inert in both directions: turning it on later
+  did nothing, and turning it off left the `ResizeObserver` running.
+* A destroyed chart could be resurrected. `update()` restarted a full animation
+  against the detached canvas and `setOptions()` re-appended a canvas to the
+  host element.
+* Callbacks were re-bound on every `setOptions()`, wrapping an already-bound
+  function each time. The responsive path calls `setOptions()` on every resize,
+  so the chain grew without limit.
+* The track and its border were stroked with the canvas default `lineCap`
+  because `lineCap` was assigned after the background was drawn. Visible
+  wherever the arc does not close on itself, such as a gauge.
+* With `arcLength` below 360 the scale stopped one tick short of the end of the
+  track. A partial arc needs a tick at both ends.
+* `defaultOptions.easing` was the one exported default with no effect: the
+  constructor overwrote it unconditionally.
+* `easy-pie-chart/jquery` is resolvable for TypeScript consumers on
+  `moduleResolution: "node"` via `typesVersions`.
+* The readme's explanation of arrow functions was wrong. `Then(() => this.x)`
+  usually *passes*, because module-level `this` is `module.exports` in
+  CommonJS; the real problem is that the state is global to the file and leaks
+  between specs.
+
 ## Version 3.1.3
 
 ### Fixed

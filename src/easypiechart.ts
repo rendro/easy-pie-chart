@@ -131,7 +131,10 @@ function normalizeAnimate(
   if (animate && typeof animate === 'object') {
     return { ...fallback, ...animate };
   }
-  return fallback;
+  // a copy, never the fallback itself: enableAnimation/disableAnimation mutate
+  // this object in place, and returning it by reference made that mutation
+  // visible to every other chart sharing defaultOptions.animate
+  return { ...fallback };
 }
 
 function resolveOptions(base: TOptions, user: TUserOptions): TOptions {
@@ -155,11 +158,24 @@ const FUNCTION_KEYS = ['barColor', 'onStart', 'onStep', 'onStop'] as const;
  * host element via `this.el` — behaviour 2.x documented and relied on.
  * Arrow functions are unaffected, as always.
  */
-function bindCallbacks(options: TOptions, ctx: EasyPieChart): void {
+function bindCallbacks(
+  options: TOptions,
+  ctx: EasyPieChart,
+  raw: Record<string, unknown>,
+): void {
   for (const key of FUNCTION_KEYS) {
-    const fn = options[key];
-    if (typeof fn === 'function') {
-      (options as Record<string, unknown>)[key] = fn.bind(ctx);
+    const incoming = options[key];
+    // bind the caller's original function, never an already-bound wrapper:
+    // re-binding on every setOptions stacked a closure per call, and the
+    // responsive path calls setOptions on every resize
+    if (typeof incoming === 'function' && incoming !== raw[`bound:${key}`]) {
+      raw[key] = incoming;
+    }
+    const source = raw[key];
+    if (typeof source === 'function') {
+      const bound = (source as (...a: unknown[]) => unknown).bind(ctx);
+      raw[`bound:${key}`] = bound;
+      (options as Record<string, unknown>)[key] = bound;
     }
   }
 }
@@ -210,6 +226,9 @@ export class EasyPieChart {
 
   private currentValue = 0;
   private resizeObserver: ResizeObserver | null = null;
+  private destroyed = false;
+  /** The caller's own callbacks, so re-binding never wraps a wrapper. */
+  private rawCallbacks: Record<string, unknown> = {};
 
   constructor(el: HTMLElement, userOptions: TUserOptions = {}) {
     if (!el) {
@@ -224,8 +243,11 @@ export class EasyPieChart {
       resolveOptions(defaultOptions, userOptions),
       optionsFromDataset(el),
     );
-    bindCallbacks(this.options, this);
-    this.options.easing = resolveEasing(userOptions.easing, this);
+    bindCallbacks(this.options, this, this.rawCallbacks);
+    this.options.easing = resolveEasing(
+      userOptions.easing ?? this.options.easing,
+      this,
+    );
 
     this.renderer = new this.options.renderer(el, this.options);
     this.renderer.draw(this.currentValue);
@@ -273,6 +295,8 @@ export class EasyPieChart {
    * update cannot wedge the chart for all future ones.
    */
   update(newValue: number | string): this {
+    if (this.destroyed) return this;
+
     const value = typeof newValue === 'number' ? newValue : parseFloat(newValue);
     if (Number.isNaN(value)) {
       return this;
@@ -293,14 +317,31 @@ export class EasyPieChart {
    * without animation.
    */
   setOptions(userOptions: TUserOptions): this {
+    if (this.destroyed) return this;
+
+    const wasResponsive = this.options.responsive;
     this.renderer.destroy();
     this.options = resolveOptions(this.options, userOptions);
-    bindCallbacks(this.options, this);
+    bindCallbacks(this.options, this, this.rawCallbacks);
     if (userOptions.easing !== undefined) {
-      this.options.easing = resolveEasing(userOptions.easing, this);
+      this.options.easing = resolveEasing(
+      userOptions.easing ?? this.options.easing,
+      this,
+    );
     }
     this.renderer = new this.options.renderer(this.el, this.options);
     this.renderer.draw(this.currentValue);
+
+    // responsive used to be read only in the constructor, so toggling it here
+    // did nothing, and turning it off left the observer running
+    if (this.options.responsive !== wasResponsive) {
+      if (this.options.responsive) {
+        this.observeResize();
+      } else {
+        this.resizeObserver?.disconnect();
+        this.resizeObserver = null;
+      }
+    }
     return this;
   }
 
@@ -322,6 +363,7 @@ export class EasyPieChart {
 
   /** Remove the canvas, stop observing resizes, cancel any running animation. */
   destroy(): void {
+    this.destroyed = true;
     this.resizeObserver?.disconnect();
     this.resizeObserver = null;
     this.renderer.destroy();

@@ -104,15 +104,21 @@ export class CanvasRenderer implements IRenderer {
     ctx.lineWidth = 1;
     ctx.fillStyle = options.scaleColor as string;
 
+    // a full ring wraps, so `count` ticks at arc/count spacing closes the
+    // circle. A partial arc does not wrap, so it needs a tick at both ends.
+    const isFullCircle = this.arc >= TAU - 1e-9;
+    const step = this.arc / count;
+    const ticks = isFullCircle ? count : count + 1;
+
     ctx.save();
-    for (let i = count; i > 0; --i) {
+    for (let i = ticks; i > 0; --i) {
       // every fourth line is drawn full length
       const isMajor = i % Math.max(1, Math.round(count / 4)) === 0;
       const length = isMajor ? options.scaleLength : options.scaleLength * 0.6;
       const offset = options.scaleLength - length;
 
       ctx.fillRect(-options.size / 2 + offset, 0, length, 1);
-      ctx.rotate(this.arc / count);
+      ctx.rotate(step);
     }
     ctx.restore();
   }
@@ -120,6 +126,9 @@ export class CanvasRenderer implements IRenderer {
   private drawBackground(): void {
     const { ctx, options } = this;
     const trackWidth = options.trackWidth ?? options.lineWidth;
+    // set before stroking: the track used to be drawn with the canvas default
+    // cap, which is visible wherever the arc does not close on itself
+    ctx.lineCap = options.lineCap;
 
     if (options.fillColor) {
       ctx.beginPath();
