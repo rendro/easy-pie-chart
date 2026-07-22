@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 3.1.3
+
+### Fixed
+* `./package.json` is exported. Some bundlers and test resolvers read a
+  dependency's manifest directly, and the `exports` map was blocking them with
+  `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+* `repository.url` uses the `git+https://` form npm expects, so publishing no
+  longer reports an auto-correction.
+
 ## Version 3.1.2
 
 Compatibility fixes. 3.0/3.1 broke three things that worked in 2.1.7; all are
