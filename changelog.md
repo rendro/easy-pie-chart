@@ -1,4 +1,32 @@
-# Changlog
+# Changelog
+
+## Version 3.0.0
+
+Rewritten in TypeScript; built with Vite, tested with Vitest. The old
+Grunt/Karma/Bower/Meteor toolchain and all of its transitive vulnerabilities
+are gone.
+
+### Breaking
+* Removed the AngularJS 1.x directive (EOL since January 2022).
+* Removed Bower (`bower.json`) and Meteor (`package.js`) packaging.
+* Removed the IE7/8 excanvas (`G_vmlCanvasManager`) code path.
+* `easing` is now `(t, b, c, d)` — the leading instance argument is gone, and
+  jQuery easing names are no longer resolved to functions.
+* `dist/angular.easypiechart.js` is gone; ESM builds are `*.mjs`.
+
+### Added
+* TypeScript types shipped with the package.
+* `setOptions()`, `stop()`, `destroy()` and a `value` getter.
+* `scaleCount` option to control the number of scale lines.
+* `data-*` options are read by the vanilla constructor, not just the jQuery
+  plugin.
+* `$('…').easyPieChart('destroy')` and `registerJQueryPlugin($)`.
+
+### Fixed
+* A 0% bar rendered as a dot with `lineCap: 'round'`.
+* `update(NaN)` permanently wedged the chart.
+* Animations now land exactly on the target value and cancel the previous
+  animation instead of racing it.
 
 ## Version 2.1.7 - May 8, 2015
 * Check type of G_vmlCanvasManager. #138

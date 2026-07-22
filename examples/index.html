@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>easy-pie-chart — examples</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 0;
+        padding: 3rem 1.5rem;
+        background: #fafafa;
+        color: #222;
+      }
+      h1 {
+        font-weight: 600;
+        margin-bottom: 2.5rem;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+      }
+      figure {
+        margin: 0;
+        text-align: center;
+      }
+      figcaption {
+        margin-top: 0.75rem;
+        font-size: 0.8rem;
+        color: #666;
+      }
+      .chart {
+        position: relative;
+        display: inline-block;
+      }
+      .chart canvas {
+        display: block;
+      }
+      .chart .label {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      button {
+        margin-top: 2.5rem;
+        padding: 0.6rem 1.2rem;
+        font: inherit;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fff;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>easy-pie-chart</h1>
+
+    <div class="grid">
+      <figure>
+        <div class="chart" id="default"><span class="label">0%</span></div>
+        <figcaption>defaults</figcaption>
+      </figure>
+
+      <figure>
+        <div class="chart" id="no-scale"><span class="label">0%</span></div>
+        <figcaption>no scale, thick bar</figcaption>
+      </figure>
+
+      <figure>
+        <div class="chart" id="gradient"><span class="label">0%</span></div>
+        <figcaption>barColor as a function</figcaption>
+      </figure>
+
+      <figure>
+        <div
+          class="chart"
+          id="data-attrs"
+          data-percent="65"
+          data-size="140"
+          data-line-width="10"
+          data-bar-color="#7c3aed"
+          data-scale-color="false"
+        >
+          <span class="label">65%</span>
+        </div>
+        <figcaption>configured via data-* only</figcaption>
+      </figure>
+    </div>
+
+    <button id="randomize">Randomize</button>
+
+    <script type="module">
+      import { EasyPieChart } from '../dist/easypiechart.mjs';
+
+      const label = (el) => el.querySelector('.label');
+      const showPercent = (el) => (_from, _to, value) => {
+        label(el).textContent = `${Math.round(value)}%`;
+      };
+
+      const charts = [];
+
+      const register = (id, options = {}) => {
+        const el = document.getElementById(id);
+        charts.push(
+          new EasyPieChart(el, { onStep: showPercent(el), ...options }),
+        );
+      };
+
+      register('default');
+
+      register('no-scale', {
+        scaleColor: false,
+        lineWidth: 12,
+        size: 140,
+        barColor: '#10b981',
+        trackColor: '#e5e7eb',
+      });
+
+      register('gradient', {
+        size: 140,
+        lineWidth: 8,
+        scaleColor: false,
+        // red below 50%, amber to 80%, green above
+        barColor: (percent) =>
+          percent < 50 ? '#ef4444' : percent < 80 ? '#f59e0b' : '#22c55e',
+      });
+
+      register('data-attrs');
+
+      const randomize = () => {
+        for (const chart of charts) {
+          chart.update(Math.round(Math.random() * 100));
+        }
+      };
+
+      document.getElementById('randomize').addEventListener('click', randomize);
+      randomize();
+    </script>
+  </body>
+</html>

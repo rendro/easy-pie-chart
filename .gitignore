@@ -1,5 +1,5 @@
-node_modules
-bower_components
-.grunt
-_SpecRunner.html
+node_modules/
+dist/
+.DS_Store
+.sediment/
 npm-debug.log

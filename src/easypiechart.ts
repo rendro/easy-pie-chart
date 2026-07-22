@@ -1,0 +1,208 @@
+import { CanvasRenderer } from './canvas-renderer';
+import type {
+  IRenderer,
+  TAnimateOptions,
+  TOptions,
+  TUserOptions,
+} from './types';
+
+export const defaultEasing: TOptions['easing'] = (t, b, c, d) => {
+  t = t / (d / 2);
+  if (t < 1) {
+    return (c / 2) * t * t + b;
+  }
+  t -= 1;
+  return (-c / 2) * (t * (t - 2) - 1) + b;
+};
+
+const noop = (): void => undefined;
+
+export const defaultOptions: TOptions = {
+  barColor: '#ef1e25',
+  trackColor: '#f9f9f9',
+  scaleColor: '#dfe0e0',
+  scaleLength: 5,
+  scaleCount: 24,
+  lineCap: 'round',
+  lineWidth: 3,
+  trackWidth: undefined,
+  size: 110,
+  rotate: 0,
+  animate: {
+    duration: 1000,
+    enabled: true,
+  },
+  easing: defaultEasing,
+  onStart: noop,
+  onStep: noop,
+  onStop: noop,
+  renderer: CanvasRenderer,
+};
+
+const NUMBER_KEYS = [
+  'scaleLength',
+  'scaleCount',
+  'lineWidth',
+  'trackWidth',
+  'size',
+  'rotate',
+] as const;
+
+const STRING_KEYS = ['barColor', 'trackColor', 'scaleColor', 'lineCap'] as const;
+
+/**
+ * Read `data-*` attributes off the host element. `data-track-color="false"`
+ * and `data-scale-color="false"` disable the respective feature.
+ */
+function optionsFromDataset(el: HTMLElement): TUserOptions {
+  const data = el.dataset;
+  if (!data) {
+    return {};
+  }
+
+  const options: Record<string, unknown> = {};
+
+  for (const key of NUMBER_KEYS) {
+    const raw = data[key];
+    if (raw != null && raw !== '') {
+      const value = parseFloat(raw);
+      if (!Number.isNaN(value)) {
+        options[key] = value;
+      }
+    }
+  }
+
+  for (const key of STRING_KEYS) {
+    const raw = data[key];
+    if (raw != null && raw !== '') {
+      options[key] = raw === 'false' ? false : raw;
+    }
+  }
+
+  if (data.animate != null && data.animate !== '') {
+    const duration = parseFloat(data.animate);
+    options.animate = Number.isNaN(duration)
+      ? data.animate !== 'false'
+      : duration;
+  }
+
+  return options as TUserOptions;
+}
+
+function normalizeAnimate(
+  animate: TUserOptions['animate'],
+  fallback: TAnimateOptions,
+): TAnimateOptions {
+  if (typeof animate === 'number') {
+    return { duration: animate, enabled: true };
+  }
+  if (typeof animate === 'boolean') {
+    return { duration: fallback.duration, enabled: animate };
+  }
+  if (animate && typeof animate === 'object') {
+    return { ...fallback, ...animate };
+  }
+  return fallback;
+}
+
+function resolveOptions(base: TOptions, user: TUserOptions): TOptions {
+  const { animate, ...rest } = user;
+  const merged = { ...base } as TOptions;
+
+  for (const [key, value] of Object.entries(rest)) {
+    if (value !== undefined) {
+      (merged as Record<string, unknown>)[key] = value;
+    }
+  }
+
+  merged.animate = normalizeAnimate(animate, base.animate);
+  return merged;
+}
+
+export class EasyPieChart {
+  readonly el: HTMLElement;
+
+  options: TOptions;
+
+  private renderer: IRenderer;
+  private currentValue = 0;
+
+  constructor(el: HTMLElement, userOptions: TUserOptions = {}) {
+    if (!el) {
+      throw new Error('easy-pie-chart: no element given');
+    }
+    this.el = el;
+
+    // explicit options win over data attributes on the element
+    this.options = resolveOptions(
+      resolveOptions(defaultOptions, optionsFromDataset(el)),
+      userOptions,
+    );
+
+    this.renderer = new this.options.renderer(el, this.options);
+    this.renderer.draw(this.currentValue);
+
+    const percent = el.dataset?.percent;
+    if (percent != null && percent !== '') {
+      this.update(parseFloat(percent));
+    }
+  }
+
+  /** Current value of the chart. */
+  get value(): number {
+    return this.currentValue;
+  }
+
+  /**
+   * Update the value of the chart. Non-numeric values are ignored so a bad
+   * update cannot wedge the chart for all future ones.
+   */
+  update(newValue: number | string): this {
+    const value = typeof newValue === 'number' ? newValue : parseFloat(newValue);
+    if (Number.isNaN(value)) {
+      return this;
+    }
+
+    if (this.options.animate.enabled) {
+      this.renderer.animate(this.currentValue, value);
+    } else {
+      this.renderer.stop();
+      this.renderer.draw(value);
+    }
+    this.currentValue = value;
+    return this;
+  }
+
+  /**
+   * Replace options and rebuild the renderer. The current value is redrawn
+   * without animation.
+   */
+  setOptions(userOptions: TUserOptions): this {
+    this.renderer.destroy();
+    this.options = resolveOptions(this.options, userOptions);
+    this.renderer = new this.options.renderer(this.el, this.options);
+    this.renderer.draw(this.currentValue);
+    return this;
+  }
+
+  /** Stop a running animation, leaving the chart at the last drawn frame. */
+  stop(): this {
+    this.renderer.stop();
+    return this;
+  }
+
+  disableAnimation(): this {
+    this.options.animate.enabled = false;
+    return this;
+  }
+
+  enableAnimation(): this {
+    this.options.animate.enabled = true;
+    return this;
+  }
+
+  /** Remove the canvas and cancel any running animation. */
+  destroy(): void {
+    this.renderer.destroy();
+  }
+}

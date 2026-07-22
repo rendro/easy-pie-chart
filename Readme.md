@@ -2,267 +2,136 @@
 
 > Lightweight plugin to render simple, animated and retina optimized pie charts
 
-![Version](http://img.shields.io/version/2.1.7.png?color=green)
-[![Build Status](https://travis-ci.org/rendro/easy-pie-chart.png)](https://travis-ci.org/rendro/easy-pie-chart)
-[![Dependencies Status](https://david-dm.org/rendro/easy-pie-chart/dev-status.png)](https://david-dm.org/rendro/easy-pie-chart)
-[![Analytics](https://ga-beacon.appspot.com/UA-46840672-1/easy-pie-chart/readme)](https://github.com/igrigorik/ga-beacon)
+[![CI](https://github.com/rendro/easy-pie-chart/actions/workflows/ci.yml/badge.svg)](https://github.com/rendro/easy-pie-chart/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/easy-pie-chart.svg)](https://www.npmjs.com/package/easy-pie-chart)
 
+- highly customizable, no dependencies
+- resolution independent (retina optimized)
+- written in TypeScript, ships its own types
+- ESM + UMD builds, ~2 kB gzipped
+- optional jQuery plugin entry point
 
+## Install
 
-## Features
-[![](https://github.com/rendro/easy-pie-chart/raw/master/demo/img/easy-pie-chart.png)](http://drbl.in/ezuc)
-
-* highly customizable
-* very easy to implement
-* resolution independent (retina optimized)
-* uses `requestAnimationFrame` for smooth animations on modern devices and
-* works in all modern browsers, even in IE7+ with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions)
-
-#### framework support
-
-* Vanilla JS *(no dependencies)* (~872 bytes)
-* jQuery plugin (~921 bytes)
-* Angular Module (~983 bytes)
-
-
-
-## Get started
-#### Installation
-
-You can also use [bower](http://bower.io) to install the component:
-
-```
-$ bower install jquery.easy-pie-chart
+```sh
+npm install easy-pie-chart
 ```
 
-#### jQuery
+## Usage
 
-To use the easy pie chart plugin you need to load the current version of jQuery (> 1.6.4) and the source of the plugin.
+```js
+import { EasyPieChart } from 'easy-pie-chart';
+
+const chart = new EasyPieChart(document.querySelector('.chart'), {
+  barColor: '#ef1e25',
+  size: 110,
+});
+
+chart.update(65);
+```
+
+Via a script tag — the UMD bundle exposes a global `EasyPieChart`:
 
 ```html
-<div class="chart" data-percent="73" data-scale-color="#ffb400">73%</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="/path/to/jquery.easy-pie-chart.js"></script>
+<script src="node_modules/easy-pie-chart/dist/easypiechart.min.js"></script>
 <script>
-    $(function() {
-        $('.chart').easyPieChart({
-            //your options goes here
-        });
-    });
+  new EasyPieChart(document.querySelector('.chart'), { size: 110 }).update(65);
 </script>
 ```
 
-#### Vanilla JS
-
-If you don't want to use jQuery, implement the Vanilla JS version without any dependencies.
+### jQuery
 
 ```html
-<div class="chart" data-percent="73">73%</div>
-
-<script src="/path/to/easy-pie-chart.js"></script>
+<script src="jquery.js"></script>
+<script src="node_modules/easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
 <script>
-    var element = document.querySelector('.chart');
-    new EasyPieChart(element, {
-        // your options goes here
-    });
+  $('.chart').easyPieChart({ barColor: '#10b981' });
+
+  // the instance lives on the element's data
+  $('.chart').data('easyPieChart').update(42);
+
+  // tear it down
+  $('.chart').easyPieChart('destroy');
 </script>
 ```
 
-#### AngularJS
+As a module, when jQuery is not a global:
 
-```html
-<div ng-controller="chartCtrl">
-    <div easypiechart options="options" percent="percent"></div>
-</div>
+```js
+import { registerJQueryPlugin } from 'easy-pie-chart/jquery';
+import $ from 'jquery';
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
-<script src="../dist/angular.easypiechart.min.js"></script>
-<script>
-    var app = angular.module('app', ['easypiechart']);
-    app.controller('chartCtrl', ['$scope', function ($scope) {
-        $scope.percent = 65;
-        $scope.options = {
-            animate:{
-                duration:0,
-                enabled:false
-            },
-            barColor:'#2C3E50',
-            scaleColor:false,
-            lineWidth:20,
-            lineCap:'circle'
-        };
-    }]);
-</script>
+registerJQueryPlugin($);
 ```
 
+### Options via `data-*` attributes
 
+Every option except the callbacks can be set on the element. Explicit options
+passed to the constructor win over attributes.
+
+```html
+<div class="chart" data-percent="65" data-size="140" data-bar-color="#7c3aed"></div>
+```
+
+`data-track-color="false"` and `data-scale-color="false"` disable the track and
+the scale. `data-percent` sets the initial value.
 
 ## Options
-You can pass these options to the initialize function to set a custom look and feel for the plugin.
 
-<table>
-    <tr>
-        <th>Property (Type)</th>
-        <th>Default</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><strong>barColor</strong></td>
-        <td>#ef1e25</td>
-        <td>The color of the curcular bar. You can either pass a valid css color string, or a function that takes the current percentage as a value and returns a valid css color string.</td>
-    </tr>
-    <tr>
-        <td><strong>trackColor</strong></td>
-        <td>#f2f2f2</td>
-        <td>The color of the track, or false to disable rendering.</td>
-    </tr>
-    <tr>
-        <td><strong>scaleColor</strong></td>
-        <td>#dfe0e0</td>
-        <td>The color of the scale lines, false to disable rendering.</td>
-    </tr>
-    <tr>
-        <td><strong>scaleLength</strong></td>
-        <td>5</td>
-        <td>Length of the scale lines (reduces the radius of the chart).</td>
-    </tr>
-    <tr>
-        <td><strong>lineCap</strong></td>
-        <td>round</td>
-        <td>Defines how the ending of the bar line looks like. Possible values are: <code>butt</code>, <code>round</code> and <code>square</code>.</td>
-    </tr>
-    <tr>
-        <td><strong>lineWidth</strong></td>
-        <td>3</td>
-        <td>Width of the chart line in px.</td>
-    </tr>
-    <tr>
-        <td><strong>size</strong></td>
-        <td>110</td>
-        <td>Size of the pie chart in px. It will always be a square.</td>
-    </tr>
-        <tr>
-        <td><strong>rotate</strong></td>
-        <td>0</td>
-        <td>Rotation of the complete chart in degrees.</td>
-    </tr>
-    <tr>
-        <td><strong>animate</strong></td>
-        <td>object</td>
-        <td>Object with time in milliseconds and boolean for an animation of the bar growing (<code>{ duration: 1000, enabled: true }</code>), or false to deactivate animations.</td>
-    </tr>
-    <tr>
-        <td><strong>easing</strong></td>
-        <td>defaultEasing</td>
-        <td>Easing function or string with the name of a <a href="http://gsgd.co.uk/sandbox/jquery/easing/" target="_blank">jQuery easing function</a></td>
-    </tr>
-</table>
+| Option | Default | Description |
+| --- | --- | --- |
+| `barColor` | `'#ef1e25'` | CSS color string, or `(percent) => string` |
+| `trackColor` | `'#f9f9f9'` | Track color, or `false` to disable |
+| `scaleColor` | `'#dfe0e0'` | Scale line color, or `false` to disable |
+| `scaleLength` | `5` | Length of the scale lines in px (reduces the radius) |
+| `scaleCount` | `24` | Number of scale lines |
+| `lineCap` | `'round'` | `'butt'`, `'round'` or `'square'` |
+| `lineWidth` | `3` | Width of the bar in px |
+| `trackWidth` | `lineWidth` | Width of the track in px |
+| `size` | `110` | Size of the chart in px (always square) |
+| `rotate` | `0` | Rotation of the whole chart in degrees |
+| `animate` | `{ duration: 1000, enabled: true }` | Also accepts a number (duration) or `false` |
+| `easing` | quadratic ease-in-out | `(t, b, c, d) => number` |
+| `onStart` | — | `(from, to) => void` |
+| `onStep` | — | `(from, to, currentValue) => void` |
+| `onStop` | — | `(from, to) => void` |
+| `renderer` | `CanvasRenderer` | Custom renderer implementing `IRenderer` |
 
+Values may be negative — the bar is then drawn counter-clockwise.
 
+## API
 
-## Callbacks
-All callbacks will only be called if `animate` is not `false`.
+| Method | Description |
+| --- | --- |
+| `update(value)` | Animate (or jump) to a new value. Non-numeric values are ignored. |
+| `setOptions(options)` | Apply new options and redraw at the current value. |
+| `stop()` | Stop a running animation at the current frame. |
+| `enableAnimation()` / `disableAnimation()` | Toggle animated updates. |
+| `destroy()` | Cancel animations and remove the canvas. |
+| `value` | Getter for the current value. |
+| `options` | The resolved options object. |
 
-<table>
-    <tr>
-        <th>Callback(params, ...)</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><strong>onStart(from, to)</strong></td>
-        <td>Is called at the start of any animation.</td>
-    </tr>
-    <tr>
-        <td><strong>onStep(from, to, currentValue)</strong></td>
-        <td>Is called during animations providing the current value (the method is scoped to the context of th eplugin, so you can access the DOM element via <code>this.el</code>).</td>
-    </tr>
-    <tr>
-        <td><strong>onStop(from, to)</strong></td>
-        <td>Is called at the end of any animation.</td>
-    </tr>
-</table>
+All methods except `destroy()` and `value` return the instance for chaining.
 
+## Examples
 
+Run `npm run build`, then open `examples/index.html` in a browser.
 
-## Plugin api
-#### jQuery
+## Migrating from 2.x
 
-```javascript
-$(function() {
-    // instantiate the plugin
-    ...
-    // update
-    $('.chart').data('easyPieChart').update(40);
-    ...
-    // disable animation
-    $('.chart').data('easyPieChart').disableAnimation();
-    ...
-    // enable animation
-    $('.chart').data('easyPieChart').enableAnimation();
-});
-```
+- Distributed as ESM (`dist/easypiechart.mjs`) and UMD (`dist/easypiechart.js`).
+  The UMD global is still `EasyPieChart`.
+- The AngularJS 1.x directive was removed. AngularJS has been end-of-life since
+  January 2022.
+- Bower and Meteor packaging were removed. Install from npm.
+- The `easing` signature dropped its leading instance argument:
+  `(t, b, c, d)` instead of `(chart, t, b, c, d)`. Named jQuery easing strings
+  are no longer resolved — pass a function.
+- A 0% bar no longer renders a dot when `lineCap` is `'round'`.
+- `update()` ignores `NaN` instead of leaving the chart stuck.
+- New: `setOptions()`, `stop()`, `destroy()`, `scaleCount`, `data-*` options on
+  the vanilla constructor, and TypeScript types.
 
-#### Vanilla JS
+## License
 
-```javascript
-// instantiate the plugin
-var chart = new EasyPieChart(element, options);
-// update
-chart.update(40);
-// disable animation
-chart.disableAnimation();
-// enable animation
-chart.enableAnimation();
-```
-
-###### Using a gradient
-
-```javascript
-new EasyPieChart(element, {
-  barColor: function(percent) {
-    var ctx = this.renderer.getCtx();
-    var canvas = this.renderer.getCanvas();
-    var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
-        gradient.addColorStop(0, "#ffe57e");
-        gradient.addColorStop(1, "#de5900");
-    return gradient;
-  }
-});
-```
-
-#### AngularJS
-
-For a value binding you need to add the `percent` attribute and bind it to your controller.
-
-#### RequireJS
-
-When using [RequireJS](http://requirejs.org) you can define your own name. Examples can be found in the `demo/requirejs.html`.
-
-
-
-## Browser Support
-Native support
-
-* Chrome
-* Safari
-* FireFox
-* Opera
-* Internet Explorer 9+
-
-Support for Internet Explorer 7 and 8 with [excanvas](https://code.google.com/p/explorercanvas/wiki/Instructions) polyfill.
-
-
-
-## Test
-To run the test just use the karma adapter of grunt: `grunt test`
-
-
-
-## Credits
-Thanks to [Rafal Bromirski](http://www.paranoida.com/) for designing [this dribble shot](http://drbl.in/ezuc) which inspired me building this plugin.
-
-
-
-## Copyright
-Copyright (c) 2015 Robert Fleischmann, contributors. Released under the MIT, GPL licenses
+MIT
