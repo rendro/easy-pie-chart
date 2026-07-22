@@ -24,6 +24,7 @@ export function createFakeCtx() {
     stroke: vi.fn(),
     fillRect: vi.fn(),
     clearRect: vi.fn(),
+    fill: vi.fn(),
     getImageData: vi.fn(() => ({ data: new Uint8ClampedArray(4) }) as ImageData),
     putImageData: vi.fn(),
   };

@@ -76,6 +76,21 @@
       </figure>
 
       <figure>
+        <div class="chart" id="gauge"><span class="label">0%</span></div>
+        <figcaption>semi-circle gauge (arcLength)</figcaption>
+      </figure>
+
+      <figure>
+        <div class="chart" id="max"><span class="label">0</span></div>
+        <figcaption>max: 250, labelled in raw units</figcaption>
+      </figure>
+
+      <figure>
+        <div class="chart" id="bordered"><span class="label">0%</span></div>
+        <figcaption>filled disc + track border</figcaption>
+      </figure>
+
+      <figure>
         <div
           class="chart"
           id="data-attrs"
@@ -129,11 +144,51 @@
           percent < 50 ? '#ef4444' : percent < 80 ? '#f59e0b' : '#22c55e',
       });
 
+      // #110 — a 180 degree sweep, rotated back a quarter turn so it opens
+      // downwards. The label sits high because the lower half is empty.
+      register('gauge', {
+        arcLength: 180,
+        rotate: -90,
+        size: 140,
+        lineWidth: 10,
+        scaleColor: false,
+        barColor: '#0ea5e9',
+        trackColor: '#e5e7eb',
+      });
+
+      // #180 / #76 — values that are not percentages; callbacks see raw units
+      const maxEl = document.getElementById('max');
+      charts.push(
+        new EasyPieChart(maxEl, {
+          max: 250,
+          size: 140,
+          lineWidth: 8,
+          scaleColor: false,
+          barColor: '#f59e0b',
+          onStep: (_f, _t, value) => {
+            label(maxEl).textContent = String(Math.round(value));
+          },
+        }),
+      );
+
+      // #127 + #90 — filled centre with a hairline groove around the track
+      register('bordered', {
+        size: 140,
+        lineWidth: 10,
+        trackWidth: 14,
+        scaleColor: false,
+        fillColor: '#f8fafc',
+        trackColor: '#e2e8f0',
+        trackBorderColor: '#cbd5e1',
+        barColor: '#ec4899',
+      });
+
       register('data-attrs');
 
       const randomize = () => {
         for (const chart of charts) {
-          chart.update(Math.round(Math.random() * 100));
+          // scale to each chart's own max, so the max:250 one fills properly
+          chart.update(Math.round(Math.random() * chart.options.max));
         }
       };
 

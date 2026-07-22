@@ -20,6 +20,9 @@ const noop = (): void => undefined;
 export const defaultOptions: TOptions = {
   barColor: '#ef1e25',
   trackColor: '#f9f9f9',
+  trackBorderColor: false,
+  trackBorderWidth: 1,
+  fillColor: false,
   scaleColor: '#dfe0e0',
   scaleLength: 5,
   scaleCount: 24,
@@ -28,6 +31,10 @@ export const defaultOptions: TOptions = {
   trackWidth: undefined,
   size: 110,
   rotate: 0,
+  arcLength: 360,
+  max: 100,
+  responsive: false,
+  canvasClass: 'easy-pie-chart-canvas',
   animate: {
     duration: 1000,
     enabled: true,
@@ -44,11 +51,24 @@ const NUMBER_KEYS = [
   'scaleCount',
   'lineWidth',
   'trackWidth',
+  'trackBorderWidth',
   'size',
   'rotate',
+  'arcLength',
+  'max',
 ] as const;
 
-const STRING_KEYS = ['barColor', 'trackColor', 'scaleColor', 'lineCap'] as const;
+const STRING_KEYS = [
+  'barColor',
+  'trackColor',
+  'trackBorderColor',
+  'fillColor',
+  'scaleColor',
+  'lineCap',
+  'canvasClass',
+] as const;
+
+const BOOLEAN_KEYS = ['responsive'] as const;
 
 /**
  * Read `data-*` attributes off the host element. `data-track-color="false"`
@@ -76,6 +96,13 @@ function optionsFromDataset(el: HTMLElement): TUserOptions {
     const raw = data[key];
     if (raw != null && raw !== '') {
       options[key] = raw === 'false' ? false : raw;
+    }
+  }
+
+  for (const key of BOOLEAN_KEYS) {
+    const raw = data[key];
+    if (raw != null && raw !== '') {
+      options[key] = raw !== 'false';
     }
   }
 
@@ -150,6 +177,7 @@ export class EasyPieChart {
   renderer: IRenderer;
 
   private currentValue = 0;
+  private resizeObserver: ResizeObserver | null = null;
 
   constructor(el: HTMLElement, userOptions: TUserOptions = {}) {
     if (!el) {
@@ -171,6 +199,33 @@ export class EasyPieChart {
     if (percent != null && percent !== '') {
       this.update(parseFloat(percent));
     }
+
+    if (this.options.responsive) {
+      this.observeResize();
+    }
+  }
+
+  /**
+   * Track the host element and resize the chart to fit. The host must get its
+   * size from CSS (or a parent) rather than from the canvas, otherwise the two
+   * would size each other.
+   */
+  private observeResize(): void {
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    this.resizeObserver = new ResizeObserver(() => {
+      const { width, height } = this.el.getBoundingClientRect();
+      const size = Math.floor(Math.min(width, height || width));
+
+      // ignore no-op and degenerate resizes; equality also stops the canvas
+      // and the host from resizing each other in a loop
+      if (size > 0 && size !== this.options.size) {
+        this.setOptions({ size });
+      }
+    });
+    this.resizeObserver.observe(this.el);
   }
 
   /** Current value of the chart. */
@@ -227,8 +282,10 @@ export class EasyPieChart {
     return this;
   }
 
-  /** Remove the canvas and cancel any running animation. */
+  /** Remove the canvas, stop observing resizes, cancel any running animation. */
   destroy(): void {
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
     this.renderer.destroy();
   }
 }

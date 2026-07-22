@@ -1,5 +1,24 @@
 # Changelog
 
+## Version 3.1.0
+
+Clears the long-standing feature backlog. All additions are opt-in — a chart
+with no options renders exactly as it did in 3.0.1.
+
+### Added
+* `max` — the value that fills the bar, so charts can show units other than
+  percentages. Callbacks and `barColor` still receive your raw value. (#180, #76)
+* `arcLength` — how far the ring sweeps, in degrees. With `rotate` this gives
+  semi-circular gauges. (#110)
+* `responsive` — follow the host element's size via `ResizeObserver`. (#56)
+* `fillColor` — fill the disc inside the ring. (#127)
+* `trackBorderColor` / `trackBorderWidth` — a hairline along both edges of the
+  track, for backgrounds that differ from the track color. (#90)
+* `canvasClass` — set the class on the generated canvas, for BEM and similar
+  naming schemes. (#152, #149)
+* `animate.duration` may be a `(from, to) => ms` function, so the animation can
+  be paced by how far the value moved. (#103)
+
 ## Version 3.0.1
 
 ### Fixed

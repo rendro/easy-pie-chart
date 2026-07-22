@@ -1,5 +1,8 @@
 export type TLineCap = 'butt' | 'round' | 'square';
 
+/** Anything canvas accepts as a stroke style. */
+export type TStrokeStyle = string | CanvasGradient | CanvasPattern;
+
 /**
  * Easing function.
  * @param t elapsed time in ms
@@ -9,24 +12,30 @@ export type TLineCap = 'butt' | 'round' | 'square';
  */
 export type TEasingFn = (t: number, b: number, c: number, d: number) => number;
 
-/** Anything canvas accepts as a stroke style. */
-export type TStrokeStyle = string | CanvasGradient | CanvasPattern;
+export type TBarColorFn = (value: number) => TStrokeStyle;
 
-export type TBarColorFn = (percent: number) => TStrokeStyle;
+/** Animation duration in ms, or a function deriving it from the transition. */
+export type TDurationFn = (from: number, to: number) => number;
 
 export type TAnimateOptions = {
-  duration: number;
+  duration: number | TDurationFn;
   enabled: boolean;
 };
 
 export type TOptions = {
   /**
    * Bar color: a CSS color string, a canvas gradient/pattern, or a function
-   * receiving the current percent and returning one of those.
+   * receiving the current value and returning one of those.
    */
   barColor: TStrokeStyle | TBarColorFn;
   /** Track color, or `false` to disable the track. */
   trackColor: string | false;
+  /** Color of the thin border along both edges of the track, or `false`. */
+  trackBorderColor: string | false;
+  /** Width of the track border in px. */
+  trackBorderWidth: number;
+  /** Fill color for the disc inside the ring, or `false` to leave it clear. */
+  fillColor: string | false;
   /** Scale line color, or `false` to disable the scale. */
   scaleColor: string | false;
   /** Length of the scale lines in px (reduces the radius of the chart). */
@@ -42,6 +51,17 @@ export type TOptions = {
   size: number;
   /** Rotation of the whole chart in degrees. */
   rotate: number;
+  /**
+   * How much of the circle the chart spans, in degrees. 360 is a full ring;
+   * 180 with `rotate: -90` gives a semi-circular gauge.
+   */
+  arcLength: number;
+  /** The value that corresponds to a full bar. */
+  max: number;
+  /** Track the host element's size and redraw when it changes. */
+  responsive: boolean;
+  /** Class applied to the generated canvas element. */
+  canvasClass: string;
   animate: TAnimateOptions;
   easing: TEasingFn;
   onStart: (from: number, to: number) => void;
@@ -61,7 +81,7 @@ export type TUserOptions = Partial<
 >;
 
 export interface IRenderer {
-  draw(percent: number): void;
+  draw(value: number): void;
   animate(from: number, to: number): void;
   stop(): void;
   clear(): void;
@@ -71,4 +91,7 @@ export interface IRenderer {
   getCtx?(): CanvasRenderingContext2D;
 }
 
-export type TRendererCtor = new (el: HTMLElement, options: TOptions) => IRenderer;
+export type TRendererCtor = new (
+  el: HTMLElement,
+  options: TOptions,
+) => IRenderer;

@@ -1,5 +1,17 @@
 import type { IRenderer, TOptions, TStrokeStyle } from './types.js';
 
+const TAU = Math.PI * 2;
+
+/** Resolve the animation duration, which may be derived from the transition. */
+export function resolveDuration(
+  options: TOptions,
+  from: number,
+  to: number,
+): number {
+  const { duration } = options.animate;
+  return typeof duration === 'function' ? duration(from, to) : duration;
+}
+
 /**
  * Renders the chart onto a `<canvas>` appended to the host element.
  */
@@ -10,6 +22,8 @@ export class CanvasRenderer implements IRenderer {
   private readonly ctx: CanvasRenderingContext2D;
   private readonly scaleBy: number;
   private readonly radius: number;
+  /** How far the ring spans, in radians. */
+  private readonly arc: number;
 
   private cachedBackground: ImageData | null = null;
   private rafId: number | null = null;
@@ -19,7 +33,7 @@ export class CanvasRenderer implements IRenderer {
     this.options = options;
 
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'easy-pie-chart-canvas';
+    this.canvas.className = options.canvasClass;
     el.appendChild(this.canvas);
 
     const ctx = this.canvas.getContext('2d');
@@ -43,14 +57,15 @@ export class CanvasRenderer implements IRenderer {
     ctx.translate(options.size / 2, options.size / 2);
     ctx.rotate((-1 / 2 + options.rotate / 180) * Math.PI);
 
-    // The widest of the two strokes decides how much room the ring needs: the
+    this.arc = (Math.min(360, Math.max(0, options.arcLength)) / 360) * TAU;
+
+    // The widest of the strokes decides how much room the ring needs: the
     // track is drawn with trackWidth, so sizing the radius off lineWidth alone
     // pushed a wider track past the canvas edge and clipped it. The extra
     // pixel keeps the antialiased outer edge inside the bitmap.
-    const stroke = Math.max(
-      options.lineWidth,
-      options.trackWidth ?? options.lineWidth,
-    );
+    const stroke =
+      Math.max(options.lineWidth, options.trackWidth ?? options.lineWidth) +
+      (options.trackBorderColor ? options.trackBorderWidth * 2 : 0);
     let radius = (options.size - stroke) / 2 - 1;
     if (options.scaleColor && options.scaleLength) {
       // 2 is the distance between scale and bar
@@ -60,22 +75,23 @@ export class CanvasRenderer implements IRenderer {
   }
 
   /**
-   * Draw a circle segment around the center of the canvas.
-   * @param percent float between -1 and 1
+   * Draw a segment of the ring.
+   * @param fraction how much of the arc to cover, between -1 and 1
    */
-  private drawCircle(
+  private drawArc(
     color: TStrokeStyle,
     lineWidth: number,
-    percent: number,
+    fraction: number,
+    radius = this.radius,
   ): void {
-    const p = Math.min(Math.max(-1, percent || 0), 1);
+    const f = Math.min(Math.max(-1, fraction || 0), 1);
     // a zero-length arc with `lineCap: round` renders as a dot in most browsers
-    if (p === 0) {
+    if (f === 0) {
       return;
     }
 
     this.ctx.beginPath();
-    this.ctx.arc(0, 0, this.radius, 0, Math.PI * 2 * p, p < 0);
+    this.ctx.arc(0, 0, radius, 0, this.arc * f, f < 0);
     this.ctx.strokeStyle = color;
     this.ctx.lineWidth = lineWidth;
     this.ctx.stroke();
@@ -83,7 +99,7 @@ export class CanvasRenderer implements IRenderer {
 
   private drawScale(): void {
     const { ctx, options } = this;
-    const count = options.scaleCount;
+    const count = Math.max(1, Math.round(options.scaleCount));
 
     ctx.lineWidth = 1;
     ctx.fillStyle = options.scaleColor as string;
@@ -96,22 +112,42 @@ export class CanvasRenderer implements IRenderer {
       const offset = options.scaleLength - length;
 
       ctx.fillRect(-options.size / 2 + offset, 0, length, 1);
-      ctx.rotate((Math.PI * 2) / count);
+      ctx.rotate(this.arc / count);
     }
     ctx.restore();
   }
 
   private drawBackground(): void {
-    const { options } = this;
+    const { ctx, options } = this;
+    const trackWidth = options.trackWidth ?? options.lineWidth;
+
+    if (options.fillColor) {
+      ctx.beginPath();
+      ctx.arc(0, 0, Math.max(0, this.radius - trackWidth / 2), 0, TAU);
+      ctx.fillStyle = options.fillColor;
+      ctx.fill();
+    }
+
     if (options.scaleColor) {
       this.drawScale();
     }
+
     if (options.trackColor) {
-      this.drawCircle(
-        options.trackColor,
-        options.trackWidth ?? options.lineWidth,
-        1,
-      );
+      this.drawArc(options.trackColor, trackWidth, 1);
+
+      // a hairline along both edges of the track, so it reads as a groove
+      // when the background behind it is a different color
+      if (options.trackBorderColor && options.trackBorderWidth > 0) {
+        const offset = trackWidth / 2 + options.trackBorderWidth / 2;
+        for (const r of [this.radius - offset, this.radius + offset]) {
+          this.drawArc(
+            options.trackBorderColor,
+            options.trackBorderWidth,
+            1,
+            Math.max(0, r),
+          );
+        }
+      }
     }
   }
 
@@ -130,12 +166,15 @@ export class CanvasRenderer implements IRenderer {
 
   /**
    * Draw the complete chart.
-   * @param percent between -100 and 100
+   * @param value between -max and max
    */
-  draw(percent: number): void {
+  draw(value: number): void {
     const { ctx, options } = this;
 
-    if (options.scaleColor || options.trackColor) {
+    const hasBackground =
+      options.scaleColor || options.trackColor || options.fillColor;
+
+    if (hasBackground) {
       if (this.cachedBackground) {
         ctx.putImageData(this.cachedBackground, 0, 0);
       } else {
@@ -153,10 +192,10 @@ export class CanvasRenderer implements IRenderer {
 
     const color =
       typeof options.barColor === 'function'
-        ? options.barColor(percent)
+        ? options.barColor(value)
         : options.barColor;
 
-    this.drawCircle(color, options.lineWidth, percent / 100);
+    this.drawArc(color, options.lineWidth, value / (options.max || 100));
   }
 
   animate(from: number, to: number): void {
@@ -164,22 +203,18 @@ export class CanvasRenderer implements IRenderer {
 
     const { options } = this;
     const startTime = Date.now();
+    const duration = resolveDuration(options, from, to);
 
     options.onStart(from, to);
 
     const step = (): void => {
-      const elapsed = Math.min(Date.now() - startTime, options.animate.duration);
-      const value = options.easing(
-        elapsed,
-        from,
-        to - from,
-        options.animate.duration,
-      );
+      const elapsed = Math.min(Date.now() - startTime, duration);
+      const value = options.easing(elapsed, from, to - from, duration);
 
       this.draw(value);
       options.onStep(from, to, value);
 
-      if (elapsed >= options.animate.duration) {
+      if (elapsed >= duration) {
         this.rafId = null;
         // guarantee we land exactly on the target value
         this.draw(to);

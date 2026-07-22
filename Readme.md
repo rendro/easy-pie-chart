@@ -80,8 +80,11 @@ the scale. `data-percent` sets the initial value.
 
 | Option | Default | Description |
 | --- | --- | --- |
-| `barColor` | `'#ef1e25'` | CSS color string, or `(percent) => string` |
+| `barColor` | `'#ef1e25'` | CSS color string, gradient/pattern, or `(value) => style` |
 | `trackColor` | `'#f9f9f9'` | Track color, or `false` to disable |
+| `trackBorderColor` | `false` | Hairline along both edges of the track, or `false` |
+| `trackBorderWidth` | `1` | Width of that hairline in px |
+| `fillColor` | `false` | Fill color for the disc inside the ring, or `false` |
 | `scaleColor` | `'#dfe0e0'` | Scale line color, or `false` to disable |
 | `scaleLength` | `5` | Length of the scale lines in px (reduces the radius) |
 | `scaleCount` | `24` | Number of scale lines |
@@ -90,7 +93,11 @@ the scale. `data-percent` sets the initial value.
 | `trackWidth` | `lineWidth` | Width of the track in px |
 | `size` | `110` | Size of the chart in px (always square) |
 | `rotate` | `0` | Rotation of the whole chart in degrees |
-| `animate` | `{ duration: 1000, enabled: true }` | Also accepts a number (duration) or `false` |
+| `arcLength` | `360` | How much of the circle the chart spans, in degrees |
+| `max` | `100` | The value that corresponds to a full bar |
+| `responsive` | `false` | Resize the chart when the host element resizes |
+| `canvasClass` | `'easy-pie-chart-canvas'` | Class applied to the generated canvas |
+| `animate` | `{ duration: 1000, enabled: true }` | Also accepts a number (duration) or `false`. `duration` may be a `(from, to) => ms` function |
 | `easing` | quadratic ease-in-out | `(t, b, c, d) => number` |
 | `onStart` | — | `(from, to) => void` |
 | `onStep` | — | `(from, to, currentValue) => void` |
@@ -99,13 +106,50 @@ the scale. `data-percent` sets the initial value.
 
 Values may be negative — the bar is then drawn counter-clockwise.
 
+### Values other than percentages
+
+Set `max` to the value that should fill the bar. Callbacks and `barColor` still
+receive your raw value, so labels need no conversion:
+
+```js
+new EasyPieChart(el, {
+  max: 250,
+  onStep(from, to, value) {
+    this.el.querySelector('.label').textContent = `${Math.round(value)} / 250`;
+  },
+}).update(125); // half a ring
+```
+
+### Gauges
+
+`arcLength` limits the sweep; combine it with `rotate` to place the opening.
+A semi-circular gauge is 180 degrees rotated a quarter turn back:
+
+```js
+new EasyPieChart(el, { arcLength: 180, rotate: -90, lineWidth: 10 });
+```
+
+### Responsive charts
+
+With `responsive: true` the chart follows the host element's size via
+`ResizeObserver`. The host must take its size from CSS or its parent — if it
+is sized by its content, it and the canvas would size each other:
+
+```css
+.chart { width: 100%; aspect-ratio: 1; }
+```
+
+```js
+new EasyPieChart(document.querySelector('.chart'), { responsive: true });
+```
+
 Function options (`barColor`, `easing`, `onStart`, `onStep`, `onStop`) are bound
 to the chart instance, so `this.el` inside them is the host element. Arrow
 functions keep their own `this`, as usual.
 
 ## Gradients
 
-`barColor` receives the current percent and returns any valid canvas stroke
+`barColor` receives the current value and returns any valid canvas stroke
 style — including a gradient built from the renderer's own context:
 
 ```js

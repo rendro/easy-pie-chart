@@ -11,4 +11,5 @@ export type {
   TRendererCtor,
   TUserOptions,
   TStrokeStyle,
+  TDurationFn,
 } from './types.js';
